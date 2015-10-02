@@ -37,6 +37,7 @@
 #include "wtf/Noncopyable.h"
 #include "wtf/OwnPtr.h"
 #include "wtf/PassOwnPtr.h"
+#include "core/inspector/InspectorProfilerAgent.h"
 
 namespace v8 {
 class Isolate;
@@ -74,8 +75,14 @@ public:
     void startSampling(ErrorString*) override;
     void stopSampling(ErrorString*, OwnPtr<protocol::HeapProfiler::SamplingHeapProfile>*) override;
 
+    void startTrackingHeapXDK(ErrorString*, const int* stack_depth, const int* sav, const bool* retentions) override;
+    void stopTrackingHeapXDK(ErrorString*, RefPtr<TypeBuilder::HeapProfiler::HeapEventXDK>&) override;
+
 private:
     class HeapStatsUpdateTask;
+
+    class HeapXDKStream;
+    class HeapXDKUpdateTask;
 
     InspectorHeapProfilerAgent(v8::Isolate*, V8RuntimeAgent*);
 
@@ -85,7 +92,15 @@ private:
 
     OwnPtr<V8HeapProfilerAgent> m_v8HeapProfilerAgent;
     OwnPtr<HeapStatsUpdateTask> m_heapStatsUpdateTask;
+    void requestHeapXDKUpdate();
+    void pushHeapXDKUpdate(const char* symbols, int symbolsSize,
+                           const char* frames, int framesSize,
+                           const char* types, int typesSize,
+                           const char* chunks, int chunksSize,
+                           const char* retentions, int retentionsSize);
+
     v8::Isolate* m_isolate;
+    OwnPtrWillBeMember<HeapXDKUpdateTask> m_heapXDKUpdateTask;
 };
 
 } // namespace blink
