@@ -531,6 +531,204 @@ private:
     RawPtrWillBeMember<WebGLRenderingContextBase> m_context;
 };
 
+class WebGLRenderingFlushCommandCompletionCallback final : public GarbageCollectedFinalized<WebGLRenderingFlushCommandCompletionCallback>, 
+                                                             public WebGraphicsContext3D::WebGraphicsFlushCommandCompletionCallback {
+public:
+    static WebGLRenderingFlushCommandCompletionCallback* create(WebGLRenderingContextBase* context)
+    {
+        return new WebGLRenderingFlushCommandCompletionCallback(context);
+    }
+
+    ~WebGLRenderingFlushCommandCompletionCallback() override { }
+
+    virtual void onFlushCommandCompleted(uint32 beginOrComplete)
+    {
+        if (m_context->m_flushCommandCompletionCallbackAdapter)
+        {
+            m_context->cleanCommandCache(beginOrComplete);//Here 0 means complete and 1 means begin
+        }
+    }
+
+    DEFINE_INLINE_TRACE()
+    {
+        visitor->trace(m_context);
+    }
+
+private:
+    explicit WebGLRenderingFlushCommandCompletionCallback(WebGLRenderingContextBase* context)
+        : m_context(context) { }
+
+    RawPtrWillBeMember<WebGLRenderingContextBase> m_context;
+};
+
+class GpuCacheInfo {
+
+public:
+    void *baseAddress;
+    char *pCurrentPos;
+    unsigned totalSize;
+    unsigned avaibleSize;
+
+    void upatePosition(unsigned size)
+    {
+       pCurrentPos += size;
+       avaibleSize -= size;
+    }
+
+    void reset()
+    {
+       avaibleSize = totalSize;
+       pCurrentPos = (char*)baseAddress;
+    }
+
+    GpuCacheInfo( unsigned size)
+    {
+       baseAddress = malloc(size);
+       pCurrentPos = (char*) baseAddress;
+       totalSize = size;
+       avaibleSize = size;
+    }
+
+    ~GpuCacheInfo()
+    {
+       if(baseAddress)
+          free(baseAddress);
+       pCurrentPos = NULL;
+       totalSize = 0;
+       avaibleSize = 0;
+    }
+ };
+
+class GpuMemoryCache {
+
+   public:
+
+    #define GpuMemoryCache_DefaultSmallSize    8196
+    #define GpuMemoryCache_DefaultSmallCount   3
+    
+   const void* copyToCache(void* buf, unsigned size) {
+      GpuCacheInfo* gpuCacheInfo = bufForDirectAccess(size);
+      memcpy(gpuCacheInfo->pCurrentPos, buf, size);
+      const void* addr = (const void*) gpuCacheInfo->pCurrentPos;
+      gpuCacheInfo->upatePosition(size);
+      return addr;
+   }
+
+   void* addressForDirectWrite(unsigned size)
+   {
+        GpuCacheInfo* gpuCacheInfo = bufForDirectAccess(size);
+        void* addr = (void*) gpuCacheInfo->pCurrentPos;
+        gpuCacheInfo->upatePosition(size);
+        return addr;
+   }
+    
+   GpuCacheInfo* bufForDirectAccess(unsigned size) {
+      if( size <= GpuMemoryCache_DefaultSmallSize)
+      {
+         for(unsigned i=0; i < sCachesCurrent.size(); i++)
+         {
+             if(sCachesCurrent[i]->avaibleSize >= size)
+                return sCachesCurrent[i];
+         }
+         if(sCachesAailPool.size() > 0)
+         {
+            GpuCacheInfo* cacheInfo = sCachesAailPool[0];
+            sCachesCurrent.append(cacheInfo);
+            sCachesAailPool.remove(0);
+            return cacheInfo;
+         }
+         GpuCacheInfo* cacheInfo  = new GpuCacheInfo(GpuMemoryCache_DefaultSmallSize);
+         sCachesCurrent.append(cacheInfo);
+         return cacheInfo;
+      }
+      else
+      {
+         GpuCacheInfo* cacheInfo = new GpuCacheInfo(size);
+         bCachesCurrent.append(cacheInfo);
+         return cacheInfo;
+      }
+   }
+
+   //Do no require lock here since it is on the same thread
+   void  moveCurrentToUsed() {
+       for(unsigned i = 0; i < sCachesCurrent.size(); i++)
+       {
+           sCachesUsed.append(sCachesCurrent[i]);
+           //sCachesCurrent[i]->reset();
+       }
+       sCachesCounts.append(sCachesCurrent.size());
+       sCachesCurrent.clear();
+
+       for(unsigned i = 0; i < bCachesCurrent.size(); i++)
+       {
+           bCachesUsed.append(bCachesCurrent[i]);
+           //bCachesCurrent[i]->reset();
+       }
+       bCachesCounts.append(bCachesCurrent.size());
+       bCachesCurrent.clear();
+       
+   }
+   void  freeUsed() {
+        if((bCachesUsed.size() > 0) && (bCachesUsed.size() >= bCachesCounts.first()))
+        {
+            unsigned count = bCachesCounts.first();
+            for(unsigned i=0; i < count; i++)
+                delete bCachesUsed[i];
+
+            bCachesCounts.remove(0);
+            bCachesUsed.remove(0, count);
+        }
+
+        if((sCachesUsed.size() > 0) && (sCachesUsed.size() >= sCachesCounts.first()))
+        {
+            unsigned count = sCachesCounts.first();
+            for(unsigned i=0; i < count; i++)
+            {
+                 sCachesUsed[i]->reset();
+                 sCachesAailPool.append(sCachesUsed[i]);
+            }
+
+            sCachesCounts.remove(0);
+            sCachesUsed.remove(0, count);
+        }
+    }
+
+   GpuMemoryCache() { initialize();}
+   
+   virtual ~GpuMemoryCache() {
+      for(unsigned i = 0; i < sCachesUsed.size(); i++)
+          delete sCachesUsed[i];
+      for(unsigned i = 0; i < bCachesUsed.size(); i++)
+          delete bCachesUsed[i];
+      for(unsigned i = 0; i < sCachesCurrent.size(); i++)
+          delete sCachesCurrent[i];
+      for(unsigned i = 0; i < bCachesCurrent.size(); i++)
+          delete bCachesCurrent[i];
+      for(unsigned i = 0; i < sCachesAailPool.size(); i++)
+          delete sCachesAailPool[i];    
+   }
+   
+    
+   protected:
+       
+       void initialize() {
+          for(int i = 0; i < GpuMemoryCache_DefaultSmallCount; i++)
+          {
+             sCachesAailPool.append(new GpuCacheInfo(GpuMemoryCache_DefaultSmallSize));
+          }
+       }
+       
+       Vector<GpuCacheInfo*> sCachesUsed;
+       Vector<GpuCacheInfo*> bCachesUsed;
+       Vector<unsigned> sCachesCounts;
+       Vector<unsigned> bCachesCounts;
+       Vector<GpuCacheInfo*> sCachesCurrent;
+       Vector<GpuCacheInfo*> bCachesCurrent;
+       Vector<GpuCacheInfo*> sCachesAailPool;
+};
+
+
+
 static void formatWebGLStatusString(const String& glInfo, const String& infostring, String& statusMessage)
 {
     if (!infostring.isEmpty())
@@ -983,6 +1181,8 @@ WebGLRenderingContextBase::WebGLRenderingContextBase(HTMLCanvasElement* passedCa
     ADD_VALUES_TO_SET(m_supportedFormats, kSupportedFormatsES2);
     ADD_VALUES_TO_SET(m_supportedTypes, kSupportedTypesES2);
     ADD_VALUES_TO_SET(m_supportedFormatTypeCombinations, kSupportedFormatTypesES2);
+
+    m_gpuMemoryCache = new GpuMemoryCache();
 }
 
 PassRefPtr<DrawingBuffer> WebGLRenderingContextBase::createDrawingBuffer(PassOwnPtr<WebGraphicsContext3D> context)
@@ -1085,9 +1285,11 @@ void WebGLRenderingContextBase::initializeNewContext()
 
     m_contextLostCallbackAdapter = WebGLRenderingContextLostCallback::create(this);
     m_errorMessageCallbackAdapter = WebGLRenderingContextErrorMessageCallback::create(this);
+    m_flushCommandCompletionCallbackAdapter = WebGLRenderingFlushCommandCompletionCallback::create(this);
 
     webContext()->setContextLostCallback(m_contextLostCallbackAdapter.get());
     webContext()->setErrorMessageCallback(m_errorMessageCallbackAdapter.get());
+    webContext()->setFlushCommandCompletionCallback(m_flushCommandCompletionCallbackAdapter.get());
 
     // This ensures that the context has a valid "lastFlushID" and won't be mistakenly identified as the "least recently used" context.
     webContext()->flush();
@@ -1193,6 +1395,7 @@ WebGLRenderingContextBase::~WebGLRenderingContextBase()
             page->removeMultisamplingChangedObserver(this);
     }
 
+    delete m_gpuMemoryCache;
     willDestroyContext(this);
 }
 
@@ -1674,7 +1877,10 @@ void WebGLRenderingContextBase::blendFuncSeparate(GLenum srcRGB, GLenum dstRGB, 
 
 void WebGLRenderingContextBase::bufferDataImpl(GLenum target, long long size, const void* data, GLenum usage)
 {
-    WebGLBuffer* buffer = validateBufferDataTarget("bufferData", target);
+    GLenum originTarget = target & DELAYEDACTION_RMASK;
+    
+    WebGLBuffer* buffer = validateBufferDataTarget("bufferData", originTarget);
+    
     if (!buffer)
         return;
 
@@ -1696,6 +1902,7 @@ void WebGLRenderingContextBase::bufferData(GLenum target, long long size, GLenum
     bufferDataImpl(target, size, 0, usage);
 }
 
+
 void WebGLRenderingContextBase::bufferData(GLenum target, DOMArrayBuffer* data, GLenum usage)
 {
     if (isContextLost())
@@ -1704,7 +1911,18 @@ void WebGLRenderingContextBase::bufferData(GLenum target, DOMArrayBuffer* data, 
         synthesizeGLError(GL_INVALID_VALUE, "bufferData", "no data");
         return;
     }
-    bufferDataImpl(target, data->byteLength(), data->data(), usage);
+        
+    target = target | DELAYEDACTION_FREE;
+    const void* buf = m_gpuMemoryCache->copyToCache(data->data(), data->byteLength()); 
+
+    /*
+    data->buffer()->referenceForLaterAction();
+    DelayedActionBuffer *delayedActionBuffer = new DelayedActionBuffer();
+    delayedActionBuffer->buf = data->data();
+    delayedActionBuffer->delayedActionBufferBase = data->buffer();
+    */
+
+    bufferDataImpl(target, data->byteLength(), buf, usage);
 }
 
 void WebGLRenderingContextBase::bufferData(GLenum target, DOMArrayBufferView* data, GLenum usage)
@@ -1715,12 +1933,23 @@ void WebGLRenderingContextBase::bufferData(GLenum target, DOMArrayBufferView* da
         synthesizeGLError(GL_INVALID_VALUE, "bufferData", "no data");
         return;
     }
-    bufferDataImpl(target, data->byteLength(), data->baseAddress(), usage);
+    
+    target = target | DELAYEDACTION_FREE;
+
+    /*
+    data->buffer()->buffer()->referenceForLaterAction();
+    DelayedActionBuffer *delayedActionBuffer = new DelayedActionBuffer();
+    delayedActionBuffer->buf = data->buffer()->data();
+    delayedActionBuffer->delayedActionBufferBase = data->buffer()->buffer();
+    */
+   const void* buf = m_gpuMemoryCache->copyToCache(data->baseAddress(), data->byteLength()); 
+   bufferDataImpl(target, data->byteLength(), buf, usage);
 }
 
 void WebGLRenderingContextBase::bufferSubDataImpl(GLenum target, long long offset, GLsizeiptr size, const void* data)
 {
-    WebGLBuffer* buffer = validateBufferDataTarget("bufferSubData", target);
+    GLenum originTarget = target & DELAYEDACTION_RMASK;
+    WebGLBuffer* buffer = validateBufferDataTarget("bufferSubData", originTarget);
     if (!buffer)
         return;
     if (!validateValueFitNonNegInt32("bufferSubData", "offset", offset))
@@ -1743,7 +1972,11 @@ void WebGLRenderingContextBase::bufferSubData(GLenum target, long long offset, D
         synthesizeGLError(GL_INVALID_VALUE, "bufferSubData", "no data");
         return;
     }
-    bufferSubDataImpl(target, offset, data->byteLength(), data->data());
+
+    target = target | DELAYEDACTION_FREE; 
+    const void* buf = m_gpuMemoryCache->copyToCache(data->data(), data->byteLength());
+    
+    bufferSubDataImpl(target, offset, data->byteLength(), buf);
 }
 
 void WebGLRenderingContextBase::bufferSubData(GLenum target, long long offset, const FlexibleArrayBufferView& data)
@@ -1754,7 +1987,10 @@ void WebGLRenderingContextBase::bufferSubData(GLenum target, long long offset, c
         synthesizeGLError(GL_INVALID_VALUE, "bufferSubData", "no data");
         return;
     }
-    bufferSubDataImpl(target, offset, data.byteLength(), data.baseAddressMaybeOnStack());
+    target = target | DELAYEDACTION_FREE;
+    const void* buf = m_gpuMemoryCache->copyToCache(data.baseAddressMaybeOnStack(), data.byteLength());
+
+    bufferSubDataImpl(target, offset, data.byteLength(), buf);
 }
 
 bool WebGLRenderingContextBase::validateFramebufferTarget(GLenum target)
@@ -1895,9 +2131,21 @@ void WebGLRenderingContextBase::compressedTexImage2D(GLenum target, GLint level,
         synthesizeGLError(GL_INVALID_VALUE, "compressedTexImage2D", "level > 0 not power of 2");
         return;
     }
+
+    GLenum originTarget = target;
+    target = target | DELAYEDACTION_FREE;
+
+    /*
+    data->buffer()->buffer()->referenceForLaterAction();
+    DelayedActionBuffer *delayedActionBuffer = new DelayedActionBuffer();
+    delayedActionBuffer->buf = data->buffer()->data();
+    delayedActionBuffer->delayedActionBufferBase = data->buffer()->buffer();
+    */
+    const void* buf = m_gpuMemoryCache->copyToCache(data->baseAddress(), data->byteLength()); //copyAndReturnNewAddress(data->baseAddress(), data->byteLength()); 
+    
     webContext()->compressedTexImage2D(target, level, internalformat, width, height,
-        border, data->byteLength(), data->baseAddress());
-    tex->setLevelInfo(target, level, internalformat, width, height, 1, GL_UNSIGNED_BYTE);
+        border, data->byteLength(), (const void*) buf);
+    tex->setLevelInfo(originTarget, level, internalformat, width, height, 1, GL_UNSIGNED_BYTE);
 }
 
 void WebGLRenderingContextBase::compressedTexSubImage2D(GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, DOMArrayBufferView* data)
@@ -1925,8 +2173,19 @@ void WebGLRenderingContextBase::compressedTexSubImage2D(GLenum target, GLint lev
     if (!validateCompressedTexSubDimensions("compressedTexSubImage2D", target, level, xoffset, yoffset, width, height, format, tex))
         return;
 
+    //GLenum originTarget = target
+    target = target | DELAYEDACTION_FREE;
+    const void* buf = m_gpuMemoryCache->copyToCache(data->baseAddress(), data->byteLength());
+    
+    /*
+    data->buffer()->buffer()->referenceForLaterAction();
+    DelayedActionBuffer *delayedActionBuffer = new DelayedActionBuffer();
+    delayedActionBuffer->buf = data->buffer()->data();
+    delayedActionBuffer->delayedActionBufferBase = data->buffer()->buffer();
+    */
+
     webContext()->compressedTexSubImage2D(target, level, xoffset, yoffset,
-        width, height, format, data->byteLength(), data->baseAddress());
+        width, height, format, data->byteLength(), buf);
 }
 
 bool WebGLRenderingContextBase::validateSettableTexFormat(const char* functionName, GLenum format)
@@ -4146,10 +4405,12 @@ GLenum WebGLRenderingContextBase::convertTexInternalFormat(GLenum internalformat
 void WebGLRenderingContextBase::texImage2DBase(GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void* pixels)
 {
     // All calling functions check isContextLost, so a duplicate check is not needed here.
-    WebGLTexture* tex = validateTextureBinding("texImage2D", target, true);
+    GLenum originTarget = target & DELAYEDACTION_RMASK;
+    
+    WebGLTexture* tex = validateTextureBinding("texImage2D", originTarget, true);
     ASSERT(tex);
     webContext()->texImage2D(target, level, convertTexInternalFormat(internalformat, type), width, height, border, format, type, pixels);
-    tex->setLevelInfo(target, level, internalformat, width, height, 1, type);
+    tex->setLevelInfo(originTarget, level, internalformat, width, height, 1, type);
 }
 
 void WebGLRenderingContextBase::texImage2DImpl(GLenum target, GLint level, GLenum internalformat, GLenum format, GLenum type, Image* image, WebGLImageConversion::ImageHtmlDomSource domSource, bool flipY, bool premultiplyAlpha)
@@ -4159,7 +4420,7 @@ void WebGLRenderingContextBase::texImage2DImpl(GLenum target, GLint level, GLenu
         // The UNSIGNED_INT_10F_11F_11F_REV type pack/unpack isn't implemented.
         type = GL_FLOAT;
     }
-    Vector<uint8_t> data;
+    
     WebGLImageConversion::ImageExtractor imageExtractor(image, domSource, premultiplyAlpha, m_unpackColorspaceConversion == GL_NONE);
     if (!imageExtractor.imagePixelData()) {
         synthesizeGLError(GL_INVALID_VALUE, "texImage2D", "bad image data");
@@ -4169,19 +4430,46 @@ void WebGLRenderingContextBase::texImage2DImpl(GLenum target, GLint level, GLenu
     WebGLImageConversion::AlphaOp alphaOp = imageExtractor.imageAlphaOp();
     const void* imagePixelData = imageExtractor.imagePixelData();
 
-    bool needConversion = true;
+    //bool needConversion = true;
+
+    unsigned int packedSize = 0;
+    unsigned int width = imageExtractor.imageWidth();
+    unsigned int height = imageExtractor.imageHeight();
+    
+    if (WebGLImageConversion::computeImageSizeInBytes(format, type, width, height, 1, &packedSize, 0) != GL_NO_ERROR)
+    {
+         synthesizeGLError(GL_INVALID_VALUE, "texSubImage2D", "bad image data");
+         return;
+    }
+    uint8_t* data = NULL; 
+    const void* passInPtr = NULL;
+    
     if (type == GL_UNSIGNED_BYTE && sourceDataFormat == WebGLImageConversion::DataFormatRGBA8 && format == GL_RGBA && alphaOp == WebGLImageConversion::AlphaDoNothing && !flipY) {
-        needConversion = false;
+        //needConversion = false;
+        ImagePixelLocker* pImageDataLocker = imageExtractor.getImagePixelLocker();
+        pImageDataLocker->referenceForLaterAction();
+        target = target | DELAYEDACTION_DEREF;
+        DelayedActionBuffer* delayedActionBuffer = new DelayedActionBuffer();
+        delayedActionBuffer->buf = (void*) imagePixelData;
+        delayedActionBuffer->delayedActionBufferBase = pImageDataLocker;
+        passInPtr = (const void*)delayedActionBuffer;
     } else {
+        
+        data = (uint8_t*) m_gpuMemoryCache->addressForDirectWrite(packedSize);  //(uint8_t*) WTF::partitionAllocGeneric(WTF::Partitions::bufferPartition(), packedSize);
+        
         if (!WebGLImageConversion::packImageData(image, imagePixelData, format, type, flipY, alphaOp, sourceDataFormat, imageExtractor.imageWidth(), imageExtractor.imageHeight(), imageExtractor.imageSourceUnpackAlignment(), data)) {
             synthesizeGLError(GL_INVALID_VALUE, "texImage2D", "packImage error");
             return;
         }
+        passInPtr = (const void*) data;
+        target = target | DELAYEDACTION_FREE; //Free the buffer after usage
     }
 
     if (m_unpackAlignment != 1)
         webContext()->pixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    texImage2DBase(target, level, internalformat, imageExtractor.imageWidth(), imageExtractor.imageHeight(), 0, format, type, needConversion ? data.data() : imagePixelData);
+    
+    texImage2DBase(target, level, internalformat, imageExtractor.imageWidth(), imageExtractor.imageHeight(), 0, format, type, passInPtr);
+
     if (m_unpackAlignment != 1)
         webContext()->pixelStorei(GL_UNPACK_ALIGNMENT, m_unpackAlignment);
 }
@@ -4303,7 +4591,15 @@ void WebGLRenderingContextBase::texImage2D(GLenum target, GLint level, GLenum in
     }
     if (changeUnpackAlignment)
         webContext()->pixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    texImage2DBase(target, level, internalformat, width, height, border, format, type, data);
+
+    const void* buf = NULL;
+    if(data != NULL)
+    {
+        target = target | DELAYEDACTION_FREE;
+        buf = m_gpuMemoryCache->copyToCache(data, pixels->byteLength());
+    }
+    
+    texImage2DBase(target, level, internalformat, width, height, border, format, type, buf);
     if (changeUnpackAlignment)
         webContext()->pixelStorei(GL_UNPACK_ALIGNMENT, m_unpackAlignment);
 }
@@ -4582,7 +4878,7 @@ void WebGLRenderingContextBase::texSubImage2DImpl(GLenum target, GLint level, GL
         // The UNSIGNED_INT_10F_11F_11F_REV type pack/unpack isn't implemented.
         type = GL_FLOAT;
     }
-    Vector<uint8_t> data;
+   
     WebGLImageConversion::ImageExtractor imageExtractor(image, domSource, premultiplyAlpha, m_unpackColorspaceConversion == GL_NONE);
     if (!imageExtractor.imagePixelData()) {
         synthesizeGLError(GL_INVALID_VALUE, "texSubImage2D", "bad image");
@@ -4592,19 +4888,44 @@ void WebGLRenderingContextBase::texSubImage2DImpl(GLenum target, GLint level, GL
     WebGLImageConversion::AlphaOp alphaOp = imageExtractor.imageAlphaOp();
     const void* imagePixelData = imageExtractor.imagePixelData();
 
-    bool needConversion = true;
+    //bool needConversion = true;
+    unsigned int packedSize = 0;
+    unsigned int width = imageExtractor.imageWidth();
+    unsigned int height = imageExtractor.imageHeight();
+    
+    if (WebGLImageConversion::computeImageSizeInBytes(format, type, width, height, 1, &packedSize, 0) != GL_NO_ERROR)
+    {
+         synthesizeGLError(GL_INVALID_VALUE, "texSubImage2D", "bad image data");
+         return;
+    }
+    uint8_t* data = NULL; 
+    void* passInPtr = NULL;
+        
     if (type == GL_UNSIGNED_BYTE && sourceDataFormat == WebGLImageConversion::DataFormatRGBA8 && format == GL_RGBA && alphaOp == WebGLImageConversion::AlphaDoNothing && !flipY) {
-        needConversion = false;
+        //needConversion = false;
+        /*
+        ImagePixelLocker* pImageDataLocker = imageExtractor.getImagePixelLocker();
+        pImageDataLocker->referenceForLaterAction();
+        target = target | DELAYEDACTION_DEREF;
+        DelayedActionBuffer* delayedActionBuffer = new DelayedActionBuffer();
+        delayedActionBuffer->buf = (void*)imagePixelData;
+        delayedActionBuffer->delayedActionBufferBase = pImageDataLocker;
+        */
+        passInPtr = (void*)imagePixelData;
+        
     } else {
+        data = (uint8_t*) m_gpuMemoryCache->addressForDirectWrite(packedSize);
         if (!WebGLImageConversion::packImageData(image, imagePixelData, format, type, flipY, alphaOp, sourceDataFormat, imageExtractor.imageWidth(), imageExtractor.imageHeight(), imageExtractor.imageSourceUnpackAlignment(), data)) {
             synthesizeGLError(GL_INVALID_VALUE, "texSubImage2D", "bad image data");
             return;
         }
+        passInPtr = (void*) data;
+        target = target | DELAYEDACTION_FREE; //Free the buffer after usage
     }
 
     if (m_unpackAlignment != 1)
         webContext()->pixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    webContext()->texSubImage2D(target, level, xoffset, yoffset, imageExtractor.imageWidth(), imageExtractor.imageHeight(), format, type,  needConversion ? data.data() : imagePixelData);
+    webContext()->texSubImage2D(target, level, xoffset, yoffset, imageExtractor.imageWidth(), imageExtractor.imageHeight(), format, type, passInPtr);
     if (m_unpackAlignment != 1)
         webContext()->pixelStorei(GL_UNPACK_ALIGNMENT, m_unpackAlignment);
 }
@@ -6888,6 +7209,7 @@ DEFINE_TRACE(WebGLRenderingContextBase)
 #endif
     visitor->trace(m_contextLostCallbackAdapter);
     visitor->trace(m_errorMessageCallbackAdapter);
+    visitor->trace(m_flushCommandCompletionCallbackAdapter);
     visitor->trace(m_boundArrayBuffer);
     visitor->trace(m_defaultVertexArrayObject);
     visitor->trace(m_boundVertexArrayObject);
@@ -6933,5 +7255,15 @@ DrawingBuffer* WebGLRenderingContextBase::drawingBuffer() const
 {
     return m_drawingBuffer.get();
 }
+
+void WebGLRenderingContextBase::cleanCommandCache(uint32 result)
+{
+   //just leave it empty at first
+   if(result)
+       m_gpuMemoryCache->moveCurrentToUsed();
+   else
+       m_gpuMemoryCache->freeUsed();
+}
+
 
 } // namespace blink

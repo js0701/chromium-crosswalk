@@ -78,6 +78,8 @@ bool CommandBufferProxyImpl::OnMessageReceived(const IPC::Message& message) {
                         OnSwapBuffersCompleted);
     IPC_MESSAGE_HANDLER(GpuCommandBufferMsg_UpdateVSyncParameters,
                         OnUpdateVSyncParameters);
+    IPC_MESSAGE_HANDLER(GpuCommandBufferMsg_FlushCommandCompleted,
+                        OnFlushCommandCompleted);
     IPC_MESSAGE_UNHANDLED(handled = false)
   IPC_END_MESSAGE_MAP()
 
@@ -236,6 +238,7 @@ void CommandBufferProxyImpl::Flush(int32 put_offset) {
 
   if (put_offset_changed)
     latency_info_.clear();
+  
 }
 
 void CommandBufferProxyImpl::OrderingBarrier(int32 put_offset) {
@@ -279,6 +282,13 @@ void CommandBufferProxyImpl::SetSwapBuffersCompletionCallback(
   CheckLock();
   swap_buffers_completion_callback_ = callback;
 }
+
+void CommandBufferProxyImpl::SetFlushCommandCompletionCallback(
+    const FlushCommandCompletionCallback& callback) {
+  CheckLock();
+  flush_command_completion_callback_ = callback;
+}
+
 
 void CommandBufferProxyImpl::SetUpdateVSyncParametersCallback(
     const UpdateVSyncParametersCallback& callback) {
@@ -755,6 +765,12 @@ void CommandBufferProxyImpl::OnSwapBuffersCompleted(
     }
     swap_buffers_completion_callback_.Run(latency_info, result);
   }
+}
+
+void CommandBufferProxyImpl::OnFlushCommandCompleted(uint32 flush_count, uint32 result) {
+    if(!flush_command_completion_callback_.is_null()) {
+        flush_command_completion_callback_.Run(flush_count, 0);
+    }
 }
 
 void CommandBufferProxyImpl::OnUpdateVSyncParameters(base::TimeTicks timebase,

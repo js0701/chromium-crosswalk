@@ -616,6 +616,10 @@ IPC_MESSAGE_ROUTED2(GpuCommandBufferMsg_Destroyed,
 IPC_MESSAGE_ROUTED2(GpuCommandBufferMsg_SwapBuffersCompleted,
                     std::vector<ui::LatencyInfo> /* latency_info */,
                     gfx::SwapResult /* result */)
+                    
+IPC_MESSAGE_ROUTED2(GpuCommandBufferMsg_FlushCommandCompleted,
+                    uint32 /*flush_count*/,
+                    uint32 /* result */)
 
 // Tells the browser about updated parameters for vsync alignment.
 IPC_MESSAGE_ROUTED2(GpuCommandBufferMsg_UpdateVSyncParameters,

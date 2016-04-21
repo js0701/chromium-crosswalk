@@ -152,6 +152,11 @@ bool WebGraphicsContext3DCommandBufferImpl::MaybeInitializeGL() {
   command_buffer_->SetOnConsoleMessageCallback(
       base::Bind(&WebGraphicsContext3DCommandBufferImpl::OnErrorMessage,
                  weak_ptr_factory_.GetWeakPtr()));
+  
+  if(attributes_.webGL)
+       command_buffer_->SetFlushCommandCompletionCallback(
+        base::Bind(&WebGraphicsContext3DCommandBufferImpl::OnFlushCommandCompleted,
+                    weak_ptr_factory_.GetWeakPtr()));
 
   real_gl_->SetErrorMessageCallback(getErrorMessageCallback());
 
@@ -371,5 +376,12 @@ void WebGraphicsContext3DCommandBufferImpl::OnContextLost() {
   gpu::CommandBuffer::State state = command_buffer_->GetLastState();
   UmaRecordContextLost(context_type_, state.error, state.context_lost_reason);
 }
+
+uint32 WebGraphicsContext3DCommandBufferImpl::getFlushCount(){
+
+    return command_buffer_->flush_count();
+
+}
+
 
 }  // namespace content

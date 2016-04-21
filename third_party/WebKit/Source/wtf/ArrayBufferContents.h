@@ -79,6 +79,12 @@ public:
         s_adjustAmountOfExternalAllocatedMemoryFunction = function;
     }
 
+    void adopt(void* data, unsigned  sizeInBytes)
+    {
+        m_holder->adopt(data, sizeInBytes, m_holder->isShared()? Shared : NotShared);
+        
+    }
+
 private:
     class DataHolder : public ThreadSafeRefCounted<DataHolder> {
         WTF_MAKE_NONCOPYABLE(DataHolder);

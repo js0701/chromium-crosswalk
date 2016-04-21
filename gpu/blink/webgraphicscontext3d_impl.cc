@@ -194,6 +194,7 @@ WebGraphicsContext3DImpl::WebGraphicsContext3DImpl()
       initialize_failed_(false),
       context_lost_callback_(0),
       error_message_callback_(0),
+      flush_command_completion_callback_(0),
       gl_(NULL),
       flush_id_(0) {
 }
@@ -373,6 +374,11 @@ void WebGraphicsContext3DImpl::finish() {
 void WebGraphicsContext3DImpl::flush() {
   flush_id_ = GenFlushID();
   gl_->Flush();
+  flushed_counts.push_back(getFlushCount());
+  
+  if(flush_command_completion_callback_) {
+        flush_command_completion_callback_->onFlushCommandCompleted(1);
+  }
 }
 
 DELEGATE_TO_GL_4(framebufferRenderbuffer, FramebufferRenderbuffer,
@@ -818,6 +824,11 @@ void WebGraphicsContext3DImpl::setContextLostCallback(
   context_lost_callback_ = cb;
 }
 
+void WebGraphicsContext3DImpl::setFlushCommandCompletionCallback(
+    WebGraphicsContext3D::WebGraphicsFlushCommandCompletionCallback* cb ) {
+   flush_command_completion_callback_ = cb;
+}
+
 DELEGATE_TO_GL_5(texImageIOSurface2DCHROMIUM, TexImageIOSurface2DCHROMIUM,
                  WGC3Denum, WGC3Dint, WGC3Dint, WGC3Duint, WGC3Duint)
 
@@ -1226,6 +1237,18 @@ void WebGraphicsContext3DImpl::OnErrorMessage(
     blink::WebString str = blink::WebString::fromUTF8(message.c_str());
     error_message_callback_->onErrorMessage(str, id);
   }
+}
+
+void WebGraphicsContext3DImpl::OnFlushCommandCompleted(uint32 flush_count, uint32 result) {
+    if(flush_command_completion_callback_&& !flushed_counts.empty()) {
+        
+             std::vector<uint32>::iterator iter = flushed_counts.begin();
+             if(*iter == flush_count){     
+                 flush_command_completion_callback_->onFlushCommandCompleted(0);
+                 flushed_counts.erase(iter);
+             }
+        
+    }
 }
 
 // TODO(bajones): Look into removing these functions from the blink interface

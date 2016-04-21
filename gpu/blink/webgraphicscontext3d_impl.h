@@ -501,6 +501,9 @@ class GPU_BLINK_EXPORT WebGraphicsContext3DImpl
   void setContextLostCallback(
       WebGraphicsContext3D::WebGraphicsContextLostCallback* callback) override;
 
+  void setFlushCommandCompletionCallback(
+      WebGraphicsContext3D::WebGraphicsFlushCommandCompletionCallback* callback) override;
+
   void setErrorMessageCallback(
       WebGraphicsContext3D::WebGraphicsErrorMessageCallback* callback) override;
 
@@ -932,6 +935,8 @@ class GPU_BLINK_EXPORT WebGraphicsContext3DImpl
   bool isContextLost() override;
   blink::WGC3Denum getGraphicsResetStatusARB() override;
 
+  virtual unsigned getFlushCount() {return 0;}
+
   ::gpu::gles2::GLES2Interface* GetGLInterface() {
     return gl_;
   }
@@ -951,6 +956,8 @@ class GPU_BLINK_EXPORT WebGraphicsContext3DImpl
       getErrorMessageCallback();
   virtual void OnErrorMessage(const std::string& message, int id);
 
+  virtual void OnFlushCommandCompleted(uint32 flush_count, uint32 result);
+
   void setGLInterface(::gpu::gles2::GLES2Interface* gl) {
     gl_ = gl;
   }
@@ -965,8 +972,12 @@ class GPU_BLINK_EXPORT WebGraphicsContext3DImpl
   scoped_ptr<WebGraphicsContext3DErrorMessageCallback>
       client_error_message_callback_;
 
+  WebGraphicsContext3D::WebGraphicsFlushCommandCompletionCallback*
+      flush_command_completion_callback_;
+
   // Errors raised by synthesizeGLError().
   std::vector<blink::WGC3Denum> synthetic_errors_;
+  std::vector<uint32> flushed_counts;
 
   ::gpu::gles2::GLES2Interface* gl_;
   bool lose_context_when_out_of_memory_;

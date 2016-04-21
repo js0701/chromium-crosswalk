@@ -148,6 +148,8 @@ class WebGraphicsContext3DCommandBufferImpl
   void SetContextType(CommandBufferContextType type) {
     context_type_ = type;
   }
+
+  uint32 getFlushCount();
  private:
   // These are the same error codes as used by EGL.
   enum Error {

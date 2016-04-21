@@ -107,6 +107,8 @@ class WebGLVertexArrayObjectBase;
 
 class WebGLRenderingContextLostCallback;
 class WebGLRenderingContextErrorMessageCallback;
+class WebGLRenderingFlushCommandCompletionCallback;
+class GpuMemoryCache;
 
 struct FormatType {
     GLenum internalformat;
@@ -446,6 +448,7 @@ protected:
     friend class WebGLCompressedTexturePVRTC;
     friend class WebGLCompressedTextureS3TC;
     friend class WebGLRenderingContextErrorMessageCallback;
+    friend class WebGLRenderingFlushCommandCompletionCallback;
     friend class WebGLVertexArrayObjectBase;
     friend class ScopedTexture2DRestorer;
     friend class ScopedFramebufferRestorer;
@@ -525,6 +528,7 @@ protected:
 
     PersistentWillBeMember<WebGLRenderingContextLostCallback> m_contextLostCallbackAdapter;
     PersistentWillBeMember<WebGLRenderingContextErrorMessageCallback> m_errorMessageCallbackAdapter;
+    PersistentWillBeMember<WebGLRenderingFlushCommandCompletionCallback> m_flushCommandCompletionCallbackAdapter; 
 
     // List of bound VBO's. Used to maintain info about sizes for ARRAY_BUFFER and stored values for ELEMENT_ARRAY_BUFFER
     PersistentWillBeMember<WebGLBuffer> m_boundArrayBuffer;
@@ -779,6 +783,8 @@ protected:
         Member<WebGLFramebuffer> m_readFramebufferBinding;
     };
 
+    GpuMemoryCache* m_gpuMemoryCache;
+
     // Errors raised by synthesizeGLError() while the context is lost.
     Vector<GLenum> m_lostContextErrors;
 
@@ -974,6 +980,8 @@ protected:
 
     // Helper function to print GL errors to console.
     void printGLErrorToConsole(const String&);
+
+    void cleanCommandCache(uint32 result);
 
     // Helper function to print warnings to console. Currently
     // used only to warn about use of obsolete functions.

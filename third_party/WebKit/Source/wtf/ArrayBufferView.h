@@ -60,6 +60,8 @@ public:
 
     void* baseAddress() const
     {
+         //if(buffer()->isBackupNeeded())
+         //    buffer()->backUpAndAdopt();
         return m_baseAddress;
     }
 
@@ -74,6 +76,10 @@ public:
     bool isNeuterable() const { return m_isNeuterable; }
     bool isShared() const { return m_buffer ? m_buffer->isShared() : false; }
 
+    //Use this to adopt changes when base adress from buffer has been changed
+    void adopt() {
+        m_baseAddress = m_buffer ? (static_cast<char*>(m_buffer->data()) + m_byteOffset) : nullptr;
+    }
     virtual ~ArrayBufferView();
 
 protected:

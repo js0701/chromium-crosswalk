@@ -153,6 +153,9 @@ class GpuCommandBufferStub
   void SendSwapBuffersCompleted(
       const std::vector<ui::LatencyInfo>& latency_info,
       gfx::SwapResult result);
+
+  void SendFlushComandCompleted(uint32 flush_count, uint32 result);
+  
   void SendUpdateVSyncParameters(base::TimeTicks timebase,
                                  base::TimeDelta interval);
 

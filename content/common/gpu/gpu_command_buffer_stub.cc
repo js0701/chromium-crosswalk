@@ -848,6 +848,8 @@ void GpuCommandBufferStub::OnAsyncFlush(
   GpuChannelManager* manager = channel_->gpu_channel_manager();
   manager->DidAccessGpu();
 #endif
+
+   SendFlushComandCompleted(flush_count,0);
 }
 
 void GpuCommandBufferStub::OnRegisterTransferBuffer(
@@ -1283,6 +1285,10 @@ void GpuCommandBufferStub::SendSwapBuffersCompleted(
     gfx::SwapResult result) {
   Send(new GpuCommandBufferMsg_SwapBuffersCompleted(route_id_, latency_info,
                                                     result));
+}
+
+void GpuCommandBufferStub::SendFlushComandCompleted(uint32 flush_count, uint32 result) {
+  Send(new GpuCommandBufferMsg_FlushCommandCompleted(route_id_, flush_count, result));
 }
 
 void GpuCommandBufferStub::SendUpdateVSyncParameters(base::TimeTicks timebase,

@@ -42,10 +42,13 @@ public:
 
     using TypedArrayBase<float>::set;
 
+   
     void set(unsigned index, double value)
     {
         if (index >= TypedArrayBase<float>::m_length)
             return;
+        //if(buffer()->isBackupNeeded())
+        //    buffer()->backUpAndAdopt();
         TypedArrayBase<float>::data()[index] = static_cast<float>(value);
     }
 

@@ -8,18 +8,31 @@
 #include "platform/heap/Heap.h"
 #include "third_party/skia/include/core/SkImageInfo.h"
 #include "third_party/skia/include/core/SkPixmap.h"
+#include "wtf/DelayedActionBufferBaseImpl.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefPtr.h"
+#include "wtf/RefCounted.h"
+
+
 
 class SkImage;
 
+using namespace WTF;
+
 namespace blink {
 
-class ImagePixelLocker {
+class ImagePixelLocker  : public RefCounted<ImagePixelLocker>, public DelayedActionBufferBaseImpl {
 public:
     ImagePixelLocker(PassRefPtr<const SkImage>, SkAlphaType);
 
     const void* pixels() const { return m_pixels; }
+    void referenceForLaterAction() {
+        ref();
+        setBackup(true);
+    };
+    void deReferenceAsActionComplete(void* buf) {
+        deref();
+    };
 
 private:
     const RefPtr<const SkImage> m_image;

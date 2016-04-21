@@ -48,6 +48,8 @@ public:
     {
         if (index >= TypedArrayBase<double>::m_length)
             return;
+        //if(buffer()->isBackupNeeded())
+        //    buffer()->backUpAndAdopt();
         TypedArrayBase<double>::data()[index] = static_cast<double>(value);
     }
 

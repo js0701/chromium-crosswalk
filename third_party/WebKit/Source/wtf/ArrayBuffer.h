@@ -31,13 +31,14 @@
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"
 #include "wtf/WTFExport.h"
+#include "wtf/DelayedActionBufferBaseImpl.h"
 
 namespace WTF {
 
 class ArrayBuffer;
 class ArrayBufferView;
 
-class WTF_EXPORT ArrayBuffer : public RefCounted<ArrayBuffer> {
+class WTF_EXPORT ArrayBuffer : public RefCounted<ArrayBuffer>, public DelayedActionBufferBaseImpl {
 public:
     static inline PassRefPtr<ArrayBuffer> create(unsigned numElements, unsigned elementByteSize);
     static inline PassRefPtr<ArrayBuffer> create(ArrayBuffer*);
@@ -70,6 +71,14 @@ public:
     bool isNeutered() const { return m_isNeutered; }
     bool isShared() const { return m_contents.isShared(); }
 
+    void adopt(void* data, int lengthInByte);
+     //DelayedActionBufferBase
+    void referenceForLaterAction();
+    void deReferenceAsActionComplete(void* buf);
+    void deRefInMainThread(char* buf);
+    //A function for when set is call,use it for back up buffer and adopt if necessary
+    void backUpAndAdopt();
+
     ~ArrayBuffer() { }
 
 protected:
@@ -87,6 +96,7 @@ private:
     ArrayBufferContents m_contents;
     ArrayBufferView* m_firstView;
     bool m_isNeutered;
+    void* m_bufToBeFree;
 };
 
 int ArrayBuffer::clampValue(int x, int left, int right)
@@ -183,6 +193,8 @@ ArrayBuffer::ArrayBuffer(ArrayBufferContents& contents)
 
 void* ArrayBuffer::data()
 {
+    //if(isBackupNeeded())
+    //     backUpAndAdopt();
     return m_contents.data();
 }
 

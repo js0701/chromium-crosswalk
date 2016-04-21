@@ -76,6 +76,9 @@ void Uint8ClampedArray::set(unsigned index, double value)
         value = 0;
     else if (value > 255)
         value = 255;
+    
+    //if(buffer()->isBackupNeeded())
+    //    buffer()->backUpAndAdopt();
     data()[index] = static_cast<unsigned char>(lrint(value));
 }
 

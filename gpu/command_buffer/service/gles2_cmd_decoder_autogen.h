@@ -311,7 +311,33 @@ error::Error GLES2DecoderImpl::HandleBufferSubData(uint32_t immediate_data_size,
   GLintptr offset = static_cast<GLintptr>(c.offset);
   GLsizeiptr size = static_cast<GLsizeiptr>(c.size);
   uint32_t data_size = size;
-  const void* data = GetSharedMemoryAs<const void*>(
+
+  const void* data = NULL;
+  //DelayedActionBuffer* pDelayedActionBuffer = NULL; 
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
+  if(laterActionStratedy == DELAYEDACTION_FREE )
+  {
+      data = (const void*) (((uint64)c.data_shm_id<<32)|(uint64)c.data_shm_offset);
+      if (data == NULL) {
+         return error::kOutOfBounds;
+      }
+  }
+  /*
+  else if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+      pDelayedActionBuffer = (DelayedActionBuffer*)(((uint64)c.data_shm_id<<32)|(uint64)c.data_shm_offset);
+      data = (const void*) pDelayedActionBuffer->buf;
+      if (data == NULL) {
+         return error::kOutOfBounds;
+      }
+  }
+  */
+  else
+  {
+  data = GetSharedMemoryAs<const void*>(
       c.data_shm_id, c.data_shm_offset, data_size);
   if (!validators_->buffer_target.IsValid(target)) {
     LOCAL_SET_GL_ERROR_INVALID_ENUM("glBufferSubData", target, "target");
@@ -324,7 +350,23 @@ error::Error GLES2DecoderImpl::HandleBufferSubData(uint32_t immediate_data_size,
   if (data == NULL) {
     return error::kOutOfBounds;
   }
+  }
+  
   DoBufferSubData(target, offset, size, data);
+
+  /*
+  if(laterActionStratedy == DELAYEDACTION_FREE)
+  {
+     DelayedActionBufferBase::freeBuffer((void*)data);
+  }
+  else
+  if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+     pDelayedActionBuffer->delayedActionBufferBase->deReferenceAsActionComplete((void*)data);
+     delete pDelayedActionBuffer;
+  }
+  */
+  
   return error::kNoError;
 }
 
@@ -548,8 +590,27 @@ error::Error GLES2DecoderImpl::HandleCompressedTexSubImage2D(
   GLenum format = static_cast<GLenum>(c.format);
   GLsizei imageSize = static_cast<GLsizei>(c.imageSize);
   uint32_t data_size = imageSize;
-  const void* data = GetSharedMemoryAs<const void*>(
+  const void* data  = NULL;
+  //DelayedActionBuffer* pDelayedActionBuffer = NULL;
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+    
+  if(laterActionStratedy == DELAYEDACTION_FREE )
+  {
+      data = (const void*) (((uint64)c.data_shm_id<<32)|(uint64)c.data_shm_offset);
+  }
+  /*
+  else if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+      pDelayedActionBuffer = (DelayedActionBuffer*)(((uint64)c.data_shm_id<<32)|(uint64)c.data_shm_offset);
+      data = (const void*)pDelayedActionBuffer->buf;
+  }
+  */
+  
+  else data = GetSharedMemoryAs<const void*>(
       c.data_shm_id, c.data_shm_offset, data_size);
+  
   if (!validators_->texture_target.IsValid(target)) {
     LOCAL_SET_GL_ERROR_INVALID_ENUM("glCompressedTexSubImage2D", target,
                                     "target");
@@ -580,6 +641,20 @@ error::Error GLES2DecoderImpl::HandleCompressedTexSubImage2D(
   }
   DoCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height,
                             format, imageSize, data);
+
+  /*
+  if(laterActionStratedy == DELAYEDACTION_FREE)
+  {
+     DelayedActionBufferBase::freeBuffer((void*)data);
+  }
+  else
+  if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+     pDelayedActionBuffer->delayedActionBufferBase->deReferenceAsActionComplete((void*)data);
+     delete pDelayedActionBuffer;
+  }
+  */
+
   return error::kNoError;
 }
 

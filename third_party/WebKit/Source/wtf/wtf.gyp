@@ -67,6 +67,8 @@
       'type': '<(component)',
       'include_dirs': [
         '..',
+        '../../',
+        '<(DEPTH)',
       ],
       'dependencies': [
           'wtf_config',
@@ -83,6 +85,8 @@
       'direct_dependent_settings': {
         'include_dirs': [
           '..',
+          '../../',
+          '<(DEPTH)',
         ],
         # Some warnings occur in WTF headers, so they must also be disabled
         # in targets that use WTF.

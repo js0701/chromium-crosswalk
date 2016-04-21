@@ -2096,7 +2096,7 @@ void WebGLImageConversion::ImageExtractor::extractImage(bool premultiplyAlpha, b
     if (m_imageWidth != (unsigned)m_image->width() || m_imageHeight != (unsigned)m_image->height())
         return;
 
-    m_imagePixelLocker.emplace(skiaImage, info.alphaType());
+    m_imagePixelLocker = adoptRef(new ImagePixelLocker(skiaImage, info.alphaType()));
 }
 
 unsigned WebGLImageConversion::getChannelBitsByFormat(GLenum format)
@@ -2211,6 +2211,30 @@ bool WebGLImageConversion::packImageData(
     data.resize(packedSize);
 
     if (!packPixels(reinterpret_cast<const uint8_t*>(pixels), sourceFormat, width, height, sourceUnpackAlignment, format, type, alphaOp, data.data(), flipY))
+        return false;
+    if (ImageObserver *observer = image->imageObserver())
+        observer->didDraw(image);
+    return true;
+}
+
+bool WebGLImageConversion::packImageData(
+    Image* image,
+    const void* pixels,
+    GLenum format,
+    GLenum type,
+    bool flipY,
+    AlphaOp alphaOp,
+    DataFormat sourceFormat,
+    unsigned width,
+    unsigned height,
+    unsigned sourceUnpackAlignment,
+    uint8_t* data)
+{
+    if (!pixels)
+        return false;
+    // Output data is tightly packed (alignment == 1).
+    //data.resize(packedSize);
+    if (!packPixels(reinterpret_cast<const uint8_t*>(pixels), sourceFormat, width, height, sourceUnpackAlignment, format, type, alphaOp, data, flipY))
         return false;
     if (ImageObserver *observer = image->imageObserver())
         observer->didDraw(image);

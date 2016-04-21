@@ -150,6 +150,11 @@ class CommandBufferProxyImpl
   void SetSwapBuffersCompletionCallback(
       const SwapBuffersCompletionCallback& callback);
 
+  using FlushCommandCompletionCallback =
+        base::Callback<void(uint32 flush_count, uint32 result)>;
+  void  SetFlushCommandCompletionCallback(
+        const FlushCommandCompletionCallback& callback);
+
   using UpdateVSyncParametersCallback =
       base::Callback<void(base::TimeTicks timebase, base::TimeDelta interval)>;
   void SetUpdateVSyncParametersCallback(
@@ -164,6 +169,8 @@ class CommandBufferProxyImpl
   int32 route_id() const { return route_id_; }
 
   int32 stream_id() const { return stream_id_; }
+
+  uint32 flush_count() const {return flush_count_;}
 
   GpuChannelHost* channel() const { return channel_; }
 
@@ -193,6 +200,8 @@ class CommandBufferProxyImpl
   void OnSignalAck(uint32 id);
   void OnSwapBuffersCompleted(const std::vector<ui::LatencyInfo>& latency_info,
                               gfx::SwapResult result);
+
+  void OnFlushCommandCompleted(uint32 flush_count, uint32 result);
   void OnUpdateVSyncParameters(base::TimeTicks timebase,
                                base::TimeDelta interval);
 
@@ -251,6 +260,7 @@ class CommandBufferProxyImpl
   std::vector<ui::LatencyInfo> latency_info_;
 
   SwapBuffersCompletionCallback swap_buffers_completion_callback_;
+  FlushCommandCompletionCallback flush_command_completion_callback_;
   UpdateVSyncParametersCallback update_vsync_parameters_completion_callback_;
 
   DISALLOW_COPY_AND_ASSIGN(CommandBufferProxyImpl);

@@ -35,6 +35,7 @@
 #include "gpu/command_buffer/common/trace_event.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rect_f.h"
+#include "third_party/WebKit/Source/wtf/DelayedActionBufferBase.h"
 
 #if defined(GPU_CLIENT_DEBUG)
 #include "base/command_line.h"
@@ -1827,6 +1828,9 @@ void GLES2Implementation::BufferDataHelper(
   if (!ValidateSize("glBufferData", size))
     return;
 
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
 #if defined(MEMORY_SANITIZER) && !defined(OS_NACL)
   // Do not upload uninitialized data. Even if it's not a bug, it can cause a
   // bogus MSan report during a readback later. This is because MSan doesn't
@@ -1834,6 +1838,23 @@ void GLES2Implementation::BufferDataHelper(
   // unintialized data.
   if (data) __msan_check_mem_is_initialized(data, size);
 #endif
+
+  if(laterActionStratedy)
+  {
+      int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
+      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      target = target | laterActionStratedy;
+      
+      helper_->BufferData(
+        target,
+        size,
+        shm_id,
+        shm_offset,
+        usage);
+      
+      CheckGLError();
+      return;
+  }
 
   GLuint buffer_id;
   if (GetBoundPixelTransferBuffer(target, "glBufferData", &buffer_id)) {
@@ -1905,6 +1926,25 @@ void GLES2Implementation::BufferSubDataHelper(
   if (!ValidateSize("glBufferSubData", size) ||
       !ValidateOffset("glBufferSubData", offset)) {
     return;
+  }
+  
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
+  if(laterActionStratedy)
+  {
+      int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
+      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      target = target | laterActionStratedy;
+      
+      helper_->BufferSubData(
+        target,
+        offset,
+        size,
+        shm_id,
+        shm_offset);
+      CheckGLError();
+      return;
   }
 
   GLuint buffer_id;
@@ -2032,6 +2072,10 @@ GLES2Implementation::GetBoundPixelUnpackTransferBufferIfValid(
 void GLES2Implementation::CompressedTexImage2D(
     GLenum target, GLint level, GLenum internalformat, GLsizei width,
     GLsizei height, GLint border, GLsizei image_size, const void* data) {
+  
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
   GPU_CLIENT_SINGLE_THREAD_CHECK();
   GPU_CLIENT_LOG("[" << GetLogPrefix() << "] glCompressedTexImage2D("
       << GLES2Util::GetStringTextureTarget(target) << ", "
@@ -2051,6 +2095,21 @@ void GLES2Implementation::CompressedTexImage2D(
   if (height == 0 || width == 0) {
     return;
   }
+  
+  if(laterActionStratedy)
+  {
+      int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
+      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      target = target | laterActionStratedy;
+      
+      helper_->CompressedTexImage2D(
+          target, level, internalformat, width, height, image_size,
+          shm_id, shm_offset);
+      
+      CheckGLError();
+      return;
+  }
+
   // If there's a pixel unpack buffer bound use it when issuing
   // CompressedTexImage2D.
   if (bound_pixel_unpack_transfer_buffer_id_) {
@@ -2079,6 +2138,9 @@ void GLES2Implementation::CompressedTexImage2D(
 void GLES2Implementation::CompressedTexSubImage2D(
     GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width,
     GLsizei height, GLenum format, GLsizei image_size, const void* data) {
+    
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
   GPU_CLIENT_SINGLE_THREAD_CHECK();
   GPU_CLIENT_LOG("[" << GetLogPrefix() << "] glCompressedTexSubImage2D("
       << GLES2Util::GetStringTextureTarget(target) << ", "
@@ -2091,6 +2153,20 @@ void GLES2Implementation::CompressedTexSubImage2D(
   if (width < 0 || height < 0 || level < 0) {
     SetGLError(GL_INVALID_VALUE, "glCompressedTexSubImage2D", "dimension < 0");
     return;
+  }
+
+  if(laterActionStratedy)
+  {
+      int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
+      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      target = target | laterActionStratedy;
+      
+      helper_->CompressedTexSubImage2D(
+          target, level, xoffset, yoffset, width, height, format, image_size,
+          shm_id, shm_offset);
+      
+      CheckGLError();
+      return;
   }
   // If there's a pixel unpack buffer bound use it when issuing
   // CompressedTexSubImage2D.
@@ -2240,6 +2316,10 @@ void GLES2Implementation::TexImage2D(
     GLenum target, GLint level, GLint internalformat, GLsizei width,
     GLsizei height, GLint border, GLenum format, GLenum type,
     const void* pixels) {
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+    
   GPU_CLIENT_SINGLE_THREAD_CHECK();
   GPU_CLIENT_LOG("[" << GetLogPrefix() << "] glTexImage2D("
       << GLES2Util::GetStringTextureTarget(target) << ", "
@@ -2257,6 +2337,21 @@ void GLES2Implementation::TexImage2D(
     SetGLError(GL_INVALID_VALUE, "glTexImage2D", "border != 0");
     return;
   }
+
+  if(laterActionStratedy)
+  {
+      int32_t  shm_id      = (int32_t)(((uint64_t)pixels)>>32);
+      uint32_t shm_offset  = (uint32_t) pixels; //note the implementation only correct for 32 bit arch
+      target = target | laterActionStratedy;
+      
+      helper_->TexImage2D(
+        target, level, internalformat, width, height, format, type,
+        shm_id, shm_offset);
+      
+      CheckGLError();
+      return;
+  }
+    
   uint32 size;
   uint32 unpadded_row_size;
   uint32 padded_row_size;
@@ -2266,6 +2361,7 @@ void GLES2Implementation::TexImage2D(
     SetGLError(GL_INVALID_VALUE, "glTexImage2D", "image size too large");
     return;
   }
+
 
   // If there's a pixel unpack buffer bound use it when issuing TexImage2D.
   if (bound_pixel_unpack_transfer_buffer_id_) {
@@ -2357,6 +2453,7 @@ void GLES2Implementation::TexImage2D(
   TexSubImage2DImpl(
       target, level, 0, 0, width, height, format, type, unpadded_row_size,
       pixels, src_padded_row_size, GL_TRUE, &transfer_alloc, padded_row_size);
+  
   CheckGLError();
 }
 
@@ -2499,6 +2596,10 @@ void GLES2Implementation::TexImage3D(
 void GLES2Implementation::TexSubImage2D(
     GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width,
     GLsizei height, GLenum format, GLenum type, const void* pixels) {
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
   GPU_CLIENT_SINGLE_THREAD_CHECK();
   GPU_CLIENT_LOG("[" << GetLogPrefix() << "] glTexSubImage2D("
       << GLES2Util::GetStringTextureTarget(target) << ", "
@@ -2515,6 +2616,20 @@ void GLES2Implementation::TexSubImage2D(
   }
   if (height == 0 || width == 0) {
     return;
+  }
+
+  if(laterActionStratedy)
+  {
+     int32_t  shm_id      = (int32_t)(((uint64_t)pixels)>>32);
+     uint32_t shm_offset  = (uint32_t) pixels; //note the implementation only correct for 32 bit arch
+     target = target | laterActionStratedy;
+      
+     helper_->TexSubImage2D(
+          target, level, xoffset, yoffset, width, height, format, type,
+          shm_id, shm_offset, false);
+     
+     CheckGLError();
+     return;
   }
 
   uint32 temp_size;

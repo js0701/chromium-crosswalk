@@ -28,6 +28,15 @@
 
 #include "wtf/ArrayBufferView.h"
 #include "wtf/RefPtr.h"
+#include "wtf/MainThread.h"
+#include "platform/ThreadSafeFunctional.h"
+#include "platform/Task.h"
+#include "public/platform/Platform.h"
+#include "public/platform/WebTraceLocation.h"
+//#include "core/dom/ExecutionContext.h"
+//#include "core/dom/CrossThreadTask.h"
+#include "wtf/Functional.h"
+
 
 namespace WTF {
 
@@ -101,6 +110,60 @@ void ArrayBuffer::removeView(ArrayBufferView* view)
     if (m_firstView == view)
         m_firstView = view->m_nextView;
     view->m_prevView = view->m_nextView = 0;
+}
+
+void ArrayBuffer::adopt(void* data, int lengthInByte)
+{
+      m_contents.adopt(data, lengthInByte);
+      if(m_firstView)
+      {
+         ArrayBufferView* view = m_firstView;
+         while(view)
+         {
+            view->adopt();
+            view = view->m_nextView;
+         }
+      }
+}
+
+void ArrayBuffer::referenceForLaterAction()
+{
+   ref();//keep alive for later actions
+   setBackup(true);
+}
+
+
+void ArrayBuffer::deRefInMainThread(char* buf)
+{
+   if(data() != (void*) buf) //means the buffer has been copied
+       freeBackupBuffer(buf);
+   deref();
+}
+
+//This function should be moved to thread main of renderer. Otherwise will get segmentation fault
+void ArrayBuffer::deReferenceAsActionComplete(void* buf)
+{
+     m_bufToBeFree = NULL;
+     setBackup(false);
+     
+    // if(data() != buf)
+    //    m_bufToBeFree = buf;
+     char* backupBuf = (char*) buf;
+     if(data() ==buf) setBackup(false);
+     
+     blink::Platform::current()->mainThread()->taskRunner()->postTask(BLINK_FROM_HERE, new blink::Task(bind(&ArrayBuffer::deRefInMainThread, this, backupBuf)));
+}
+
+//A function for when set is call,use it for back up buffer and adopt if necessary
+
+void ArrayBuffer::backUpAndAdopt()
+{
+    void* newbuf     = NULL;
+    const void* buf  = m_contents.data();
+    int lengthInByte = byteLength();
+    
+    copyAndReturnNewAddress(buf, lengthInByte, &newbuf);
+    adopt(newbuf, lengthInByte);
 }
 
 }

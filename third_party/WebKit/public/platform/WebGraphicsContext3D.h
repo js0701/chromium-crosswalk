@@ -120,6 +120,14 @@ public:
         virtual ~WebGraphicsContextLostCallback() { }
     };
 
+    class WebGraphicsFlushCommandCompletionCallback {
+    public:
+        virtual void onFlushCommandCompleted(unsigned result) =0;
+    protected:
+        virtual ~WebGraphicsFlushCommandCompletionCallback() {}
+
+    };
+
     class WebGraphicsErrorMessageCallback {
     public:
         virtual void onErrorMessage(const WebString&, WGC3Dint) = 0;
@@ -353,6 +361,7 @@ public:
 
     virtual void setContextLostCallback(WebGraphicsContextLostCallback* callback) { }
     virtual void setErrorMessageCallback(WebGraphicsErrorMessageCallback* callback) { }
+    virtual void setFlushCommandCompletionCallback(WebGraphicsFlushCommandCompletionCallback* callback) { }
     // GL_ARB_robustness
     //
     // This entry point must provide slightly different semantics than

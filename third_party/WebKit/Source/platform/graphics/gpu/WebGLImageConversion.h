@@ -125,13 +125,18 @@ public:
         AlphaOp imageAlphaOp() { return m_alphaOp; }
         unsigned imageSourceUnpackAlignment() { return m_imageSourceUnpackAlignment; }
         ImageHtmlDomSource imageHtmlDomSource() { return m_imageHtmlDomSource; }
+        ImagePixelLocker* getImagePixelLocker()
+        {
+           return m_imagePixelLocker.get();
+        }
+        
     private:
         // Extract the image and keeps track of its status, such as width, height, Source Alignment,
         // format and AlphaOp etc. This needs to lock the resources or relevant data if needed.
         void extractImage(bool premultiplyAlpha, bool ignoreGammaAndColorProfile);
 
         Image* m_image;
-        Optional<ImagePixelLocker> m_imagePixelLocker;
+        RefPtr<ImagePixelLocker> m_imagePixelLocker;
         ImageHtmlDomSource m_imageHtmlDomSource;
         unsigned m_imageWidth;
         unsigned m_imageHeight;
@@ -169,6 +174,7 @@ public:
     // according to the given format and type, and obeying the flipY and AlphaOp flags.
     // Returns true upon success.
     static bool packImageData(Image*, const void* pixels, GLenum format, GLenum type, bool flipY, AlphaOp, DataFormat sourceFormat, unsigned width, unsigned height, unsigned sourceUnpackAlignment, Vector<uint8_t>& data);
+    static bool packImageData(Image*, const void* pixels, GLenum format, GLenum type, bool flipY, AlphaOp, DataFormat sourceFormat, unsigned width, unsigned height, unsigned sourceUnpackAlignment, uint8_t* data);
 
     // Extracts the contents of the given ImageData into the passed Vector,
     // packing the pixel data according to the given format and type,

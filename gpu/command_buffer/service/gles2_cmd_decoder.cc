@@ -70,6 +70,7 @@
 #include "ui/gl/gl_surface.h"
 #include "ui/gl/gl_version_info.h"
 #include "ui/gl/gpu_timing.h"
+#include "third_party/WebKit/Source/wtf/DelayedActionBufferBase.h"
 
 #if defined(OS_MACOSX)
 #include <IOSurface/IOSurface.h>
@@ -9769,13 +9770,46 @@ error::Error GLES2DecoderImpl::HandleBufferData(uint32 immediate_data_size,
   uint32 data_shm_offset = static_cast<uint32>(c.data_shm_offset);
   GLenum usage = static_cast<GLenum>(c.usage);
   const void* data = NULL;
+  //DelayedActionBuffer* pDelayedActionBuffer = NULL; 
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
+  if(laterActionStratedy == DELAYEDACTION_FREE )
+  {
+      data = (const void*) (((uint64)data_shm_id<<32)|(uint64)data_shm_offset);
+  }
+  /*
+  else if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+      pDelayedActionBuffer = (DelayedActionBuffer*)(((uint64)data_shm_id<<32)|(uint64)data_shm_offset);
+      data = (const void*) pDelayedActionBuffer->buf;
+  }
+  */
+  else {
   if (data_shm_id != 0 || data_shm_offset != 0) {
     data = GetSharedMemoryAs<const void*>(data_shm_id, data_shm_offset, size);
     if (!data) {
       return error::kOutOfBounds;
     }
   }
+  }
+  
   buffer_manager()->ValidateAndDoBufferData(&state_, target, size, data, usage);
+
+  /*
+  if(laterActionStratedy == DELAYEDACTION_FREE)
+  {
+     DelayedActionBufferBase::freeBuffer((void*)data);
+  }
+  else 
+  if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+     pDelayedActionBuffer->delayedActionBufferBase->deReferenceAsActionComplete((void*)data);
+     delete pDelayedActionBuffer;
+  }
+  */
+  
   return error::kNoError;
 }
 
@@ -10381,15 +10415,49 @@ error::Error GLES2DecoderImpl::HandleCompressedTexImage2D(
   uint32 data_shm_id = static_cast<uint32>(c.data_shm_id);
   uint32 data_shm_offset = static_cast<uint32>(c.data_shm_offset);
   const void* data = NULL;
-  if (data_shm_id != 0 || data_shm_offset != 0) {
+  //DelayedActionBuffer* pDelayedActionBuffer = NULL;
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+    
+  if(laterActionStratedy == DELAYEDACTION_FREE )
+  {
+      data = (const void*) (((uint64)data_shm_id<<32)|(uint64)data_shm_offset);
+  }
+  /*
+  else if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+      pDelayedActionBuffer = (DelayedActionBuffer*)(((uint64)data_shm_id<<32)|(uint64)data_shm_offset);
+      data = (const void*)pDelayedActionBuffer->buf;
+  }
+  */
+  else if (data_shm_id != 0 || data_shm_offset != 0) {
     data = GetSharedMemoryAs<const void*>(
         data_shm_id, data_shm_offset, image_size);
     if (!data) {
       return error::kOutOfBounds;
     }
   }
-  return DoCompressedTexImage2D(
+  error::Error ret = DoCompressedTexImage2D(
       target, level, internal_format, width, height, border, image_size, data);
+
+
+  /*
+  if(laterActionStratedy == DELAYEDACTION_FREE)
+  {
+     DelayedActionBufferBase::freeBuffer((void*)data);
+  }
+  else
+ if(laterActionStratedy == DELAYEDACTION_DEREF)
+ {
+     pDelayedActionBuffer->delayedActionBufferBase->deReferenceAsActionComplete((void*)data);
+     delete pDelayedActionBuffer;
+ }
+ */
+
+  return ret;
+
+  
 }
 
 error::Error GLES2DecoderImpl::HandleCompressedTexImage2DBucket(
@@ -10734,17 +10802,32 @@ error::Error GLES2DecoderImpl::HandleTexImage2D(uint32 immediate_data_size,
   uint32 pixels_shm_id = static_cast<uint32>(c.pixels_shm_id);
   uint32 pixels_shm_offset = static_cast<uint32>(c.pixels_shm_offset);
   uint32 pixels_size;
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
   if (!GLES2Util::ComputeImageDataSizes(
       width, height, 1, format, type, state_.unpack_alignment, &pixels_size,
       NULL, NULL)) {
     return error::kOutOfBounds;
   }
   const void* pixels = NULL;
-  if (pixels_shm_id != 0 || pixels_shm_offset != 0) {
-    pixels = GetSharedMemoryAs<const void*>(
-        pixels_shm_id, pixels_shm_offset, pixels_size);
-    if (!pixels) {
-      return error::kOutOfBounds;
+  DelayedActionBuffer* pDelayedActionBuffer = NULL; 
+  
+  if(laterActionStratedy == DELAYEDACTION_FREE )
+  {
+      pixels = (const void*) (((uint64)pixels_shm_id<<32)|(uint64)pixels_shm_offset);
+  }
+  else if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+      pDelayedActionBuffer = (DelayedActionBuffer*)(((uint64)pixels_shm_id<<32)|(uint64)pixels_shm_offset);
+      pixels = (const void*)pDelayedActionBuffer->buf;
+  }  
+  else if (pixels_shm_id != 0 || pixels_shm_offset != 0) {
+      pixels = GetSharedMemoryAs<const void*>(
+          pixels_shm_id, pixels_shm_offset, pixels_size);
+      if (!pixels) {
+          return error::kOutOfBounds;
     }
   }
 
@@ -10762,6 +10845,18 @@ error::Error GLES2DecoderImpl::HandleTexImage2D(uint32 immediate_data_size,
     pixels, pixels_size, TextureManager::DoTexImageArguments::kTexImage2D };
   texture_manager()->ValidateAndDoTexImage(
       &texture_state_, &state_, &framebuffer_state_, "glTexImage2D", args);
+
+  /*
+  if(laterActionStratedy == DELAYEDACTION_FREE)
+  {
+     DelayedActionBufferBase::freeBuffer((void*)pixels);
+  }
+  else*/
+  if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+     pDelayedActionBuffer->delayedActionBufferBase->deReferenceAsActionComplete((void*)pixels);
+     delete pDelayedActionBuffer;
+  }
 
   // This may be a slow command.  Exit command processing to allow for
   // context preemption and GPU watchdog checks.
@@ -11200,16 +11295,35 @@ error::Error GLES2DecoderImpl::HandleTexSubImage2D(uint32 immediate_data_size,
   GLenum format = static_cast<GLenum>(c.format);
   GLenum type = static_cast<GLenum>(c.type);
   uint32 data_size;
+
+  GLenum laterActionStratedy = target & DELAYEDACTION_MASK;
+  target = target & DELAYEDACTION_RMASK;
+  
   if (!GLES2Util::ComputeImageDataSizes(
       width, height, 1, format, type, state_.unpack_alignment, &data_size,
       NULL, NULL)) {
     return error::kOutOfBounds;
   }
 
-  const void* pixels = GetSharedMemoryAs<const void*>(
-      c.pixels_shm_id, c.pixels_shm_offset, data_size);
-  if (!pixels)
-    return error::kOutOfBounds;
+  const void* pixels = NULL;
+  //DelayedActionBuffer* pDelayedActionBuffer = NULL; 
+  
+  if(laterActionStratedy == DELAYEDACTION_FREE )
+  {
+      pixels = (const void*) (((uint64)c.pixels_shm_id<<32)|(uint64)c.pixels_shm_offset);
+  }
+  /*
+  else if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+      pDelayedActionBuffer = (DelayedActionBuffer*)(((uint64)c.pixels_shm_id<<32)|(uint64)c.pixels_shm_offset);
+      pixels = (const void*)pDelayedActionBuffer->buf;
+  }
+  */
+  else {
+      pixels = GetSharedMemoryAs<const void*>(
+        c.pixels_shm_id, c.pixels_shm_offset, data_size);
+      if (!pixels)
+        return error::kOutOfBounds;
 
   TextureManager::DoTexSubImageArguments args = {
       target, level,  xoffset, yoffset, width,
@@ -11217,9 +11331,23 @@ error::Error GLES2DecoderImpl::HandleTexSubImage2D(uint32 immediate_data_size,
   texture_manager()->ValidateAndDoTexSubImage(this, &texture_state_, &state_,
                                               &framebuffer_state_,
                                               "glTexSubImage2D", args);
-
+  }
   // This may be a slow command.  Exit command processing to allow for
   // context preemption and GPU watchdog checks.
+
+  /*
+  if(laterActionStratedy == DELAYEDACTION_FREE)
+  {
+     DelayedActionBufferBase::freeBuffer((void*)pixels);
+  }
+  else
+  if(laterActionStratedy == DELAYEDACTION_DEREF)
+  {
+     pDelayedActionBuffer->delayedActionBufferBase->deReferenceAsActionComplete((void*)pixels);
+     delete pDelayedActionBuffer;
+  }
+  */
+  
   ExitCommandProcessingEarly();
   return error::kNoError;
 }
