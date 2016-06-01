@@ -603,15 +603,17 @@ class GpuMemoryCache {
 
    public:
 
-    #define GpuMemoryCache_DefaultSmallSize    8196
+    #define GpuMemoryCache_DefaultSmallSize    (1024*1024)
     #define GpuMemoryCache_DefaultSmallCount   3
     
    const void* copyToCache(void* buf, unsigned size) {
+      
       GpuCacheInfo* gpuCacheInfo = bufForDirectAccess(size);
       memcpy(gpuCacheInfo->pCurrentPos, buf, size);
       const void* addr = (const void*) gpuCacheInfo->pCurrentPos;
       gpuCacheInfo->upatePosition(size);
       return addr;
+      //return buf;
    }
 
    void* addressForDirectWrite(unsigned size)
@@ -656,16 +658,22 @@ class GpuMemoryCache {
            sCachesUsed.append(sCachesCurrent[i]);
            //sCachesCurrent[i]->reset();
        }
-       sCachesCounts.append(sCachesCurrent.size());
-       sCachesCurrent.clear();
+       if(sCachesCurrent.size() > 0)
+       {
+           sCachesCounts.append(sCachesCurrent.size());
+           sCachesCurrent.clear();
+       }
 
        for(unsigned i = 0; i < bCachesCurrent.size(); i++)
        {
            bCachesUsed.append(bCachesCurrent[i]);
            //bCachesCurrent[i]->reset();
        }
-       bCachesCounts.append(bCachesCurrent.size());
-       bCachesCurrent.clear();
+       if(bCachesCurrent.size() > 0)
+       {
+           bCachesCounts.append(bCachesCurrent.size());
+           bCachesCurrent.clear();
+       }
        
    }
    void  freeUsed() {
@@ -6696,10 +6704,12 @@ bool WebGLRenderingContextBase::validateHTMLVideoElement(const char* functionNam
         return false;
     }
 
+    /*
     if (wouldTaintOrigin(video)) {
         exceptionState.throwSecurityError("The video element contains cross-origin data, and may not be loaded.");
         return false;
     }
+    */
     return true;
 }
 
