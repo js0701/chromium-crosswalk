@@ -374,11 +374,12 @@ void WebGraphicsContext3DImpl::finish() {
 void WebGraphicsContext3DImpl::flush() {
   flush_id_ = GenFlushID();
   gl_->Flush();
+  /*  
   flushed_counts.push_back(getFlushCount());
-  
   if(flush_command_completion_callback_) {
         flush_command_completion_callback_->onFlushCommandCompleted(1);
   }
+  */
 }
 
 DELEGATE_TO_GL_4(framebufferRenderbuffer, FramebufferRenderbuffer,
@@ -1241,14 +1242,22 @@ void WebGraphicsContext3DImpl::OnErrorMessage(
 
 void WebGraphicsContext3DImpl::OnFlushCommandCompleted(uint32 flush_count, uint32 result) {
     if(flush_command_completion_callback_&& !flushed_counts.empty()) {
-        
+
+         if(result == 1)
+         {   
+             flushed_counts.push_back(flush_count);
+             //if(*flushed_counts.begin() == flush_count)
+             flush_command_completion_callback_->onFlushCommandCompleted(1);
+         }
+         else
+         {
              std::vector<uint32>::iterator iter = flushed_counts.begin();
              if(*iter == flush_count){     
                  flush_command_completion_callback_->onFlushCommandCompleted(0);
                  flushed_counts.erase(iter);
              }
-        
-    }
+         }
+     }
 }
 
 // TODO(bajones): Look into removing these functions from the blink interface

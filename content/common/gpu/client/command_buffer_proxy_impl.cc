@@ -227,6 +227,7 @@ void CommandBufferProxyImpl::Flush(int32 put_offset) {
         put_offset_changed, true);
     if (put_offset_changed) {
       DCHECK(flush_id);
+      OnFlushCommandCompleted(flush_count_, 1);
       const uint64_t fence_sync_release = next_fence_sync_release_ - 1;
       if (fence_sync_release > flushed_fence_sync_release_) {
         flushed_fence_sync_release_ = fence_sync_release;
@@ -769,7 +770,7 @@ void CommandBufferProxyImpl::OnSwapBuffersCompleted(
 
 void CommandBufferProxyImpl::OnFlushCommandCompleted(uint32 flush_count, uint32 result) {
     if(!flush_command_completion_callback_.is_null()) {
-        flush_command_completion_callback_.Run(flush_count, 0);
+        flush_command_completion_callback_.Run(flush_count, result);
     }
 }
 

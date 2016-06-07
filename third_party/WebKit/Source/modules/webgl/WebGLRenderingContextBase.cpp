@@ -658,7 +658,7 @@ class GpuMemoryCache {
            sCachesUsed.append(sCachesCurrent[i]);
            //sCachesCurrent[i]->reset();
        }
-       if(sCachesCurrent.size() > 0)
+       //if(sCachesCurrent.size() > 0)
        {
            sCachesCounts.append(sCachesCurrent.size());
            sCachesCurrent.clear();
@@ -669,7 +669,7 @@ class GpuMemoryCache {
            bCachesUsed.append(bCachesCurrent[i]);
            //bCachesCurrent[i]->reset();
        }
-       if(bCachesCurrent.size() > 0)
+       //if(bCachesCurrent.size() > 0)
        {
            bCachesCounts.append(bCachesCurrent.size());
            bCachesCurrent.clear();
@@ -677,17 +677,18 @@ class GpuMemoryCache {
        
    }
    void  freeUsed() {
-        if((bCachesUsed.size() > 0) && (bCachesUsed.size() >= bCachesCounts.first()))
+        if((bCachesCounts.size() > 0) && (bCachesUsed.size() >= bCachesCounts.first()))
         {
             unsigned count = bCachesCounts.first();
             for(unsigned i=0; i < count; i++)
                 delete bCachesUsed[i];
 
             bCachesCounts.remove(0);
+            if(count > 0)
             bCachesUsed.remove(0, count);
         }
 
-        if((sCachesUsed.size() > 0) && (sCachesUsed.size() >= sCachesCounts.first()))
+        if((sCachesCounts.size() > 0) && (sCachesUsed.size() >= sCachesCounts.first()))
         {
             unsigned count = sCachesCounts.first();
             for(unsigned i=0; i < count; i++)
@@ -697,6 +698,7 @@ class GpuMemoryCache {
             }
 
             sCachesCounts.remove(0);
+            if(count > 0)
             sCachesUsed.remove(0, count);
         }
     }
