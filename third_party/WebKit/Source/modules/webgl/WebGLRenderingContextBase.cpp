@@ -604,7 +604,7 @@ class GpuMemoryCache {
    public:
 
     #define GpuMemoryCache_DefaultSmallSize    (1024*1024)
-    #define GpuMemoryCache_DefaultSmallCount   3
+    #define GpuMemoryCache_DefaultSmallCount   1
     
    const void* copyToCache(void* buf, unsigned size) {
       

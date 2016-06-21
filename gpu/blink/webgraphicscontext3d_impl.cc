@@ -1241,7 +1241,7 @@ void WebGraphicsContext3DImpl::OnErrorMessage(
 }
 
 void WebGraphicsContext3DImpl::OnFlushCommandCompleted(uint32 flush_count, uint32 result) {
-    if(flush_command_completion_callback_&& !flushed_counts.empty()) {
+    if(flush_command_completion_callback_) {
 
          if(result == 1)
          {   
@@ -1249,12 +1249,14 @@ void WebGraphicsContext3DImpl::OnFlushCommandCompleted(uint32 flush_count, uint3
              //if(*flushed_counts.begin() == flush_count)
              flush_command_completion_callback_->onFlushCommandCompleted(1);
          }
-         else
+         else if(!flushed_counts.empty())
          {
              std::vector<uint32>::iterator iter = flushed_counts.begin();
-             if(*iter == flush_count){     
+             while(*iter < flush_count){     
                  flush_command_completion_callback_->onFlushCommandCompleted(0);
                  flushed_counts.erase(iter);
+                 if(flushed_counts.empty()) break;
+                 iter = flushed_counts.begin();
              }
          }
      }
