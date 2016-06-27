@@ -1,0 +1,14 @@
+[
+   Constructor(btRigidBodyB rbA, btRigidBodyB rbB, btVector3B pivotInA, btVector3B pivotInB),
+   Constructor(btRigidBodyB rbA, btVector3B pivotInA),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btPoint2PointConstraintB : btTypedConstraintB{
+  void setPivotA(btVector3B pivotA);
+  void setPivotB(btVector3B pivotB);
+  btVector3B getPivotInA();
+  btVector3B getPivotInB();
+
+  attribute btConstraintSettingB m_setting;
+};

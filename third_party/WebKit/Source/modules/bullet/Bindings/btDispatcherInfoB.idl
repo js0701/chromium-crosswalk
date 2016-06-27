@@ -1,0 +1,17 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btDispatcherInfoB {
+  attribute float m_timeStep;
+  attribute long m_stepCount;
+  attribute long m_dispatchFunc;
+  attribute float m_timeOfImpact;
+  attribute boolean m_useContinuous;
+  attribute boolean m_enableSatConvex;
+  attribute boolean m_enableSPU;
+  attribute boolean m_useEpa;
+  attribute float m_allowedCcdPenetration;
+  attribute boolean m_useConvexConservativeDistanceUtil;
+  attribute float m_convexConservativeDistanceThreshold;
+};

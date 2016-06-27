@@ -1,0 +1,7 @@
+[
+   Constructor(optional btDefaultCollisionConstructionInfoB constructionInfo),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btDefaultCollisionConfigurationB : btCollisionConfigurationB {
+};

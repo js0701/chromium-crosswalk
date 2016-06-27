@@ -1,0 +1,10 @@
+[
+   Constructor,
+   Constructor(float x, float y, float z, float w),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btVector4B : btVector3B {
+  float w();
+  void setValue(float x, float y, float z, float w);
+};

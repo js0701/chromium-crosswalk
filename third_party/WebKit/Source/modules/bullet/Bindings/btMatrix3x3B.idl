@@ -1,0 +1,9 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btMatrix3x3B {
+  void setEulerZYX(float ex, float ey, float ez);
+  void getRotation(btQuaternionB q);
+  btVector3B getRow(long y);
+};

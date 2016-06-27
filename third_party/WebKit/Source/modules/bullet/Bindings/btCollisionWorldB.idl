@@ -1,0 +1,15 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionWorldB {
+  btDispatcherB getDispatcher();
+  void rayTest(btVector3B rayFromWorld, btVector3B rayToWorld, btCollisionWorldRayResultCallbackB resultCallback);
+  btOverlappingPairCacheB getPairCache();
+  btDispatcherInfoB getDispatchInfo();
+  void addCollisionObject(btCollisionObjectB collisionObject, optional short collisionFilterGroup, optional short collisionFilterMask);
+  btBroadphaseInterfaceB getBroadphase ();
+  void convexSweepTest(btConvexShapeB castShape, btTransformB from, btTransformB to, btCollisionWorldConvexResultCallbackB resultCallback, float allowedCcdPenetration);
+  void contactPairTest(btCollisionObjectB colObjA, btCollisionObjectB colObjB, btCollisionWorldContactResultCallbackB resultCallback);
+  void contactTest(btCollisionObjectB colObj, btCollisionWorldContactResultCallbackB resultCallback);
+};

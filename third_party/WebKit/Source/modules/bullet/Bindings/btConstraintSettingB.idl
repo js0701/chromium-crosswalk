@@ -1,0 +1,11 @@
+[
+   Constructor,
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btConstraintSettingB {
+  attribute float m_tau;
+  attribute float m_damping;
+  attribute float m_impulseClamp;
+};
+

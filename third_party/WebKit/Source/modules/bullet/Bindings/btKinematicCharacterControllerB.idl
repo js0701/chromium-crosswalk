@@ -1,0 +1,25 @@
+[
+   Constructor(btPairCachingGhostObjectB ghostObject, btConvexShapeB convexShape, float stepHeight, optional long upAxis),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btKinematicCharacterControllerB : btActionInterfaceB{
+  void setUpAxis (long axis);
+  void setWalkDirection (btVector3B walkDirection);
+  void setVelocityForTimeInterval (btVector3B velocity, float timeInterval);
+  void warp (btVector3B origin);
+  void preStep (btCollisionWorldB collisionWorld);
+  void playerStep (btCollisionWorldB collisionWorld, float dt);
+  void setFallSpeed (float fallSpeed);
+  void setJumpSpeed (float jumpSpeed);
+  void setMaxJumpHeight (float maxJumpHeight);
+  boolean canJump ();
+  void jump ();
+  void setGravity (float gravity);
+  float getGravity ();
+  void setMaxSlope (float slopeRadians);
+  float getMaxSlope ();
+  btPairCachingGhostObjectB getGhostObject ();
+  void setUseGhostSweepTest (boolean useGhostObjectSweepTest);
+  boolean onGround ();
+};

@@ -1,0 +1,21 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btWheelInfoB {
+  attribute float m_suspensionStiffness;
+  attribute float m_frictionSlip;
+  attribute float m_engineForce;
+  attribute float m_rollInfluence;
+  attribute float m_suspensionRestLength1;
+  attribute float m_wheelsRadius;
+  attribute float m_wheelsDampingCompression;
+  attribute float m_wheelsDampingRelaxation;
+  attribute float m_steering;
+  attribute float m_maxSuspensionForce;
+  attribute float m_maxSuspensionTravelCm;
+  attribute float m_wheelsSuspensionForce;
+  attribute boolean m_bIsFrontWheel;
+  attribute btWheelInfoRaycastInfoB m_raycastInfo;
+  attribute btVector3B m_chassisConnectionPointCS;
+};

@@ -1,0 +1,2 @@
+Copy libBullet3.so and libgnustl_shared.so to build directory for example: out/Release
+For arm, the so need to be renamed to libBullet3.so libgnustil_shared.so, that is "arm" need to be removed"

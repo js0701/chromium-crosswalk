@@ -1,0 +1,13 @@
+[
+   Constructor,
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btVehicleTuningB {
+  attribute float m_suspensionStiffness;
+  attribute float m_suspensionCompression;
+  attribute float m_suspensionDamping;
+  attribute float m_maxSuspensionTravelCm;
+  attribute float m_frictionSlip;
+  attribute float m_maxSuspensionForce;
+};

@@ -1,0 +1,14 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btWheelInfoRaycastInfoB {
+  attribute btVector3B m_contactNormalWS;
+  attribute btVector3B m_contactPointWS;
+  attribute float m_suspensionLength;
+  attribute btVector3B m_hardPointWS;
+  attribute btVector3B m_wheelDirectionWS;
+  attribute btVector3B m_wheelAxleWS;
+  attribute boolean m_isInContact;
+  attribute btBlinkWrapper m_groundObject;
+};

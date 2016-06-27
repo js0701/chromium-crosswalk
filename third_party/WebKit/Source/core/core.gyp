@@ -193,6 +193,7 @@
       ],
       'include_dirs': [
         '<@(webcore_include_dirs)',
+        '<(DEPTH)/third_party/WebKit/Source/modules/bullet',
       ],
       'sources': [
         # FIXME: should be bindings_core_v8_files http://crbug.com/358074
@@ -621,6 +622,7 @@
       'direct_dependent_settings': {
         'include_dirs': [
           '<@(webcore_include_dirs)',
+          '<(DEPTH)/third_party/WebKit/Source/modules/bullet',
         ],
       },
       'conditions': [
@@ -729,6 +731,7 @@
       'direct_dependent_settings': {
         'include_dirs': [
           '<@(webcore_include_dirs)',
+          '<(DEPTH)/third_party/WebKit/Source/modules/bullet',
         ],
       },
       'conditions': [

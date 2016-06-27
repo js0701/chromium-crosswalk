@@ -1,0 +1,6 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+] interface btOverlappingPairCacheB : btOverlappingPairCallbackB{
+  void setInternalGhostPairCallback(btOverlappingPairCallbackB ghostPairCallback);
+};

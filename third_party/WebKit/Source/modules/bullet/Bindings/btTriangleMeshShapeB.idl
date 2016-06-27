@@ -1,0 +1,6 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btTriangleMeshShapeB : btConcaveShapeB {
+};

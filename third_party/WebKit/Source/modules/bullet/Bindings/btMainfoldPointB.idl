@@ -1,0 +1,15 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btManifoldPointB {
+  btVector3B getPositionWorldOnA();
+  btVector3B getPositionWorldOnB();
+  double getAppliedImpulse();
+  double getDistance();
+  attribute btVector3B m_localPointA;
+  attribute btVector3B m_localPointB;
+  attribute btVector3B m_positionWorldOnB;
+  attribute btVector3B m_positionWorldOnA;
+  attribute btVector3B m_normalWorldOnB;
+};

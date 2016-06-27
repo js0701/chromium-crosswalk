@@ -2,6 +2,7 @@
   'includes': [
     '../core/core_generated.gypi',
     'modules_generated.gypi',
+    'bullet.gypi',
   ],
   'variables': {
     # Experimental hooks for embedder to provide extra IDL and source files.
@@ -322,6 +323,7 @@
       'webusb/USBInTransferResult.idl',
       'webusb/USBInterface.idl',
       'webusb/USBOutTransferResult.idl',
+      '<@(bullet_modules_idl_files)',
     ],
     # 'partial interface' or target (right side of) 'implements'
     'modules_dependency_idl_files': [
@@ -400,6 +402,8 @@
       'webgl/WebGLRenderingContextBase.idl',
       'webmidi/NavigatorWebMIDI.idl',
       'webusb/NavigatorUSB.idl',
+      'bullet/WindowBullet.idl',
+      'bullet/WorkerBullet.idl',
     ],
     # interfaces that inherit from Event
     'modules_event_idl_files': [
@@ -1866,6 +1870,9 @@
       'webusb/USBInterface.cpp',
       'webusb/USBInterface.h',
       'webusb/USBOutTransferResult.h',
+      '<@(bullet_modules_files)',
+      'bullet/GlobalBullet.cpp',
+      'bullet/GlobalBullet.h',
     ],
     # 'partial interface' or target (right side of) 'implements'
     'modules_testing_dependency_idl_files' : [

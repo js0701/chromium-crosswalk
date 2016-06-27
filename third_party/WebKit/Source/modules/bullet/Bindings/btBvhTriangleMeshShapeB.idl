@@ -1,0 +1,7 @@
+[
+   Constructor(btStridingMeshInterfaceB meshInterface, boolean useQuantizedAabbCompression, optional boolean buildBvh),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btBvhTriangleMeshShapeB : btTriangleMeshShapeB{
+};

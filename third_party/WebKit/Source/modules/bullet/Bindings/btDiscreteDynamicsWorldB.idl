@@ -1,0 +1,19 @@
+[
+   Constructor(btDispatcherB dispatcher, btBroadphaseInterfaceB pairCache, btConstraintSolverB constraintSolver, btCollisionConfigurationB collisionConfiguration),
+   NoInterfaceObject,
+   GarbageCollected
+]
+
+interface btDiscreteDynamicsWorldB : btDynamicsWorldB{
+  void setGravity(btVector3B gravity);
+  btVector3B getGravity();
+
+  void addRigidBody(btRigidBodyB body);
+  void addRigidBody(btRigidBodyB body, short group, short mask);
+  void removeRigidBody(btRigidBodyB body);
+
+  void addConstraint(btTypedConstraintB constraint, optional boolean disableCollisionsBetweenLinkedBodies);
+  void removeConstraint(btTypedConstraintB constraint);
+
+  long stepSimulation(float timeStep, optional long maxSubSteps, optional float fixedTimeStep);
+};

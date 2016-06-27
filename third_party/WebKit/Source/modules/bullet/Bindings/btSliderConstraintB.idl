@@ -1,0 +1,13 @@
+[
+   Constructor(btRigidBodyB rbA, btRigidBodyB rbB, btTransformB frameInA, btTransformB frameInB, boolean useLinearReferenceFrameA),
+   Constructor(btRigidBodyB rbB, btTransformB frameInB, boolean uesLinearReferenceFrameA),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btSliderConstraintB:  btTypedConstraintB {
+  void setLowerLinLimit(float lowerLimit);
+  void setUpperLinLimit(float upperLimit);
+  void setLowerAngLimit(float lowerAngLimit);
+  void setUpperAngLimit(float upperAngLimit);
+};
+

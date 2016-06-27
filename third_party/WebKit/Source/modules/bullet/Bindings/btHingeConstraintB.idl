@@ -1,0 +1,12 @@
+[
+   Constructor(btRigidBodyB rbA, btRigidBodyB rbB, btVector3B pivotInA, btVector3B pivotInB, btVector3B axisInA, btVector3B axisInB, optional boolean useReferenceFrameA),
+   Constructor(btRigidBodyB rbA, btVector3B pivotInA, btVector3B axisInA, optional boolean useReferenceFrameA),
+   Constructor(btRigidBodyB rbA, btRigidBodyB rbB, btTransformB rbAFrame, btTransformB rbBFrame, optional boolean useReferenceFrameA),
+   Constructor(btRigidBodyB rbA, btTransformB rbAFrame, optional boolean useReferenceFrameA),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btHingeConstraintB : btTypedConstraintB{
+  void setLimit(float low, float high, float softness, float biasFactor, optional float relaxationFactor);
+  void enableAngularMotor(boolean enableMotor, float targetVelocity, float maxMotorImpulse);
+};

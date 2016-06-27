@@ -1,0 +1,11 @@
+[
+   NoInterfaceObject,
+   Constructor(btVector3B from, btVector3B to),
+   GarbageCollected
+]
+interface btCollisionWorldClosestRayResultCallbackB : btCollisionWorldRayResultCallbackB {
+  attribute btVector3B m_rayFromWorld;
+  attribute btVector3B m_rayToWorld;
+  attribute btVector3B m_hitNormalWorld;
+  attribute btVector3B m_hitPointWorld;
+};

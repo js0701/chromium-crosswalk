@@ -1,0 +1,14 @@
+[
+   Constructor(optional boolean enableDynamicAabbTree),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCompoundShapeB : btCollisionShapeB {
+  void addChildShape(btTransformB localTransform, btCollisionShapeB shape);
+  void removeChildShapeByIndex(long childShapeindex);
+  long getNumChildShapes();
+  btCollisionShapeB getChildShape(long index);
+  void setMargin(float margin);
+  float getMargin();
+};
+

@@ -1,0 +1,12 @@
+[
+   Constructor(float x, float y, float z, float w),
+   Constructor(float yaw, float pitch, float roll),
+   Constructor(btVector3B axis, float angle),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btQuaternionB : btQuadWordB{
+  void setValue(float x, float y, float z, float w);
+  void setEulerZYX(float z, float y, float x);
+  void normalize();
+};

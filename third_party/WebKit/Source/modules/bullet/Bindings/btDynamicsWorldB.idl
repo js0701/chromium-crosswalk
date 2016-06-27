@@ -1,0 +1,9 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btDynamicsWorldB : btCollisionWorldB{
+  void addAction(btActionInterfaceB action);
+  void removeAction(btActionInterfaceB action);
+  btContactSolverInfoB getSolverInfo();
+};

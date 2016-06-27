@@ -1,0 +1,9 @@
+[
+   Constructor(btVector3B halfExtents),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCylinderShapeB : btCollisionShapeB {
+  void setMargin(float margin);
+  float getMargin();
+};

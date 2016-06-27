@@ -1,0 +1,8 @@
+[
+   Constructor(optional btTransformB startTrans, optional btTransformB centerOfMassOffset),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btDefaultMotionStateB : btMotionStateB{
+    attribute btTransformB m_graphicsWorldTrans;
+};

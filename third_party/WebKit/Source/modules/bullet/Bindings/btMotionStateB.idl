@@ -1,0 +1,8 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btMotionStateB {
+  void getWorldTransform(btTransformB worldTrans);
+  void setWorldTransform(btTransformB worldTrans);
+};

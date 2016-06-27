@@ -1,0 +1,8 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionWorldLocalShapeInfoB {
+    attribute long m_shapePart;
+    attribute long m_triangleIndex;
+ };

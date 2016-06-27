@@ -1,0 +1,8 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btDispatcherB {
+  long getNumManifolds();
+  btPersistentManifoldB getManifoldByIndexInternal(long index);
+};

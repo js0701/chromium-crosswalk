@@ -1,0 +1,11 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionWorldConvexResultCallbackB {
+  // abstract base class, no constructor
+  boolean hasHit();
+  attribute short m_collisionFilterGroup;
+  attribute short m_collisionFilterMask;
+  attribute float m_closestHitFraction;
+};

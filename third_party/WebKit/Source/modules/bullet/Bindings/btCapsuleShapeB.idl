@@ -1,0 +1,9 @@
+[
+   Constructor(float radius, float height),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCapsuleShapeB {
+  void setMargin(float margin);
+  float getMargin();
+};

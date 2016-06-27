@@ -1,0 +1,9 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btTypedConstraintB {
+  void enableFeedback(boolean needsFeedback);
+  float getBreakingImpulseThreshold();
+  void setBreakingImpulseThreshold(float threshold);
+};

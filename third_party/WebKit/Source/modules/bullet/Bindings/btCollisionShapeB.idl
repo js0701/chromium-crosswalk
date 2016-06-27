@@ -1,0 +1,8 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionShapeB {
+  void setLocalScaling(btVector3B scaling);
+  void calculateLocalInertia(float mass, btVector3B inertia);
+};

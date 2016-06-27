@@ -1,0 +1,21 @@
+[
+   Constructor,
+   Constructor(float x, float y, float z),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btVector3B {
+  float length();
+  float x();
+  float y();
+  float z();
+  void setX(float x);
+  void setY(float y);
+  void setZ(float z);
+  void setValue(float x, float y, float z);
+  void normalize();
+  float dot(btVector3B v);
+  btVector3B op_mul(float x);
+  btVector3B op_add(btVector3B v);
+  btVector3B op_sub(btVector3B v);
+};

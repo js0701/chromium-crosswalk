@@ -1,0 +1,11 @@
+[
+   Constructor,
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btPersistentManifoldB {
+  btCollisionObjectB getBody0();
+  btCollisionObjectB getBody1();
+  long getNumContacts();
+  btManifoldPointB getContactPoint(long index);
+};

@@ -1,0 +1,14 @@
+[
+   Constructor(btCollisionObjectB hitCollisionObject,  btCollisionWorldLocalShapeInfoB localShapeInfo, btVector3B hitNormalLocal, btVector3B hitPointLocal, float hitFraction),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionWorldLocalConvexResultB  {
+  void LocalConvexResult(btCollisionObjectB hitCollisionObject, btCollisionWorldLocalShapeInfoB localShapeInfo, btVector3B hitNormalLocal, btVector3B hitPointLocal, float hitFraction);
+  attribute btCollisionObjectB m_hitCollisionObject;
+  attribute btCollisionWorldLocalShapeInfoB m_localShapeInfo;
+  attribute btVector3B m_hitNormalLocal;
+  attribute btVector3B m_hitPointLocal;
+  attribute float m_hitFraction;
+};
+

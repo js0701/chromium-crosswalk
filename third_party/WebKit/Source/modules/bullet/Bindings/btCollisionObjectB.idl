@@ -1,0 +1,24 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionObjectB {
+  void setAnisotropicFriction(btVector3B anisotropicFriction, long frictionMode);
+  btCollisionShapeB getCollisionShape();
+  void setContactProcessingThreshold(float contactProcessingThreshold);
+  void setActivationState(long newState);
+  void forceActivationState(long newState);
+  void activate(optional boolean forceActivation);
+  boolean isActive();
+  boolean isKinematicObject();
+  void setRestitution(float rest);
+  void setFriction(float frict);
+  void setRollingFriction(float frict);
+  btTransformB getWorldTransform();
+  long getCollisionFlags();
+  void setCollisionFlags(long flags);
+  void setWorldTransform (btTransformB worldTrans);
+  void setCollisionShape (btCollisionShapeB collisionShape);
+  void setCcdMotionThreshold (float ccdMotionThreshold);
+  void setCcdSweptSphereRadius (float radius);
+};

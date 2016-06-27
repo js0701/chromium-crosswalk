@@ -1,0 +1,14 @@
+[
+   Constructor,
+   Constructor(btQuaternionB q, btVector3B v),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btTransformB {
+  void setIdentity();
+  void setOrigin(btVector3B origin);
+  void setRotation(btQuaternionB rotation);
+  btVector3B getOrigin();
+  btQuaternionB getRotation();
+  btMatrix3x3B getBasis();
+};

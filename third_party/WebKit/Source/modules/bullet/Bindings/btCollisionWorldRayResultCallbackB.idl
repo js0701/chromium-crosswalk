@@ -1,0 +1,12 @@
+[
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCollisionWorldRayResultCallbackB {
+  // abstract base class, no constructor
+  boolean hasHit();
+  attribute short m_collisionFilterGroup;
+  attribute short m_collisionFilterMask;
+  attribute btCollisionObjectB m_collisionObject;
+};
+

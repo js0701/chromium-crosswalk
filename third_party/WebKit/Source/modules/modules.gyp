@@ -58,6 +58,13 @@
       '<@(bindings_modules_v8_generated_union_type_files)',
       '<(bindings_modules_v8_output_dir)/initPartialInterfacesInModules.cpp',
     ],
+
+    'direct_dependent_settings': {
+        'include_dirs': [
+            '<(DEPTH)/third_party/Webkit/Source/modules/bullet',
+        ],
+     },
+
     'conditions': [
       ['component=="shared_library" and link_core_modules_separately==1', {
         'type': 'shared_library',

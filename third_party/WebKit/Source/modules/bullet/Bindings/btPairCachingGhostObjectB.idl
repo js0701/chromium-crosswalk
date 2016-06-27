@@ -1,0 +1,8 @@
+[
+   Constructor,
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btPairCachingGhostObjectB :  btGhostObjectB{
+
+};

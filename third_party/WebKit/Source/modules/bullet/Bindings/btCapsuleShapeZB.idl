@@ -1,0 +1,8 @@
+[
+   Constructor(float radius, float height),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btCapsuleShapeZB :  btCapsuleShapeB {
+};
+

@@ -1,0 +1,7 @@
+[
+   Constructor(btDynamicsWorldB world),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btDefaultVehicleRaycasterB : btVehicleRaycasterB{
+};

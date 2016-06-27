@@ -1,0 +1,9 @@
+[
+   Constructor(long heightStickWidth, long heightStickLength, Uint8Array heightfieldData, float heightScale, float minHeight, float maxHeight, long upAxis, DOMString hdt, boolean flipQuadEdges),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btHeightfieldTerrainShapeB : btConcaveShapeB{
+    void setMargin(float margin);
+    float getMargin();
+};

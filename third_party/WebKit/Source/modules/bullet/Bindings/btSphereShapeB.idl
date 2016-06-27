@@ -1,0 +1,9 @@
+[
+   Constructor(float radius),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btSphereShapeB :  btCollisionShapeB {
+  void setMargin(float margin);
+  float getMargin();
+};

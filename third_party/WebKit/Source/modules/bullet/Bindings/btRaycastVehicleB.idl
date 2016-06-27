@@ -1,0 +1,20 @@
+[
+   Constructor(btVehicleTuningB tuning, btRigidBodyB chassis, btVehicleRaycasterB raycaster),
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btRaycastVehicleB : btActionInterfaceB{
+  void applyEngineForce(float force, long wheel);
+  void setSteeringValue(float steering, long wheel);
+  btTransformB getWheelTransformWS(long wheelIndex);
+  void updateWheelTransform(long wheelIndex, boolean interpolatedTransform);
+  btWheelInfoB addWheel(btVector3B connectionPointCS0, btVector3B wheelDirectionCS0, btVector3B wheelAxleCS,
+                       float suspensionRestLength, float wheelRadius, btVehicleTuningB tuning, boolean isFrontWheel);
+  long getNumWheels();
+  btRigidBodyB getRigidBody();
+  btWheelInfoB getWheelInfo(long index);
+  void setBrake(float brake, long wheelIndex);
+  void setCoordinateSystem(long rightIndex, long upIndex, long forwardIndex);
+  float getCurrentSpeedKmHour();
+};
+
