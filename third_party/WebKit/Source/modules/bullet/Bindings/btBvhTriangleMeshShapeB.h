@@ -10,7 +10,7 @@ class btBvhTriangleMeshShapeB: public btTriangleMeshShapeB{
     public:
     static btBvhTriangleMeshShapeB* create(btStridingMeshInterfaceB* meshInterface, bool useQuantizedAabbCompression);
     static btBvhTriangleMeshShapeB* create(btStridingMeshInterfaceB* meshInterface, bool useQuantizedAabbCompression, bool buildBvh);
-    ~btBvhTriangleMeshShapeB();
+    virtual ~btBvhTriangleMeshShapeB();
     btBvhTriangleMeshShapeB();
 //DEFINE_INLINE_TRACE() {}
 };

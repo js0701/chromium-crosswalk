@@ -7,7 +7,7 @@ namespace blink {
 class btVehicleRaycasterB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btVehicleRaycasterB();
+    virtual ~btVehicleRaycasterB();
     btVehicleRaycasterB();
 //DEFINE_INLINE_TRACE() {}
 };

@@ -5,6 +5,14 @@ namespace blink {
 btCollisionWorldRayResultCallbackB:: btCollisionWorldRayResultCallbackB() {}
 
 btCollisionWorldRayResultCallbackB:: ~btCollisionWorldRayResultCallbackB() {
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCollisionWorld::RayResultCallback*) m_impl;
+    }
+    m_impl = NULL;
 }
 
 bool btCollisionWorldRayResultCallbackB:: hasHit() {

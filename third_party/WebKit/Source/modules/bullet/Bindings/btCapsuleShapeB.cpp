@@ -4,7 +4,15 @@
 namespace blink {
 btCapsuleShapeB:: btCapsuleShapeB() {} 
 
-btCapsuleShapeB:: ~btCapsuleShapeB() { 
+btCapsuleShapeB:: ~btCapsuleShapeB() {
+     if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCapsuleShape*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 

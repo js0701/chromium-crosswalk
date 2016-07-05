@@ -9,7 +9,7 @@ class btCylinderShapeXB: public btCylinderShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCylinderShapeXB* create(btVector3B* halfExtents);
-    ~btCylinderShapeXB();
+    virtual ~btCylinderShapeXB();
     btCylinderShapeXB();
 //DEFINE_INLINE_TRACE() {}
 };

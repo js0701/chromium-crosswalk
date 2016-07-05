@@ -9,7 +9,7 @@ namespace blink {
 class btMatrix3x3B: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btMatrix3x3B();
+    virtual ~btMatrix3x3B();
     btMatrix3x3B();
     void setEulerZYX(float ex, float ey, float ez);
     void getRotation(btQuaternionB* q);

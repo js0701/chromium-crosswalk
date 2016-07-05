@@ -8,6 +8,15 @@ btGhostObjectB:: btGhostObjectB() {}
 
 btGhostObjectB:: ~btGhostObjectB() {
 
+ if(m_impl)
+ {
+  //m_impl->setWrapper(NULL);
+  btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+  if(m_isOwner)
+     delete (btGhostObject*) m_impl;
+ }
+ m_impl = NULL;
+
  }
 
 btGhostObjectB* btGhostObjectB::  create() { 

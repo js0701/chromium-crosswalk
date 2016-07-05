@@ -10,7 +10,7 @@ class btBoxShapeB: public btCollisionShapeB{
     public:
     static btBoxShapeB* create(btVector3B* boxHalfExtents);
     static btBoxShapeB* create(float x, float y, float z);
-    ~btBoxShapeB();
+    virtual ~btBoxShapeB();
     btBoxShapeB();
     void setMargin(float margin);
     float getMargin();

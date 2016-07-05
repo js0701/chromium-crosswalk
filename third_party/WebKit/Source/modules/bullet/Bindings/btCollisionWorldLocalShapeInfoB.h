@@ -7,7 +7,7 @@ namespace blink {
 class btCollisionWorldLocalShapeInfoB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionWorldLocalShapeInfoB();
+    virtual ~btCollisionWorldLocalShapeInfoB();
     btCollisionWorldLocalShapeInfoB();
     void setM_shapePart(long value);
     long m_shapePart();

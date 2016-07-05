@@ -9,7 +9,7 @@ class btVector4B: public btVector3B{
     public:
     static btVector4B* create();
     static btVector4B* create(float x, float y, float z, float w);
-    ~btVector4B();
+    virtual ~btVector4B();
     btVector4B();
     float w();
     void setValue(float x, float y, float z, float w);

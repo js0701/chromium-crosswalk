@@ -8,7 +8,7 @@ namespace blink {
 class btDispatcherB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btDispatcherB();
+    virtual ~btDispatcherB();
     btDispatcherB();
     long getNumManifolds();
     btPersistentManifoldB* getManifoldByIndexInternal(long index);

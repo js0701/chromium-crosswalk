@@ -8,7 +8,7 @@ namespace blink {
 class btWheelInfoRaycastInfoB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btWheelInfoRaycastInfoB();
+    virtual ~btWheelInfoRaycastInfoB();
     btWheelInfoRaycastInfoB();
     void setM_contactNormalWS(btVector3B* value);
     btVector3B* m_contactNormalWS();

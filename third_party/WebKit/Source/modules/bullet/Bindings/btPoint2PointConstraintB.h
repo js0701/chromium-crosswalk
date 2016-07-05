@@ -13,7 +13,7 @@ class btPoint2PointConstraintB: public btTypedConstraintB{
     public:
     static btPoint2PointConstraintB* create(btRigidBodyB* rbA, btRigidBodyB* rbB, btVector3B* pivotInA, btVector3B* pivotInB);
     static btPoint2PointConstraintB* create(btRigidBodyB* rbA, btVector3B* pivotInA);
-    ~btPoint2PointConstraintB();
+    virtual ~btPoint2PointConstraintB();
     btPoint2PointConstraintB();
     void setPivotA(btVector3B* pivotA);
     void setPivotB(btVector3B* pivotB);

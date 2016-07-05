@@ -11,7 +11,7 @@ class btTriangleMeshB: public btStridingMeshInterfaceB{
     static btTriangleMeshB* create();
     static btTriangleMeshB* create(bool use32bitIndices);
     static btTriangleMeshB* create(bool use32bitIndices, bool use4componentVertices);
-    ~btTriangleMeshB();
+    virtual ~btTriangleMeshB();
     btTriangleMeshB();
     void addTriangle(btVector3B* vertex0, btVector3B* vertex1, btVector3B* vertex2);
     void addTriangle(btVector3B* vertex0, btVector3B* vertex1, btVector3B* vertex2, bool removeDuplicateVertices);

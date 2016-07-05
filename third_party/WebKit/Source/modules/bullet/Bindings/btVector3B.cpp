@@ -9,6 +9,14 @@ namespace blink {
 btVector3B:: btVector3B() {} 
 
 btVector3B:: ~btVector3B() { 
+        if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btVector3*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 

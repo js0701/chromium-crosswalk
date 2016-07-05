@@ -10,7 +10,7 @@ class btConvexHullShapeB: public btCollisionShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btConvexHullShapeB* create();
-    ~btConvexHullShapeB();
+    virtual ~btConvexHullShapeB();
     btConvexHullShapeB();
     void addPoint(btVector3B* point);
     void addPoint(btVector3B* point, bool recalculateLocalAABB);

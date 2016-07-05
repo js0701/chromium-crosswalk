@@ -5,6 +5,14 @@ namespace blink {
 btPersistentManifoldB:: btPersistentManifoldB() {} 
 
 btPersistentManifoldB:: ~btPersistentManifoldB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btPersistentManifold*) m_impl;
+    }
+    m_impl = NULL;
 
 
  }

@@ -7,7 +7,7 @@ namespace blink {
 class btOverlappingPairCallbackB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btOverlappingPairCallbackB();
+    virtual ~btOverlappingPairCallbackB();
     btOverlappingPairCallbackB();
 //DEFINE_INLINE_TRACE() {}
 };

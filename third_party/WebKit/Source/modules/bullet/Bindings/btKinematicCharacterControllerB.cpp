@@ -9,6 +9,14 @@ namespace blink {
 btKinematicCharacterControllerB:: btKinematicCharacterControllerB() {} 
 
 btKinematicCharacterControllerB:: ~btKinematicCharacterControllerB() {
+  if(m_impl)
+ {
+  //m_impl->setWrapper(NULL);
+  btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+  if(m_isOwner)
+     delete (btKinematicCharacterController*) m_impl;
+ }
+ m_impl = NULL;
  }
 
 /*

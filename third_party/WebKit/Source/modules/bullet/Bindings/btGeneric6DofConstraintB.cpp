@@ -5,6 +5,14 @@ namespace blink {
 btGeneric6DofConstraintB:: btGeneric6DofConstraintB() {} 
 
 btGeneric6DofConstraintB:: ~btGeneric6DofConstraintB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btGeneric6DofConstraint*) m_impl;
+    }
+    m_impl = NULL;
 
  }
 

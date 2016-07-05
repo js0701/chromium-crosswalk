@@ -10,7 +10,7 @@ namespace blink {
 class btCollisionObjectB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionObjectB();
+    virtual ~btCollisionObjectB();
     btCollisionObjectB();
     void setAnisotropicFriction(btVector3B* anisotropicFriction, long frictionMode);
     btCollisionShapeB* getCollisionShape();

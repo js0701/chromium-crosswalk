@@ -7,7 +7,7 @@ namespace blink {
 class btTriangleMeshShapeB: public btConcaveShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btTriangleMeshShapeB();
+    virtual ~btTriangleMeshShapeB();
     btTriangleMeshShapeB();
 //DEFINE_INLINE_TRACE() {}
 };

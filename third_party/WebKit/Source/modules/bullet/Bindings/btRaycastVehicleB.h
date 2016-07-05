@@ -15,7 +15,7 @@ class btRaycastVehicleB: public btActionInterfaceB{
     public:
     static btRaycastVehicleB* create(btVehicleTuningB* tuning, btRigidBodyB* chassis, btVehicleRaycasterB* raycaster);
     //static btRaycastVehicleB* create(float force, long wheel);
-    ~btRaycastVehicleB();
+    virtual ~btRaycastVehicleB();
     btRaycastVehicleB();
     void applyEngineForce(float force, long wheel);
     void setSteeringValue(float steering, long wheel);

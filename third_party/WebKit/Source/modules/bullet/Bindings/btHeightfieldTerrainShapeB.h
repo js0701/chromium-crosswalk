@@ -12,7 +12,7 @@ class btHeightfieldTerrainShapeB: public btConcaveShapeB{
     public:
     static btHeightfieldTerrainShapeB* create(long heightStickWidth, long heightStickLength, DOMUint8Array* heightfieldData, float heightScale, 
                                                float minHeight, float maxHeight, long upAxis, const String& hdt, bool flipQuadEdges);
-    ~btHeightfieldTerrainShapeB();
+    virtual ~btHeightfieldTerrainShapeB();
     btHeightfieldTerrainShapeB();
     void setMargin(float margin);
     float getMargin();

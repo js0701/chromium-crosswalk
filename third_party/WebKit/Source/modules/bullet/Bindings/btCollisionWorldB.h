@@ -18,7 +18,7 @@ namespace blink {
 class btCollisionWorldB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionWorldB();
+    virtual ~btCollisionWorldB();
     btCollisionWorldB();
     btDispatcherB* getDispatcher();
     void rayTest(btVector3B* rayFromWorld, btVector3B* rayToWorld, btCollisionWorldRayResultCallbackB* resultCallback);

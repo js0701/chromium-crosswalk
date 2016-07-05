@@ -8,7 +8,7 @@ class btVehicleTuningB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btVehicleTuningB* create();
-    ~btVehicleTuningB();
+    virtual ~btVehicleTuningB();
     btVehicleTuningB();
     void setM_suspensionStiffness(float value);
     float m_suspensionStiffness();

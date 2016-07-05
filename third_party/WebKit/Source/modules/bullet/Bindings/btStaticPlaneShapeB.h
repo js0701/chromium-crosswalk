@@ -9,7 +9,7 @@ class btStaticPlaneShapeB: public btConcaveShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btStaticPlaneShapeB* create(btVector3B* planeNormal, float planeConstant);
-    ~btStaticPlaneShapeB();
+    virtual ~btStaticPlaneShapeB();
     btStaticPlaneShapeB();
 //DEFINE_INLINE_TRACE() {}
 };

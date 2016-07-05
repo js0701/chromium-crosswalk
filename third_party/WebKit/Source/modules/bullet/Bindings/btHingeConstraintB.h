@@ -18,7 +18,7 @@ class btHingeConstraintB: public btTypedConstraintB{
     static btHingeConstraintB* create(btRigidBodyB* rbA, btRigidBodyB* rbB, btTransformB* rbAFrame, btTransformB* rbBFrame, bool useReferenceFrameA);
     static btHingeConstraintB* create(btRigidBodyB* rbA, btTransformB* rbAFrame);
     static btHingeConstraintB* create(btRigidBodyB* rbA, btTransformB* rbAFrame, bool useReferenceFrameA);
-    ~btHingeConstraintB();
+    virtual ~btHingeConstraintB();
     btHingeConstraintB();
     void setLimit(float low, float high, float softness, float biasFactor);
     void setLimit(float low, float high, float softness, float biasFactor, float relaxationFactor);

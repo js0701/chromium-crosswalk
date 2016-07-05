@@ -12,7 +12,7 @@ class btTransformB: public btBlinkWrapper{
     public:
     static btTransformB* create();
     static btTransformB* create(btQuaternionB* q, btVector3B* v);
-    ~btTransformB();
+    virtual ~btTransformB();
     btTransformB();
     void setIdentity();
     void setOrigin(btVector3B* origin);

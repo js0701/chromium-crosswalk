@@ -5,6 +5,14 @@ namespace blink {
 btCollisionWorldB:: btCollisionWorldB() {} 
 
 btCollisionWorldB:: ~btCollisionWorldB() {
+     if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCollisionWorld*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 

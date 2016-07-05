@@ -5,6 +5,14 @@ namespace blink {
 btWheelInfoRaycastInfoB:: btWheelInfoRaycastInfoB() {}
 
 btWheelInfoRaycastInfoB:: ~btWheelInfoRaycastInfoB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btWheelInfo::RaycastInfo*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 

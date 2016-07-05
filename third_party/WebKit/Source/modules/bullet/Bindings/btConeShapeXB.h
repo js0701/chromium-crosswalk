@@ -8,7 +8,7 @@ class btConeShapeXB: public btConeShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btConeShapeXB* create(float radius, float height);
-    ~btConeShapeXB();
+    virtual ~btConeShapeXB();
     btConeShapeXB();
 //DEFINE_INLINE_TRACE() {}
 };

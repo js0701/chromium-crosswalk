@@ -7,7 +7,7 @@ namespace blink {
 class btStridingMeshInterfaceB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btStridingMeshInterfaceB();
+    virtual ~btStridingMeshInterfaceB();
     btStridingMeshInterfaceB();
 //DEFINE_INLINE_TRACE() {}
 };

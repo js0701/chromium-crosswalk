@@ -7,7 +7,7 @@ namespace blink {
 class btQuadWordB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btQuadWordB();
+    virtual ~btQuadWordB();
     btQuadWordB();
     float x();
     float y();

@@ -8,7 +8,7 @@ namespace blink {
 class btCollisionWorldRayResultCallbackB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionWorldRayResultCallbackB();
+    virtual ~btCollisionWorldRayResultCallbackB();
     btCollisionWorldRayResultCallbackB();
     bool hasHit();
     void setM_collisionFilterGroup(short value);

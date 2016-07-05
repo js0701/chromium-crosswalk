@@ -8,7 +8,7 @@ class btSphereShapeB: public btCollisionShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btSphereShapeB* create(float radius);
-    ~btSphereShapeB();
+    virtual ~btSphereShapeB();
     btSphereShapeB();
     void setMargin(float margin);
     float getMargin();

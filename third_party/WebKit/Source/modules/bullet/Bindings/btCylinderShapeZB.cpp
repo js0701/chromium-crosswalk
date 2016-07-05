@@ -5,6 +5,14 @@ namespace blink {
 btCylinderShapeZB:: btCylinderShapeZB() {} 
 
 btCylinderShapeZB:: ~btCylinderShapeZB() {
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCylinderShapeZ*) m_impl;
+    }
+    m_impl = NULL;
 
  }
 

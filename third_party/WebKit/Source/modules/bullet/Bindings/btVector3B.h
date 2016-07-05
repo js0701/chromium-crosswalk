@@ -11,7 +11,7 @@ class btVector3B: public btBlinkWrapper{
     static btVector3B* create(float x, float y, float z);
     static bool runTest();
     
-    ~btVector3B();
+    virtual ~btVector3B();
     btVector3B();
     float length();
     void setValue(float x, float y, float z);

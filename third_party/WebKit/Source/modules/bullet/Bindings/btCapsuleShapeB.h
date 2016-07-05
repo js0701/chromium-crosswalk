@@ -8,7 +8,7 @@ class btCapsuleShapeB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCapsuleShapeB* create(float radius, float height);
-    ~btCapsuleShapeB();
+    virtual ~btCapsuleShapeB();
     btCapsuleShapeB();
     void setMargin(float margin);
     float getMargin();

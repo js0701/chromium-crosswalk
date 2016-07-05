@@ -5,6 +5,14 @@ namespace blink {
 btCollisionWorldLocalShapeInfoB:: btCollisionWorldLocalShapeInfoB() {}
 
 btCollisionWorldLocalShapeInfoB:: ~btCollisionWorldLocalShapeInfoB() {
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCollisionWorld::LocalShapeInfo*) m_impl;
+    }
+    m_impl = NULL;
  }
 
 void btCollisionWorldLocalShapeInfoB::  setM_shapePart(long value ) {

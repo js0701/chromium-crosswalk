@@ -9,7 +9,7 @@ class btCollisionDispatcherB: public btDispatcherB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCollisionDispatcherB* create(btDefaultCollisionConfigurationB* conf);
-    ~btCollisionDispatcherB();
+    virtual ~btCollisionDispatcherB();
     btCollisionDispatcherB();
 //DEFINE_INLINE_TRACE() {}
 };

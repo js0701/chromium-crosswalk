@@ -5,7 +5,14 @@ namespace blink {
 btWheelInfoB:: btWheelInfoB() {} 
 
 btWheelInfoB:: ~btWheelInfoB() {
-
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btWheelInfo*) m_impl;
+    }
+    m_impl = NULL;
  }
 
 void btWheelInfoB::  setM_suspensionStiffness(float value ) {

@@ -7,7 +7,7 @@ namespace blink {
 class btCollisionObjectWrapperB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionObjectWrapperB();
+    virtual ~btCollisionObjectWrapperB();
     btCollisionObjectWrapperB();
 DEFINE_INLINE_TRACE() {}
 };

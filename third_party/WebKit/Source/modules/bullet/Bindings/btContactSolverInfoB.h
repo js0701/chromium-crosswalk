@@ -7,7 +7,7 @@ namespace blink {
 class btContactSolverInfoB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btContactSolverInfoB();
+    virtual ~btContactSolverInfoB();
     btContactSolverInfoB();
     void setM_splitImpulse(bool value);
     bool m_splitImpulse();

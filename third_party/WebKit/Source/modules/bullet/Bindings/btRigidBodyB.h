@@ -12,8 +12,9 @@ class btRigidBodyB: public btCollisionObjectB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btRigidBodyB* create(btRigidBodyConstructionInfoB* constructionInfo);
-    ~btRigidBodyB();
+    virtual ~btRigidBodyB();
     btRigidBodyB();
+    void clearForces();
     btTransformB* getCenterOfMassTransform();
     void setCenterOfMassTransform(btTransformB* xform);
     void setSleepingThresholds(float linear, float angular);

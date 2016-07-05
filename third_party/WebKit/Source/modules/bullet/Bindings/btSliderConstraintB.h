@@ -11,7 +11,7 @@ class btSliderConstraintB: public btTypedConstraintB{
     public:
     static btSliderConstraintB* create(btRigidBodyB* rbA, btRigidBodyB* rbB, btTransformB* frameInA, btTransformB* frameInB, bool useLinearReferenceFrameA);
     static btSliderConstraintB* create(btRigidBodyB* rbB, btTransformB* frameInB, bool uesLinearReferenceFrameA);
-    ~btSliderConstraintB();
+    virtual ~btSliderConstraintB();
     btSliderConstraintB();
     void setLowerLinLimit(float lowerLimit);
     void setUpperLinLimit(float upperLimit);

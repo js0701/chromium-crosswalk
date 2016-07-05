@@ -8,7 +8,7 @@ class btGhostObjectB: public btCollisionObjectB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btGhostObjectB* create();
-    ~btGhostObjectB();
+    virtual ~btGhostObjectB();
     btGhostObjectB();
     long getNumOverlappingObjects();
     btCollisionObjectB* getOverlappingObject(long index);

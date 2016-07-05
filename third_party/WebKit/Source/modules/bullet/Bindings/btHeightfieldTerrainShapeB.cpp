@@ -34,6 +34,14 @@ PHY_ScalarType StringToScalarType(const String& string)
 btHeightfieldTerrainShapeB:: btHeightfieldTerrainShapeB() {} 
 
 btHeightfieldTerrainShapeB:: ~btHeightfieldTerrainShapeB() {
+     if(m_impl)
+ {
+  //m_impl->setWrapper(NULL);
+  btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+  if(m_isOwner)
+     delete (btHeightfieldTerrainShape*) m_impl;
+ }
+ m_impl = NULL;
 }
 
 btHeightfieldTerrainShapeB* btHeightfieldTerrainShapeB::  create(long heightStickWidth, long heightStickLength, DOMUint8Array* heightfieldData, float heightScale, 

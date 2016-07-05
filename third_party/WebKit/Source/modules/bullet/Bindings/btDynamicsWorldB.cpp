@@ -5,6 +5,15 @@ namespace blink {
 btDynamicsWorldB:: btDynamicsWorldB() {} 
 
 btDynamicsWorldB:: ~btDynamicsWorldB() {
+    
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btDynamicsWorld*) m_impl;
+    }
+    m_impl = NULL;
 
  }
 
@@ -20,6 +29,10 @@ void btDynamicsWorldB:: removeAction(btActionInterfaceB* action) {
     removeRef(action);
 }
 
+void btDynamicsWorldB:: clearForces() {
+    btDynamicsWorld *impl = (btDynamicsWorld*) m_impl;
+    impl->clearForces();
+ }
 
 btContactSolverInfoB* btDynamicsWorldB:: getSolverInfo() {
     btDynamicsWorld *impl = (btDynamicsWorld*) m_impl;

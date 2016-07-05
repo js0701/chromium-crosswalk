@@ -5,6 +5,14 @@ namespace blink {
 btRigidBodyB:: btRigidBodyB() {} 
 
 btRigidBodyB:: ~btRigidBodyB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btRigidBody*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 
@@ -26,6 +34,11 @@ btTransformB* btRigidBodyB:: getCenterOfMassTransform() {
         wrapper->setImpl(ret, false);
     }
     return wrapper;
+}
+
+void btRigidBodyB:: clearForces(){
+    btRigidBody *impl = (btRigidBody*) m_impl;
+    impl->clearForces();
 }
 
 void btRigidBodyB:: setCenterOfMassTransform(btTransformB* xform) {

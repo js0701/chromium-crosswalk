@@ -5,6 +5,14 @@ namespace blink {
 btRigidBodyConstructionInfoB:: btRigidBodyConstructionInfoB() {} 
 
 btRigidBodyConstructionInfoB:: ~btRigidBodyConstructionInfoB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btRigidBody::btRigidBodyConstructionInfo*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 

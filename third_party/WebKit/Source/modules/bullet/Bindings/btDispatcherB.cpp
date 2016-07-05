@@ -5,6 +5,14 @@ namespace blink {
 btDispatcherB:: btDispatcherB() {} 
 
 btDispatcherB:: ~btDispatcherB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btDispatcher*) m_impl;
+    }
+    m_impl = NULL;
     
 }
 

@@ -5,6 +5,14 @@ namespace blink {
 btRaycastVehicleB:: btRaycastVehicleB() {} 
 
 btRaycastVehicleB:: ~btRaycastVehicleB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btRaycastVehicle*) m_impl;
+    }
+    m_impl = NULL;
 
  }
 

@@ -11,7 +11,7 @@ class btCompoundShapeB: public btCollisionShapeB{
     public:
     static btCompoundShapeB* create();
     static btCompoundShapeB* create(bool enableDynamicAabbTree);
-    ~btCompoundShapeB();
+    virtual ~btCompoundShapeB();
     btCompoundShapeB();
     void addChildShape(btTransformB* localTransform, btCollisionShapeB* shape);
     void removeChildShapeByIndex(long childShapeindex);

@@ -12,7 +12,7 @@ class btRigidBodyConstructionInfoB: public btBlinkWrapper{
     public:
     static btRigidBodyConstructionInfoB* create(float mass, btMotionStateB* motionState, btCollisionShapeB* collisionShape);
     static btRigidBodyConstructionInfoB* create(float mass, btMotionStateB* motionState, btCollisionShapeB* collisionShape, btVector3B* localInertia);
-    ~btRigidBodyConstructionInfoB();
+    virtual ~btRigidBodyConstructionInfoB();
     btRigidBodyConstructionInfoB();
     void setM_linearDamping(float value);
     float m_linearDamping();

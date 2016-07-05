@@ -8,7 +8,7 @@ class btConstraintSettingB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btConstraintSettingB* create();
-    ~btConstraintSettingB();
+    virtual ~btConstraintSettingB();
     btConstraintSettingB();
     void setM_tau(float value);
     float m_tau();

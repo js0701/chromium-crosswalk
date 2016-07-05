@@ -8,7 +8,7 @@ namespace blink {
 class btOverlappingPairCacheB: public btOverlappingPairCallbackB{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btOverlappingPairCacheB();
+    virtual ~btOverlappingPairCacheB();
     btOverlappingPairCacheB();
     void setInternalGhostPairCallback(btOverlappingPairCallbackB* ghostPairCallback);
 //DEFINE_INLINE_TRACE() {}

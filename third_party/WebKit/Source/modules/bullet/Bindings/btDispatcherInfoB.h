@@ -7,7 +7,7 @@ namespace blink {
 class btDispatcherInfoB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btDispatcherInfoB();
+    virtual ~btDispatcherInfoB();
     btDispatcherInfoB();
     void setM_timeStep(float value);
     float m_timeStep();

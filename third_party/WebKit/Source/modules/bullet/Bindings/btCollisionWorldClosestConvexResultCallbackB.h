@@ -9,7 +9,7 @@ class btCollisionWorldClosestConvexResultCallbackB: public btCollisionWorldConve
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCollisionWorldClosestConvexResultCallbackB* create(btVector3B* convexFromWorld, btVector3B* convexToWorld);
-    ~btCollisionWorldClosestConvexResultCallbackB();
+    virtual ~btCollisionWorldClosestConvexResultCallbackB();
     btCollisionWorldClosestConvexResultCallbackB();
     void setM_convexFromWorld(btVector3B* value);
     btVector3B* m_convexFromWorld();

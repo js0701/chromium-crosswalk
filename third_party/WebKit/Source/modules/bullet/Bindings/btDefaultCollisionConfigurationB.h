@@ -11,7 +11,7 @@ class btDefaultCollisionConfigurationB: public btCollisionConfigurationB{
     public:
     static btDefaultCollisionConfigurationB* create();
     static btDefaultCollisionConfigurationB* create(btDefaultCollisionConstructionInfoB* constructionInfo);
-    ~btDefaultCollisionConfigurationB();
+    virtual ~btDefaultCollisionConfigurationB();
     btDefaultCollisionConfigurationB();
 //DEFINE_INLINE_TRACE() {}
 };

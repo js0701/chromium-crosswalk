@@ -5,7 +5,14 @@ namespace blink {
 btAxisSweep3B:: btAxisSweep3B() {}
 
 btAxisSweep3B:: ~btAxisSweep3B() {
-
+        if(m_impl)
+        {
+            //m_impl->setWrapper(NULL);
+            btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+            if(m_isOwner)
+               delete (btAxisSweep3*) m_impl;
+        }
+        m_impl = NULL;
 }
 
 btAxisSweep3B* btAxisSweep3B::  create(btVector3B* worldAabbMin, btVector3B* worldAabbMax) {

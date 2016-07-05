@@ -5,6 +5,7 @@
 ]
 interface btRigidBodyB : btCollisionObjectB {
   btTransformB getCenterOfMassTransform();
+  void clearForces();
   void setCenterOfMassTransform(btTransformB xform);
   void setSleepingThresholds(float linear, float angular);
   void setDamping(float lin_damping, float ang_damping);

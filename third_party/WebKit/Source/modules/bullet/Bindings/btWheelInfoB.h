@@ -9,7 +9,7 @@ namespace blink {
 class btWheelInfoB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btWheelInfoB();
+    virtual ~btWheelInfoB();
     btWheelInfoB();
     void setM_suspensionStiffness(float value);
     float m_suspensionStiffness();

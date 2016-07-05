@@ -5,6 +5,14 @@ namespace blink {
 btCollisionShapeB:: btCollisionShapeB() {} 
 
 btCollisionShapeB:: ~btCollisionShapeB() {
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCollisionShape*) m_impl;
+    }
+    m_impl = NULL;
 }
 
 void btCollisionShapeB:: setLocalScaling(btVector3B* scaling) {

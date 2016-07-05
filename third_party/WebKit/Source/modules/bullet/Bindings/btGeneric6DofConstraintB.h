@@ -13,7 +13,7 @@ class btGeneric6DofConstraintB: public btTypedConstraintB{
     public:
     static btGeneric6DofConstraintB* create(btRigidBodyB* rbA, btRigidBodyB* rbB, btTransformB* frameInA, btTransformB* frameInB, bool useLinearFrameReferenceFrameA);
     static btGeneric6DofConstraintB* create(btRigidBodyB* rbB, btTransformB* frameInB, bool useLinearFrameReferenceFrameB);
-    ~btGeneric6DofConstraintB();
+    virtual ~btGeneric6DofConstraintB();
     btGeneric6DofConstraintB();
     void setLinearLowerLimit(btVector3B* linearLower);
     void setLinearUpperLimit(btVector3B* linearUpper);

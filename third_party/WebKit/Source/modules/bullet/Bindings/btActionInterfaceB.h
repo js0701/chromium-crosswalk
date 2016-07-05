@@ -7,7 +7,7 @@ namespace blink {
 class btActionInterfaceB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btActionInterfaceB();
+    virtual ~btActionInterfaceB();
     btActionInterfaceB();
 DEFINE_INLINE_TRACE() {}
 };

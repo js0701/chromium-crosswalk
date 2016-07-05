@@ -8,7 +8,7 @@ class btCapsuleShapeXB: public btCapsuleShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCapsuleShapeXB* create(float radius, float height);
-    ~btCapsuleShapeXB();
+    virtual ~btCapsuleShapeXB();
     btCapsuleShapeXB();
 //DEFINE_INLINE_TRACE() {}
 };

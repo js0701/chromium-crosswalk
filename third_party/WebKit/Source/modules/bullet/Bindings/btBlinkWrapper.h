@@ -50,7 +50,7 @@ public:
         m_impl = NULL;
         m_isOwner = false;
      }
-    ~btBlinkWrapper() {
+    virtual ~btBlinkWrapper() {
         if(m_impl)
         {
             //m_impl->setWrapper(NULL);

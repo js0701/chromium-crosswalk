@@ -7,7 +7,7 @@ namespace blink {
 class btConvexShapeB: public btCollisionShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btConvexShapeB();
+    virtual ~btConvexShapeB();
     btConvexShapeB();
 //DEFINE_INLINE_TRACE() {}
 };

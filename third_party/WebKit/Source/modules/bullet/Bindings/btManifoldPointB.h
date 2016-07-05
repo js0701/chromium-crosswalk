@@ -8,7 +8,7 @@ namespace blink {
 class btManifoldPointB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btManifoldPointB();
+    virtual ~btManifoldPointB();
     btManifoldPointB();
     btVector3B* getPositionWorldOnA();
     btVector3B* getPositionWorldOnB();

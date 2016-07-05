@@ -5,6 +5,14 @@ namespace blink {
 btManifoldPointB:: btManifoldPointB() {} 
 
 btManifoldPointB:: ~btManifoldPointB() {
+ if(m_impl)
+ {
+  //m_impl->setWrapper(NULL);
+  btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+  if(m_isOwner)
+     delete (btManifoldPoint*) m_impl;
+ }
+ m_impl = NULL;
 
  }
 

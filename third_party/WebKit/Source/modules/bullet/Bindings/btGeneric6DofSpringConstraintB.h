@@ -11,7 +11,7 @@ class btGeneric6DofSpringConstraintB: public btGeneric6DofConstraintB{
     public:
     static btGeneric6DofSpringConstraintB* create(btRigidBodyB* rbA, btRigidBodyB* rbB, btTransformB* frameInA, btTransformB* frameInB, bool useLinearFrameReferenceFrameA);
     static btGeneric6DofSpringConstraintB* create(btRigidBodyB* rbB, btTransformB* frameInB, bool useLinearFrameReferenceFrameB);
-    ~btGeneric6DofSpringConstraintB();
+    virtual ~btGeneric6DofSpringConstraintB();
     btGeneric6DofSpringConstraintB();
     void enableSpring(long index, bool onOff);
     void setStiffness(long index, float stiffness);

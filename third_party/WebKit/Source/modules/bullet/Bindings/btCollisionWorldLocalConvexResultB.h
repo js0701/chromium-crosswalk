@@ -11,7 +11,7 @@ class btCollisionWorldLocalConvexResultB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCollisionWorldLocalConvexResultB* create(btCollisionObjectB* hitCollisionObject, btCollisionWorldLocalShapeInfoB* localShapeInfo, btVector3B* hitNormalLocal, btVector3B* hitPointLocal, float hitFraction);
-    ~btCollisionWorldLocalConvexResultB();
+    virtual ~btCollisionWorldLocalConvexResultB();
     btCollisionWorldLocalConvexResultB();
     void setM_hitCollisionObject(btCollisionObjectB* value);
     btCollisionObjectB* m_hitCollisionObject();

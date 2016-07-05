@@ -10,7 +10,7 @@ class btGhostPairCallbackB: public btOverlappingPairCallbackB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btGhostPairCallbackB* create();
-    ~btGhostPairCallbackB();
+    virtual ~btGhostPairCallbackB();
     btGhostPairCallbackB();
 };
 }

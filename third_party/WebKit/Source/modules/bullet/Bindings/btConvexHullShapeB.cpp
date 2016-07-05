@@ -4,8 +4,15 @@
 namespace blink {
 btConvexHullShapeB:: btConvexHullShapeB() {} 
 
-btConvexHullShapeB:: ~btConvexHullShapeB() {
-
+btConvexHullShapeB:: ~btConvexHullShapeB() {    
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btConvexHullShape*) m_impl;
+    }
+    m_impl = NULL;
  }
 
 btConvexHullShapeB* btConvexHullShapeB::  create() { 

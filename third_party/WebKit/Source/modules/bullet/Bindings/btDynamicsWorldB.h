@@ -9,10 +9,11 @@ namespace blink {
 class btDynamicsWorldB: public btCollisionWorldB{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btDynamicsWorldB();
+    virtual ~btDynamicsWorldB();
     btDynamicsWorldB();
     void addAction(btActionInterfaceB* action);
     void removeAction(btActionInterfaceB* action);
+    void clearForces();
     btContactSolverInfoB* getSolverInfo();
 //DEFINE_INLINE_TRACE() {}
 };

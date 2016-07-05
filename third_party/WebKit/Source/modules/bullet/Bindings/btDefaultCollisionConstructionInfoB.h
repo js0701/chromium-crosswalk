@@ -9,7 +9,7 @@ class btDefaultCollisionConstructionInfoB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btDefaultCollisionConstructionInfoB* create();
-    ~btDefaultCollisionConstructionInfoB();
+    virtual ~btDefaultCollisionConstructionInfoB();
     btDefaultCollisionConstructionInfoB();
 //DEFINE_INLINE_TRACE() {}
 };

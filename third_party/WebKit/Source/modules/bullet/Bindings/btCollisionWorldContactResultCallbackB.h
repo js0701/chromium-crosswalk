@@ -9,7 +9,7 @@ namespace blink {
 class btCollisionWorldContactResultCallbackB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionWorldContactResultCallbackB();
+    virtual ~btCollisionWorldContactResultCallbackB();
     btCollisionWorldContactResultCallbackB();
     float addSingleResult(btManifoldPointB* cp, btCollisionObjectWrapperB* colObj0Wrap, long partId0, long index0, btCollisionObjectWrapperB* colObj1Wrap, long partId1, long index1);
     //DEFINE_INLINE_TRACE() {}

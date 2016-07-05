@@ -11,7 +11,7 @@ class btDefaultMotionStateB: public btMotionStateB{
     static btDefaultMotionStateB* create();
     static btDefaultMotionStateB* create(btTransformB* startTrans);
     static btDefaultMotionStateB* create(btTransformB* startTrans, btTransformB* centerOfMassOffset);
-    ~btDefaultMotionStateB();
+    virtual ~btDefaultMotionStateB();
     btDefaultMotionStateB();
     void setM_graphicsWorldTrans(btTransformB* value);
     btTransformB* m_graphicsWorldTrans();

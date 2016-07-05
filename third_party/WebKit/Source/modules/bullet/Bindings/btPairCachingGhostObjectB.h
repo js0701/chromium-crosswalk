@@ -8,7 +8,7 @@ class btPairCachingGhostObjectB: public btGhostObjectB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btPairCachingGhostObjectB* create();
-    ~btPairCachingGhostObjectB();
+    virtual ~btPairCachingGhostObjectB();
     btPairCachingGhostObjectB();
 //DEFINE_INLINE_TRACE() {}
 };

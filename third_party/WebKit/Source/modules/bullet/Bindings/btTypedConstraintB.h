@@ -7,7 +7,7 @@ namespace blink {
 class btTypedConstraintB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btTypedConstraintB();
+    virtual ~btTypedConstraintB();
     btTypedConstraintB();
     void enableFeedback(bool needsFeedback);
     float getBreakingImpulseThreshold();

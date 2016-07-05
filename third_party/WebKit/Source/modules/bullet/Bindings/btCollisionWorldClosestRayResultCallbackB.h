@@ -9,7 +9,7 @@ class btCollisionWorldClosestRayResultCallbackB: public btCollisionWorldRayResul
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCollisionWorldClosestRayResultCallbackB* create(btVector3B* from, btVector3B* to);
-    ~btCollisionWorldClosestRayResultCallbackB();
+    virtual ~btCollisionWorldClosestRayResultCallbackB();
     btCollisionWorldClosestRayResultCallbackB();
     void setM_rayFromWorld(btVector3B* value);
     btVector3B* m_rayFromWorld();

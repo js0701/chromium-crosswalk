@@ -5,6 +5,14 @@ namespace blink {
 btCollisionWorldClosestConvexResultCallbackB:: btCollisionWorldClosestConvexResultCallbackB() {}
 
 btCollisionWorldClosestConvexResultCallbackB:: ~btCollisionWorldClosestConvexResultCallbackB() {
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCollisionWorld::ClosestConvexResultCallback*) m_impl;
+    }
+    m_impl = NULL;
 
 }
 

@@ -16,8 +16,12 @@ class btDiscreteDynamicsWorldB: public btDynamicsWorldB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btDiscreteDynamicsWorldB* create(btDispatcherB* dispatcher, btBroadphaseInterfaceB* pairCache, btConstraintSolverB* constraintSolver, btCollisionConfigurationB* collisionConfiguration);
-    ~btDiscreteDynamicsWorldB();
+    virtual ~btDiscreteDynamicsWorldB();
     btDiscreteDynamicsWorldB();
+
+    
+    DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);}
+    
     void setGravity(btVector3B* gravity);
     btVector3B* getGravity();
     void addRigidBody(btRigidBodyB* body);

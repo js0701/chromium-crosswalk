@@ -9,7 +9,7 @@ class btCylinderShapeB: public btCollisionShapeB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btCylinderShapeB* create(btVector3B* halfExtents);
-    ~btCylinderShapeB();
+    virtual ~btCylinderShapeB();
     btCylinderShapeB();
     void setMargin(float margin);
     float getMargin();

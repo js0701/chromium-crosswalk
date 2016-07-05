@@ -12,7 +12,7 @@ class btPersistentManifoldB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btPersistentManifoldB* create();
-    ~btPersistentManifoldB();
+    virtual ~btPersistentManifoldB();
     btPersistentManifoldB();
     btCollisionObjectB* getBody0();
     btCollisionObjectB* getBody1();

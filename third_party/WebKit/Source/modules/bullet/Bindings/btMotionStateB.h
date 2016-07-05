@@ -8,7 +8,7 @@ namespace blink {
 class btMotionStateB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btMotionStateB();
+    virtual ~btMotionStateB();
     btMotionStateB();
     void getWorldTransform(btTransformB* worldTrans);
     void setWorldTransform(btTransformB* worldTrans);

@@ -9,7 +9,7 @@ class btDbvtBroadphaseB: public btBroadphaseInterfaceB{
     DEFINE_WRAPPERTYPEINFO();
     public:
     static btDbvtBroadphaseB* create();
-    ~btDbvtBroadphaseB();
+    virtual ~btDbvtBroadphaseB();
     btDbvtBroadphaseB();
 //DEFINE_INLINE_TRACE() {}
 };

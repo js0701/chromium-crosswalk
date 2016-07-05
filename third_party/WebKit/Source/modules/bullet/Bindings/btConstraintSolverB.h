@@ -7,7 +7,7 @@ namespace blink {
 class btConstraintSolverB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btConstraintSolverB();
+    virtual ~btConstraintSolverB();
     btConstraintSolverB();
 //DEFINE_INLINE_TRACE() {}
 };

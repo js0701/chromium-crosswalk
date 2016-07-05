@@ -13,7 +13,7 @@ class btConeTwistConstraintB: public btTypedConstraintB{
     public:
     static btConeTwistConstraintB* create(btRigidBodyB* rbA, btRigidBodyB* rbB, btTransformB* rbAFrame, btTransformB* rbBFrame);
     static btConeTwistConstraintB* create(btRigidBodyB* rbA, btTransformB* rbAFrame);
-    ~btConeTwistConstraintB();
+    virtual ~btConeTwistConstraintB();
     btConeTwistConstraintB();
     void setLimit(long limitIndex, float limitValue);
     void setAngularOnly(bool angularOnly);

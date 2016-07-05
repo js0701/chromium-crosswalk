@@ -12,7 +12,7 @@ class btQuaternionB: public btQuadWordB{
     static btQuaternionB* create(float x, float y, float z, float w);
     static btQuaternionB* create(float yaw, float pitch, float roll);
     static btQuaternionB* create(btVector3B* axis, float angle);
-    ~btQuaternionB();
+    virtual ~btQuaternionB();
     btQuaternionB();
     void setValue(float x, float y, float z, float w);
     void setEulerZYX(float z, float y, float x);

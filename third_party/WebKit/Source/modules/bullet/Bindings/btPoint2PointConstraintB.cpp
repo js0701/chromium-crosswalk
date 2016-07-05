@@ -5,6 +5,14 @@ namespace blink {
 btPoint2PointConstraintB:: btPoint2PointConstraintB() {} 
 
 btPoint2PointConstraintB:: ~btPoint2PointConstraintB() {
+    if(m_impl)
+    {
+     //m_impl->setWrapper(NULL);
+     btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+     if(m_isOwner)
+        delete (btPoint2PointConstraint*) m_impl;
+    }
+    m_impl = NULL;
 
  }
 

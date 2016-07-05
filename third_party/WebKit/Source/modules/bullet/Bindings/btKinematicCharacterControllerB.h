@@ -14,7 +14,7 @@ class btKinematicCharacterControllerB: public btActionInterfaceB{
     //static btKinematicCharacterControllerB* create();
     static btKinematicCharacterControllerB* create(btPairCachingGhostObjectB* ghostObject, btConvexShapeB* convexShape, float stepHeight);
     static btKinematicCharacterControllerB* create(btPairCachingGhostObjectB* ghostObject, btConvexShapeB* convexShape, float stepHeight, long upAxis);
-    ~btKinematicCharacterControllerB();
+    virtual ~btKinematicCharacterControllerB();
     btKinematicCharacterControllerB();
     void setUpAxis(long axis);
     void setWalkDirection(btVector3B* walkDirection);

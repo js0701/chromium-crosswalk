@@ -8,7 +8,7 @@ namespace blink {
 class btCollisionShapeB: public btBlinkWrapper{
     DEFINE_WRAPPERTYPEINFO();
     public:
-    ~btCollisionShapeB();
+    virtual ~btCollisionShapeB();
     btCollisionShapeB();
     void setLocalScaling(btVector3B* scaling);
     void calculateLocalInertia(float mass, btVector3B* inertia);

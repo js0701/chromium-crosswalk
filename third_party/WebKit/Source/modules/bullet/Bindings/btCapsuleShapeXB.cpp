@@ -5,6 +5,14 @@ namespace blink {
 btCapsuleShapeXB:: btCapsuleShapeXB() {} 
 
 btCapsuleShapeXB:: ~btCapsuleShapeXB() {
+    if(m_impl)
+    {
+        //m_impl->setWrapper(NULL);
+        btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
+        if(m_isOwner)
+           delete (btCapsuleShapeX*) m_impl;
+    }
+    m_impl = NULL;
 }
 
 btCapsuleShapeXB* btCapsuleShapeXB::  create(float radius, float height) { 
