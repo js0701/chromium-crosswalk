@@ -8,7 +8,7 @@
 #include "wtf/text/StringHash.h"
 
 #define FREE_IMPL_IN_DESTRUCTOR   0
-#include <Bullet3Common/b3BaseObject.h>
+//#include <Bullet3Common/b3BaseObject.h>
 
 namespace blink {
 
@@ -17,6 +17,7 @@ class btBlinkWrapper;
 
 class btBlinkWrapperRepo
 {
+   
    public:
        static void setWrapperImplPair(void* implPtr, btBlinkWrapper* pWrapper)
         {
@@ -35,6 +36,7 @@ class btBlinkWrapperRepo
         {
             m_repoMap.remove(implPtr);
         }
+       
    private:
 
        static HashMap<void*, btBlinkWrapper*> m_repoMap;
@@ -55,14 +57,14 @@ public:
         {
             //m_impl->setWrapper(NULL);
             btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
-            if(m_isOwner)
-               delete m_impl;
+            //if(m_isOwner)
+            //   delete m_impl;
         }
         m_impl = NULL;
      }
 
     DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);}
-    void  setImpl(b3BaseObject* impl, bool isOwner) {
+    void  setImpl(void* impl, bool isOwner) {
         m_impl = impl;
         m_isOwner = isOwner;
         //if(m_impl != NULL)
@@ -98,7 +100,7 @@ public:
     }
 
 protected:
-    b3BaseObject* m_impl;
+    void* m_impl;
     bool  m_isOwner;
 
     HeapHashMap<String, Member<btBlinkWrapper>> m_refedWrappersMap;

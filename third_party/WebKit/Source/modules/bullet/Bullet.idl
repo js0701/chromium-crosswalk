@@ -82,6 +82,8 @@
 	[Custom=Getter] readonly attribute btVehicleTuningB                                   VehicleTuning;
 	[Custom=Getter] readonly attribute btWheelInfoB                                       WheelInfo;
 	[Custom=Getter] readonly attribute btWheelInfoRaycastInfoB                            WheelInfoRaycastInfo;
+    [Custom=Getter] readonly attribute btTriangleIndexVertexArrayB                        TriangleIndexVertexArray;
+    [Custom=Getter] readonly attribute btIndexedMeshB                                     IndexedMesh;
 	//[Custom=Getter] readonly attribute ConcreteContactResultCallbackB                     ConcreteContactResultCallback;
 };
 

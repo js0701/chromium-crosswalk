@@ -87,7 +87,9 @@
 		'bullet/Bindings/btVehicleRaycasterB.idl',
 		'bullet/Bindings/btVehicleTuningB.idl',
 		'bullet/Bindings/btWheelInfoB.idl',
-		'bullet/Bindings/btWheelInfoRaycastInfoB.idl'
+		'bullet/Bindings/btWheelInfoRaycastInfoB.idl',
+        'bullet/Bindings/btIndexedMeshB.idl',
+        'bullet/Bindings/btTriangleIndexVertexArrayB.idl',
     ],
     'bullet_modules_files': [
         'bullet/Bullet.cpp',
@@ -252,7 +254,11 @@
 		'bullet/Bindings/btWheelInfoB.cpp',
 		'bullet/Bindings/btWheelInfoB.h',
 		'bullet/Bindings/btWheelInfoRaycastInfoB.cpp',
-		'bullet/Bindings/btWheelInfoRaycastInfoB.h'
+		'bullet/Bindings/btWheelInfoRaycastInfoB.h',
+        'bullet/Bindings/btIndexedMeshB.cpp',
+        'bullet/Bindings/btIndexedMeshB.h',
+        'bullet/Bindings/btTriangleIndexVertexArrayB.cpp',
+        'bullet/Bindings/btTriangleIndexVertexArrayB.h',
     ],
   },
 }

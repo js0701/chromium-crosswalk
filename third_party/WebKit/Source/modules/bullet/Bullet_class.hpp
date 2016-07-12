@@ -82,5 +82,7 @@
 #include "./Bindings/btCollisionWorldLocalShapeInfoB.h"
 #include "./Bindings/btDefaultMotionStateB.h"
 #include "./Bindings/btPoint2PointConstraintB.h"
+#include "./Bindings/btTriangleIndexVertexArrayB.h"
+#include "./Bindings/btIndexedMeshB.h"
 
 #endif

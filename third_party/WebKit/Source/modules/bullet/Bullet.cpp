@@ -94,6 +94,8 @@
 #include "bindings/modules/v8/V8btVehicleTuningB.h"
 #include "bindings/modules/v8/V8btWheelInfoB.h"
 #include "bindings/modules/v8/V8btWheelInfoRaycastInfoB.h"
+#include "bindings/modules/v8/V8btIndexedMeshB.h"
+#include "bindings/modules/v8/V8btTriangleIndexVertexArrayB.h"
 #include "Bindings/btBlinkWrapper.h"
 #include "wtf/HashMap.h"
 //#include "bindings/modules/v8/V8ConcreteContactResultCallbackB.h"
@@ -102,12 +104,12 @@ namespace blink {
 
 
    HashMap<void*, btBlinkWrapper*> btBlinkWrapperRepo::m_repoMap;
-   
+
    void Bullet::runTest()
    {
       btVector3B::runTest();
    }
-   
+
    ATTRIBUTE_GETTER_CUSTOM(ActionInterface)
    ATTRIBUTE_GETTER_CUSTOM(AxisSweep3)
    ATTRIBUTE_GETTER_CUSTOM(BoxShape)
@@ -187,7 +189,8 @@ namespace blink {
    ATTRIBUTE_GETTER_CUSTOM(VehicleTuning)
    ATTRIBUTE_GETTER_CUSTOM(WheelInfo)
    ATTRIBUTE_GETTER_CUSTOM(WheelInfoRaycastInfo)
-
+   ATTRIBUTE_GETTER_CUSTOM(IndexedMesh)
+   ATTRIBUTE_GETTER_CUSTOM(TriangleIndexVertexArray)
 
    /*
    void V8Bullet::ConcreteContactResultCallbackAttributeGetterCustom(v8::FunctionCallbackInfo<v8::Value> const& info)
@@ -195,7 +198,7 @@ namespace blink {
         v8::Isolate* isolate = info.GetIsolate();
         v8::Handle<v8::FunctionTemplate> functionTemplate = V8ConcreteContactResultCallbackB::domTemplate(isolate);
         v8::Handle<v8::Function> v8Function = functionTemplate->GetFunction();
-        v8SetReturnValue(info, v8Function); 
+        v8SetReturnValue(info, v8Function);
    }
    */
 

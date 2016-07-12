@@ -2,7 +2,7 @@
 #include "btStridingMeshInterfaceB.h"
 #include "../btBulletDynamicsCommon.h"
 namespace blink {
-btStridingMeshInterfaceB:: btStridingMeshInterfaceB() {} 
+btStridingMeshInterfaceB:: btStridingMeshInterfaceB() {}
 
 btStridingMeshInterfaceB:: ~btStridingMeshInterfaceB() {
     if(m_impl)

@@ -1,0 +1,34 @@
+[
+   Constructor,
+   NoInterfaceObject,
+   GarbageCollected
+]
+interface btIndexedMeshB {
+  int m_numTrangles();
+  void set_m_numTriangles(long numTriangles);
+
+  int m_numVertices();
+  void set_m_numVertices(long numVertices);
+
+  Uint8Array m_triangleIndexBase();
+  void set_m_triangleIndexBase(Int32Array array);
+  void set_m_triangleIndexBase(Int16Array array);
+  void set_m_triangleIndexBase(Uint8Array array);
+  void set_m_triangleIndexBase(Float32Array array);
+  void set_m_triangleIndexBase(Float64Array array);
+
+  Uint8Array  m_vertexBase();
+  void set_m_vertexBase(Int32Array array);
+  void set_m_vertexBase(Int16Array array);
+  void set_m_vertexBase(Uint8Array array);
+  void set_m_vertexBase(Float32Array array);
+  void set_m_vertexBase(Float64Array array);
+
+  long m_triangleIndexStride();
+  void set_m_triangleIndexStride(long stride);
+
+  
+  long m_vertexStride();
+  void set_m_vertexStride(long stride);
+
+};
