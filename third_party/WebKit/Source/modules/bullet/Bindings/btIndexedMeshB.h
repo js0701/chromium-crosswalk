@@ -40,6 +40,18 @@ class btIndexedMeshB: public btBlinkWrapper{
 
     int m_vertexStride();
     void set_m_vertexStride(int stride);
+    
+    DEFINE_INLINE_TRACE() {
+        visitor->trace(m_refedWrappersVector); 
+        visitor->trace(m_refedWrappersMap);
+        //visitor->trace(m_triangleIndexBaseData);
+        //visitor->trace(m_vertexBaseData);
+    }
+
+private:
+
+    DOMArrayBufferView* m_triangleIndexBaseData;
+    DOMArrayBufferView* m_vertexBaseData;
 };
 }
 

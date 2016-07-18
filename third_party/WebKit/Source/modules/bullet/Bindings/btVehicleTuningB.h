@@ -10,17 +10,17 @@ class btVehicleTuningB: public btBlinkWrapper{
     static btVehicleTuningB* create();
     virtual ~btVehicleTuningB();
     btVehicleTuningB();
-    void setM_suspensionStiffness(float value);
+    void set_m_suspensionStiffness(float value);
     float m_suspensionStiffness();
-    void setM_suspensionCompression(float value);
+    void set_m_suspensionCompression(float value);
     float m_suspensionCompression();
-    void setM_suspensionDamping(float value);
+    void set_m_suspensionDamping(float value);
     float m_suspensionDamping();
-    void setM_maxSuspensionTravelCm(float value);
+    void set_m_maxSuspensionTravelCm(float value);
     float m_maxSuspensionTravelCm();
-    void setM_frictionSlip(float value);
+    void set_m_frictionSlip(float value);
     float m_frictionSlip();
-    void setM_maxSuspensionForce(float value);
+    void set_m_maxSuspensionForce(float value);
     float m_maxSuspensionForce();
 //DEFINE_INLINE_TRACE() {}
 };

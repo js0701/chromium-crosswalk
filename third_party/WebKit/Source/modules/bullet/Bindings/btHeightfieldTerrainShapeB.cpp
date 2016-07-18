@@ -17,10 +17,10 @@ static PHY_ScalarType StringToScalarType(const String& string)
         return PHY_DOUBLE;
 
     if(strcmp(str, "PHY_INTEGER") == 0)
-        return PHY_DOUBLE;
+        return PHY_INTEGER;
     
     if(strcmp(str, "PHY_SHORT") == 0)
-        return PHY_INTEGER;
+        return PHY_SHORT;
 
     if(strcmp(str, "PHY_FIXEDPOINT88") == 0)
         return PHY_FIXEDPOINT88;
@@ -42,7 +42,9 @@ btHeightfieldTerrainShapeB:: ~btHeightfieldTerrainShapeB() {
   if(m_isOwner)
      delete (btHeightfieldTerrainShape*) m_impl;
  }
+
  m_impl = NULL;
+ if(m_data) m_data->deref();
 }
 
 btHeightfieldTerrainShapeB* btHeightfieldTerrainShapeB::  create(long heightStickWidth, long heightStickLength, DOMUint8Array* heightfieldData, float heightScale, 
@@ -52,10 +54,11 @@ btHeightfieldTerrainShapeB* btHeightfieldTerrainShapeB::  create(long heightStic
                                                                     minHeight, maxHeight, upAxis, StringToScalarType(hdt), flipQuadEdges);
     wrapper->setImpl(impl, true);
     wrapper->m_data = heightfieldData;
+    wrapper->m_data->ref();
     return wrapper;
 }
 
-/*
+
 btHeightfieldTerrainShapeB* btHeightfieldTerrainShapeB::  create(long heightStickWidth, long heightStickLength, DOMFloat32Array* heightfieldData, float heightScale, 
                                                                   float minHeight, float maxHeight, long upAxis, const String& hdt, bool flipQuadEdges) { 
     btHeightfieldTerrainShapeB *wrapper = new btHeightfieldTerrainShapeB();
@@ -63,9 +66,9 @@ btHeightfieldTerrainShapeB* btHeightfieldTerrainShapeB::  create(long heightStic
                                                                     minHeight, maxHeight, upAxis, StringToScalarType(hdt), flipQuadEdges);
     wrapper->setImpl(impl, true);
     wrapper->m_data = heightfieldData;
+    wrapper->m_data->ref();
     return wrapper;
 }
-*/
 
 
 void btHeightfieldTerrainShapeB:: setMargin(float margin) {

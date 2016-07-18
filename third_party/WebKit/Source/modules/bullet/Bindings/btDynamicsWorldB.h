@@ -13,6 +13,10 @@ class btDynamicsWorldB: public btCollisionWorldB{
     btDynamicsWorldB();
     void addAction(btActionInterfaceB* action);
     void removeAction(btActionInterfaceB* action);
+
+    void addVehicle(btActionInterfaceB* vehicle);
+    void removeVehicle(btActionInterfaceB* vehicle);
+    
     void clearForces();
     btContactSolverInfoB* getSolverInfo();
 //DEFINE_INLINE_TRACE() {}

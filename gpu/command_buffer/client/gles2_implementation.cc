@@ -1842,7 +1842,7 @@ void GLES2Implementation::BufferDataHelper(
   if(laterActionStratedy)
   {
       int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
-      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      uint32_t shm_offset  = (uint32_t) ((uint64_t)data); //note the implementation only correct for 32 bit arch
       target = target | laterActionStratedy;
       
       helper_->BufferData(
@@ -1934,7 +1934,7 @@ void GLES2Implementation::BufferSubDataHelper(
   if(laterActionStratedy)
   {
       int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
-      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      uint32_t shm_offset  = (uint32_t) ((uint64_t)data); //note the implementation only correct for 32 bit arch
       target = target | laterActionStratedy;
       
       helper_->BufferSubData(
@@ -2099,7 +2099,7 @@ void GLES2Implementation::CompressedTexImage2D(
   if(laterActionStratedy)
   {
       int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
-      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      uint32_t shm_offset  = (uint32_t) ((uint64_t)data); //note the implementation only correct for 32 bit arch
       target = target | laterActionStratedy;
       
       helper_->CompressedTexImage2D(
@@ -2158,7 +2158,7 @@ void GLES2Implementation::CompressedTexSubImage2D(
   if(laterActionStratedy)
   {
       int32_t  shm_id      = (int32_t)(((uint64_t)data)>>32);
-      uint32_t shm_offset  = (uint32_t) data; //note the implementation only correct for 32 bit arch
+      uint32_t shm_offset  = (uint32_t) ((uint64_t)data); //note the implementation only correct for 32 bit arch
       target = target | laterActionStratedy;
       
       helper_->CompressedTexSubImage2D(
@@ -2341,7 +2341,7 @@ void GLES2Implementation::TexImage2D(
   if(laterActionStratedy)
   {
       int32_t  shm_id      = (int32_t)(((uint64_t)pixels)>>32);
-      uint32_t shm_offset  = (uint32_t) pixels; //note the implementation only correct for 32 bit arch
+      uint32_t shm_offset  = (uint32_t) ((uint64_t)pixels); //note the implementation only correct for 32 bit arch
       target = target | laterActionStratedy;
       
       helper_->TexImage2D(
@@ -2621,7 +2621,7 @@ void GLES2Implementation::TexSubImage2D(
   if(laterActionStratedy)
   {
      int32_t  shm_id      = (int32_t)(((uint64_t)pixels)>>32);
-     uint32_t shm_offset  = (uint32_t) pixels; //note the implementation only correct for 32 bit arch
+     uint32_t shm_offset  = (uint32_t)((uint64_t)pixels); //note the implementation only correct for 32 bit arch
      target = target | laterActionStratedy;
       
      helper_->TexSubImage2D(

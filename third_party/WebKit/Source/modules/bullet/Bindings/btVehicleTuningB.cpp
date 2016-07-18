@@ -23,7 +23,7 @@ btVehicleTuningB* btVehicleTuningB::  create() {
     return wrapper;
 }
 
-void btVehicleTuningB::  setM_suspensionStiffness(float value ) {
+void btVehicleTuningB::  set_m_suspensionStiffness(float value ) {
     btRaycastVehicle::btVehicleTuning *impl = (btRaycastVehicle::btVehicleTuning*) m_impl;
     impl->m_suspensionStiffness = value;
 }
@@ -33,7 +33,7 @@ float btVehicleTuningB:: m_suspensionStiffness(){
     return impl->m_suspensionStiffness;
 }
 
-void btVehicleTuningB::  setM_suspensionCompression(float value ) {
+void btVehicleTuningB::  set_m_suspensionCompression(float value ) {
     btRaycastVehicle::btVehicleTuning *impl = (btRaycastVehicle::btVehicleTuning*) m_impl;
     impl->m_suspensionCompression = value;
 }
@@ -43,7 +43,7 @@ float btVehicleTuningB:: m_suspensionCompression(){
     return impl->m_suspensionCompression;
 }
 
-void btVehicleTuningB::  setM_suspensionDamping(float value ) {
+void btVehicleTuningB::  set_m_suspensionDamping(float value ) {
     btRaycastVehicle::btVehicleTuning *impl = (btRaycastVehicle::btVehicleTuning*) m_impl;
     impl->m_suspensionDamping = value;
 }
@@ -53,7 +53,7 @@ float btVehicleTuningB:: m_suspensionDamping(){
     return impl->m_suspensionDamping;
 }
 
-void btVehicleTuningB::  setM_maxSuspensionTravelCm(float value ) {
+void btVehicleTuningB::  set_m_maxSuspensionTravelCm(float value ) {
     btRaycastVehicle::btVehicleTuning *impl = (btRaycastVehicle::btVehicleTuning*) m_impl;
     impl->m_maxSuspensionTravelCm = value;
 }
@@ -63,7 +63,7 @@ float btVehicleTuningB:: m_maxSuspensionTravelCm(){
     return impl->m_maxSuspensionTravelCm;
 }
 
-void btVehicleTuningB::  setM_frictionSlip(float value ) {
+void btVehicleTuningB::  set_m_frictionSlip(float value ) {
     btRaycastVehicle::btVehicleTuning *impl = (btRaycastVehicle::btVehicleTuning*) m_impl;
     impl->m_frictionSlip = value;
 }
@@ -73,7 +73,7 @@ float btVehicleTuningB:: m_frictionSlip(){
     return impl->m_frictionSlip;
 }
 
-void btVehicleTuningB::  setM_maxSuspensionForce(float value ) {
+void btVehicleTuningB::  set_m_maxSuspensionForce(float value ) {
     btRaycastVehicle::btVehicleTuning *impl = (btRaycastVehicle::btVehicleTuning*) m_impl;
     impl->m_maxSuspensionForce = value;
 }

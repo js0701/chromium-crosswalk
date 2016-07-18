@@ -25,9 +25,22 @@ void btDynamicsWorldB:: addAction(btActionInterfaceB* action) {
 
 void btDynamicsWorldB:: removeAction(btActionInterfaceB* action) {
     btDynamicsWorld *impl = (btDynamicsWorld*) m_impl;
-    impl->removeAction((btActionInterface*)(action->getImpl()));
+    impl->removeVehicle((btActionInterface*)(action->getImpl()));
     removeRef(action);
 }
+
+void btDynamicsWorldB:: addVehicle(btActionInterfaceB* vehicle) {
+    btDynamicsWorld *impl = (btDynamicsWorld*) m_impl;
+    impl->addVehicle((btActionInterface*)(vehicle->getImpl()));
+    setRef(vehicle);
+}
+
+void btDynamicsWorldB:: removeVehicle(btActionInterfaceB* vehicle) {
+    btDynamicsWorld *impl = (btDynamicsWorld*) m_impl;
+    impl->removeVehicle((btActionInterface*)(vehicle->getImpl()));
+    removeRef(vehicle);
+}
+
 
 void btDynamicsWorldB:: clearForces() {
     btDynamicsWorld *impl = (btDynamicsWorld*) m_impl;

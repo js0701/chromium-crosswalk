@@ -5,6 +5,8 @@
 interface btDynamicsWorldB : btCollisionWorldB{
   void addAction(btActionInterfaceB action);
   void removeAction(btActionInterfaceB action);
+  void addVehicle(btActionInterfaceB vehicle);
+  void removeVehicle(btActionInterfaceB vehicle);
   btContactSolverInfoB getSolverInfo();
   void clearForces();
 };

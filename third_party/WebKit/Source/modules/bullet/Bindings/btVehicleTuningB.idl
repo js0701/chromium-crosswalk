@@ -4,10 +4,16 @@
    GarbageCollected
 ]
 interface btVehicleTuningB {
-  attribute float m_suspensionStiffness;
-  attribute float m_suspensionCompression;
-  attribute float m_suspensionDamping;
-  attribute float m_maxSuspensionTravelCm;
-  attribute float m_frictionSlip;
-  attribute float m_maxSuspensionForce;
+  float m_suspensionStiffness();
+  float m_suspensionCompression();
+  float m_suspensionDamping();
+  float m_maxSuspensionTravelCm();
+  float m_frictionSlip();
+  float m_maxSuspensionForce();
+  void set_m_suspensionStiffness(float value);
+  void set_m_suspensionCompression(float value);
+  void set_m_suspensionDamping(float value);
+  void set_m_maxSuspensionTravelCm(float value);
+  void set_m_frictionSlip(float value);
+  void set_m_maxSuspensionForce(float value);
 };

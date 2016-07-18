@@ -15,7 +15,7 @@ btWheelInfoB:: ~btWheelInfoB() {
     m_impl = NULL;
  }
 
-void btWheelInfoB::  setM_suspensionStiffness(float value ) {
+void btWheelInfoB::  set_m_suspensionStiffness(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_suspensionStiffness = value;
 }
@@ -25,7 +25,7 @@ float btWheelInfoB:: m_suspensionStiffness(){
     return impl->m_suspensionStiffness;
 }
 
-void btWheelInfoB::  setM_frictionSlip(float value ) {
+void btWheelInfoB::  set_m_frictionSlip(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_frictionSlip = value;
 }
@@ -35,7 +35,7 @@ float btWheelInfoB:: m_frictionSlip(){
     return impl->m_frictionSlip;
 }
 
-void btWheelInfoB::  setM_engineForce(float value ) {
+void btWheelInfoB::  set_m_engineForce(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_engineForce = value;
 }
@@ -45,7 +45,7 @@ float btWheelInfoB:: m_engineForce(){
     return impl->m_engineForce;
 }
 
-void btWheelInfoB::  setM_rollInfluence(float value ) {
+void btWheelInfoB::  set_m_rollInfluence(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_rollInfluence = value;
 }
@@ -55,7 +55,7 @@ float btWheelInfoB:: m_rollInfluence(){
     return impl->m_rollInfluence;
 }
 
-void btWheelInfoB::  setM_suspensionRestLength1(float value ) {
+void btWheelInfoB::  set_m_suspensionRestLength1(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_suspensionRestLength1 = value;
 }
@@ -65,7 +65,7 @@ float btWheelInfoB:: m_suspensionRestLength1(){
     return impl->m_suspensionRestLength1;
 }
 
-void btWheelInfoB::  setM_wheelsRadius(float value ) {
+void btWheelInfoB::  set_m_wheelsRadius(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_wheelsRadius = value;
 }
@@ -75,7 +75,7 @@ float btWheelInfoB:: m_wheelsRadius(){
     return impl->m_wheelsRadius;
 }
 
-void btWheelInfoB::  setM_wheelsDampingCompression(float value ) {
+void btWheelInfoB::  set_m_wheelsDampingCompression(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_wheelsDampingCompression = value;
 }
@@ -85,7 +85,7 @@ float btWheelInfoB:: m_wheelsDampingCompression(){
     return impl->m_wheelsDampingCompression;
 }
 
-void btWheelInfoB::  setM_wheelsDampingRelaxation(float value ) {
+void btWheelInfoB::  set_m_wheelsDampingRelaxation(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_wheelsDampingRelaxation = value;
 }
@@ -95,7 +95,7 @@ float btWheelInfoB:: m_wheelsDampingRelaxation(){
     return impl->m_wheelsDampingRelaxation;
 }
 
-void btWheelInfoB::  setM_steering(float value ) {
+void btWheelInfoB::  set_m_steering(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_steering = value;
 }
@@ -105,7 +105,7 @@ float btWheelInfoB:: m_steering(){
     return impl->m_steering;
 }
 
-void btWheelInfoB::  setM_maxSuspensionForce(float value ) {
+void btWheelInfoB::  set_m_maxSuspensionForce(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_maxSuspensionForce = value;
 }
@@ -115,7 +115,7 @@ float btWheelInfoB:: m_maxSuspensionForce(){
     return impl->m_maxSuspensionForce;
 }
 
-void btWheelInfoB::  setM_maxSuspensionTravelCm(float value ) {
+void btWheelInfoB::  set_m_maxSuspensionTravelCm(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_maxSuspensionTravelCm = value;
 }
@@ -125,7 +125,7 @@ float btWheelInfoB:: m_maxSuspensionTravelCm(){
     return impl->m_maxSuspensionTravelCm;
 }
 
-void btWheelInfoB::  setM_wheelsSuspensionForce(float value ) {
+void btWheelInfoB::  set_m_wheelsSuspensionForce(float value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_wheelsSuspensionForce = value;
 }
@@ -135,7 +135,7 @@ float btWheelInfoB:: m_wheelsSuspensionForce(){
     return impl->m_wheelsSuspensionForce;
 }
 
-void btWheelInfoB::  setM_bIsFrontWheel(bool value ) {
+void btWheelInfoB::  set_m_bIsFrontWheel(bool value ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
     impl->m_bIsFrontWheel = value;
 }
@@ -145,11 +145,11 @@ bool btWheelInfoB:: m_bIsFrontWheel(){
     return impl->m_bIsFrontWheel;
 }
 
-void btWheelInfoB::  setM_raycastInfo(btWheelInfoRaycastInfoB* value ) {
+void btWheelInfoB::  set_m_raycastInfo(btWheelInfoRaycastInfoB* raycastInfo ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
-    btWheelInfo::RaycastInfo* ret = (btWheelInfo::RaycastInfo*)(value->getImpl());
+    btWheelInfo::RaycastInfo* ret = (btWheelInfo::RaycastInfo*)(raycastInfo->getImpl());
     impl->m_raycastInfo = *ret;
-    setRef("raycastInfo", value);
+    setRef("raycastInfo", raycastInfo);
 }
 
 btWheelInfoRaycastInfoB* btWheelInfoB:: m_raycastInfo(){
@@ -163,11 +163,11 @@ btWheelInfoRaycastInfoB* btWheelInfoB:: m_raycastInfo(){
     return wrapper;
 }
 
-void btWheelInfoB::  setM_chassisConnectionPointCS(btVector3B* value ) {
+void btWheelInfoB::  set_m_chassisConnectionPointCS(btVector3B* point ) {
     btWheelInfo *impl = (btWheelInfo*) m_impl;
-    btVector3* ret = (btVector3*)(value->getImpl());
+    btVector3* ret = (btVector3*)(point->getImpl());
     impl->m_chassisConnectionPointCS = *ret;
-    setRef("chassisConnectionPointCS", value);
+    setRef("chassisConnectionPointCS", point);
 }
 
 btVector3B* btWheelInfoB:: m_chassisConnectionPointCS(){

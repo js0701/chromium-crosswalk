@@ -14,10 +14,10 @@ static PHY_ScalarType StringToScalarType(const String& string)
         return PHY_DOUBLE;
 
     if(strcmp(str, "PHY_INTEGER") == 0)
-        return PHY_DOUBLE;
+        return PHY_INTEGER;
     
     if(strcmp(str, "PHY_SHORT") == 0)
-        return PHY_INTEGER;
+        return PHY_SHORT;
 
     if(strcmp(str, "PHY_FIXEDPOINT88") == 0)
         return PHY_FIXEDPOINT88;
