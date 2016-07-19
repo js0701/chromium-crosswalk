@@ -3,6 +3,7 @@
     '../core/core_generated.gypi',
     'modules_generated.gypi',
     'bullet.gypi',
+    'THREE.gypi',
   ],
   'variables': {
     # Experimental hooks for embedder to provide extra IDL and source files.
@@ -324,6 +325,7 @@
       'webusb/USBInterface.idl',
       'webusb/USBOutTransferResult.idl',
       '<@(bullet_modules_idl_files)',
+      '<@(THREE_modules_idl_files)',
     ],
     # 'partial interface' or target (right side of) 'implements'
     'modules_dependency_idl_files': [
@@ -404,6 +406,8 @@
       'webusb/NavigatorUSB.idl',
       'bullet/WindowBullet.idl',
       'bullet/WorkerBullet.idl',
+      'THREE/WindowTHREE.idl',
+      'THREE/WorkerTHREE.idl',
     ],
     # interfaces that inherit from Event
     'modules_event_idl_files': [
@@ -1873,6 +1877,9 @@
       '<@(bullet_modules_files)',
       'bullet/GlobalBullet.cpp',
       'bullet/GlobalBullet.h',
+      '<@(THREE_modules_files)',
+      'THREE/GlobalTHREE.cpp',
+      'THREE/GlobalTHREE.h',
     ],
     # 'partial interface' or target (right side of) 'implements'
     'modules_testing_dependency_idl_files' : [
