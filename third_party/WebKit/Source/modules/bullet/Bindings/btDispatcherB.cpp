@@ -24,7 +24,7 @@ long btDispatcherB:: getNumManifolds() {
 btPersistentManifoldB* btDispatcherB:: getManifoldByIndexInternal(long index) {
     btDispatcher *impl = (btDispatcher*) m_impl;
     btPersistentManifold* ret = impl->getManifoldByIndexInternal(index);
-    btPersistentManifoldB *wrapper = (btPersistentManifoldB*) ret->getWrapper();
+    btPersistentManifoldB *wrapper = (btPersistentManifoldB*)  btBlinkWrapperRepo::getWrapperForImpl(ret);
     if(wrapper == NULL)
     {
         wrapper = new btPersistentManifoldB();

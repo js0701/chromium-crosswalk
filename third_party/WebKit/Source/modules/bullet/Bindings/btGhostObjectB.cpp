@@ -34,7 +34,7 @@ long btGhostObjectB:: getNumOverlappingObjects() {
 btCollisionObjectB* btGhostObjectB:: getOverlappingObject(long index) {
     btGhostObject *impl = (btGhostObject*) m_impl;
     btCollisionObject* ret = impl->getOverlappingObject(index);
-    btCollisionObjectB *wrapper = (btCollisionObjectB*) ret->getWrapper();
+    btCollisionObjectB *wrapper = (btCollisionObjectB*)  btBlinkWrapperRepo::getWrapperForImpl(ret);
     if(wrapper == NULL)
     {
         wrapper = new btCollisionObjectB();

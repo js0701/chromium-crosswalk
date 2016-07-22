@@ -52,7 +52,7 @@ void btDefaultMotionStateB::  setM_graphicsWorldTrans(btTransformB* value ) {
 btTransformB* btDefaultMotionStateB:: m_graphicsWorldTrans(){
     btDefaultMotionState *impl = (btDefaultMotionState*) m_impl;
     btTransform* ret = &(impl->m_graphicsWorldTrans);
-    btTransformB *wrapper = (btTransformB*) ret->getWrapper();
+    btTransformB *wrapper = (btTransformB*) btBlinkWrapperRepo::getWrapperForImpl(ret);//(btTransformB*) ret->getWrapper();
     if(wrapper == NULL)
     {
         wrapper = new btTransformB();

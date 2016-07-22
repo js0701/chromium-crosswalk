@@ -140,8 +140,8 @@ void btWheelInfoRaycastInfoB::  setM_groundObject(btBlinkWrapper* value ) {
 
 btBlinkWrapper* btWheelInfoRaycastInfoB:: m_groundObject(){
     btWheelInfo::RaycastInfo *impl = (btWheelInfo::RaycastInfo*) m_impl;
-    b3BaseObject* ret = (b3BaseObject*) impl->m_groundObject;
-    btBlinkWrapper *wrapper = ( btBlinkWrapper *)btBlinkWrapperRepo::getWrapperForImpl(ret);  
+    void* ret = (void*) impl->m_groundObject;
+    btBlinkWrapper *wrapper = ( btBlinkWrapper*) btBlinkWrapperRepo::getWrapperForImpl(ret);  
     if(wrapper == NULL)
     {
         wrapper = new btBlinkWrapper();

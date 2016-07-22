@@ -27,7 +27,7 @@ btPersistentManifoldB* btPersistentManifoldB::  create() {
 btCollisionObjectB* btPersistentManifoldB:: getBody0() {
     btPersistentManifold *impl = (btPersistentManifold*) m_impl;
     btCollisionObject* ret = (btCollisionObject*) (impl->getBody0());
-    btCollisionObjectB *wrapper = (btCollisionObjectB*) ret->getWrapper();
+    btCollisionObjectB *wrapper = (btCollisionObjectB*)  btBlinkWrapperRepo::getWrapperForImpl(ret);
     if(wrapper == NULL)
     {
         wrapper = new btCollisionObjectB();
@@ -39,7 +39,7 @@ btCollisionObjectB* btPersistentManifoldB:: getBody0() {
 btCollisionObjectB* btPersistentManifoldB:: getBody1() {
     btPersistentManifold *impl = (btPersistentManifold*) m_impl;
     btCollisionObject* ret = (btCollisionObject*) (impl->getBody1());
-    btCollisionObjectB *wrapper = (btCollisionObjectB*) ret->getWrapper();
+    btCollisionObjectB *wrapper = (btCollisionObjectB*)  btBlinkWrapperRepo::getWrapperForImpl(ret);
     if(wrapper == NULL)
     {
         wrapper = new btCollisionObjectB();
@@ -56,7 +56,7 @@ long btPersistentManifoldB:: getNumContacts() {
 btManifoldPointB* btPersistentManifoldB:: getContactPoint(long index) {
     btPersistentManifold *impl = (btPersistentManifold*) m_impl;
     btManifoldPoint *ret = &(impl->getContactPoint(index));
-    btManifoldPointB *wrapper = (btManifoldPointB*) ret->getWrapper();
+    btManifoldPointB *wrapper = (btManifoldPointB*)  btBlinkWrapperRepo::getWrapperForImpl(ret);
     if(wrapper == NULL)
     {
         wrapper = new btManifoldPointB();

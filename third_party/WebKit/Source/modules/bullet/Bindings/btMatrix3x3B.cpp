@@ -29,7 +29,7 @@ void btMatrix3x3B:: getRotation(btQuaternionB* q) {
 btVector3B* btMatrix3x3B:: getRow(long y) {
     btMatrix3x3 *impl = (btMatrix3x3*) m_impl;
     btVector3* ret = (btVector3*)(&(impl->getRow(y)));
-    btVector3B *wrapper = (btVector3B*) ret->getWrapper();
+    btVector3B *wrapper = (btVector3B*)  btBlinkWrapperRepo::getWrapperForImpl(ret);
     if(wrapper == NULL)
     {
         wrapper = new btVector3B();
