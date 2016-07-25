@@ -21,11 +21,9 @@ class btCollisionWorld;
 
 #include "LinearMath/btScalar.h"
 #include "btRigidBody.h"
-#include "Bullet3Common/b3BaseObject.h"
-
 
 ///Basic interface to allow actions such as vehicles and characters to be updated inside a btDynamicsWorld
-class btActionInterface : public b3BaseObject
+class btActionInterface
 {
 protected:
 

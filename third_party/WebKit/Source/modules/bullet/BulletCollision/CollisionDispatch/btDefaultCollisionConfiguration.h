@@ -20,7 +20,7 @@ subject to the following restrictions:
 class btVoronoiSimplexSolver;
 class btConvexPenetrationDepthSolver;
 
-struct	btDefaultCollisionConstructionInfo : public b3BaseObject
+struct	btDefaultCollisionConstructionInfo
 {
 	btPoolAllocator*	m_persistentManifoldPool;
 	btPoolAllocator*	m_collisionAlgorithmPool;

@@ -17,12 +17,11 @@ subject to the following restrictions:
 #ifndef OVERLAPPING_PAIR_CALLBACK_H
 #define OVERLAPPING_PAIR_CALLBACK_H
 
-#include "Bullet3Common/b3BaseObject.h"
 class btDispatcher;
 struct  btBroadphasePair;
 
 ///The btOverlappingPairCallback class is an additional optional broadphase user callback for adding/removing overlapping pairs, similar interface to btOverlappingPairCache.
-class btOverlappingPairCallback: public b3BaseObject
+class btOverlappingPairCallback
 {
 public:
 	virtual ~btOverlappingPairCallback()

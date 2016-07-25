@@ -16,7 +16,7 @@
 
 class btRigidBody;
 
-struct btWheelInfoConstructionInfo : public b3BaseObject
+struct btWheelInfoConstructionInfo
 {
 	btVector3	m_chassisConnectionCS;
 	btVector3	m_wheelDirectionCS;
@@ -35,9 +35,9 @@ struct btWheelInfoConstructionInfo : public b3BaseObject
 };
 
 /// btWheelInfo contains information per wheel about friction and suspension.
-struct btWheelInfo : public b3BaseObject
+struct btWheelInfo
 {
-	struct RaycastInfo : public b3BaseObject
+	struct RaycastInfo
 	{
 		//set by raycaster
 		btVector3	m_contactNormalWS;//contactnormal

@@ -31,7 +31,7 @@ class btRigidBody;
 #define btPoint2PointConstraintDataName	"btPoint2PointConstraintFloatData"
 #endif //BT_USE_DOUBLE_PRECISION
 
-struct	btConstraintSetting : public b3BaseObject
+struct	btConstraintSetting
 {
 	btConstraintSetting()	:
 		m_tau(btScalar(0.3)),
@@ -116,6 +116,11 @@ public:
 	virtual	void	setParam(int num, btScalar value, int axis = -1);
 	///return the local value of parameter
 	virtual	btScalar getParam(int num, int axis = -1) const;
+	
+	virtual	int getFlags() const
+	{
+        	return m_flags;
+    	}
 
 	virtual	int	calculateSerializeBufferSize() const;
 

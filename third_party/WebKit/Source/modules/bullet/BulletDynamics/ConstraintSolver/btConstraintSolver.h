@@ -37,7 +37,7 @@ enum btConstraintSolverType
 	BT_NNCG_SOLVER=4
 };
 
-class btConstraintSolver : public b3BaseObject
+class btConstraintSolver
 {
 
 public:

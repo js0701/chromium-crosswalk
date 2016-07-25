@@ -31,8 +31,8 @@ subject to the following restrictions:
 
 /**@brief The btTransform class supports rigid transforms with only translation and rotation and no scaling/shear.
  *It can be used in combination with btVector3, btQuaternion and btMatrix3x3 linear algebra classes. */
-ATTRIBUTE_ALIGNED16(class) btTransform : public b3BaseObject {
-
+ATTRIBUTE_ALIGNED16(class) btTransform {
+	
   ///Storage for the rotation
 	btMatrix3x3 m_basis;
   ///Storage for the translation
@@ -127,7 +127,7 @@ public:
 	
 	
   /**@brief Set from an array 
-   * @param m A pointer to a 15 element array (12 rotation(row major padded on the right by 1), and 3 translation */
+   * @param m A pointer to a 16 element array (12 rotation(row major padded on the right by 1), and 3 translation */
 	void setFromOpenGLMatrix(const btScalar *m)
 	{
 		m_basis.setFromOpenGLSubMatrix(m);
@@ -135,7 +135,7 @@ public:
 	}
 
   /**@brief Fill an array representation
-   * @param m A pointer to a 15 element array (12 rotation(row major padded on the right by 1), and 3 translation */
+   * @param m A pointer to a 16 element array (12 rotation(row major padded on the right by 1), and 3 translation */
 	void getOpenGLMatrix(btScalar *m) const 
 	{
 		m_basis.getOpenGLSubMatrix(m);

@@ -4,8 +4,8 @@ Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it freely,
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -21,13 +21,12 @@ subject to the following restrictions:
 struct btDispatcherInfo;
 class btDispatcher;
 #include "btBroadphaseProxy.h"
-#include "Bullet3Common/b3BaseObject.h"
 
 class btOverlappingPairCache;
 
 
 
-struct	btBroadphaseAabbCallback : public b3BaseObject
+struct	btBroadphaseAabbCallback
 {
 	virtual ~btBroadphaseAabbCallback() {}
 	virtual bool	process(const btBroadphaseProxy* proxy) = 0;
@@ -49,7 +48,7 @@ struct	btBroadphaseRayCallback : public btBroadphaseAabbCallback
 ///The btBroadphaseInterface class provides an interface to detect aabb-overlapping object pairs.
 ///Some implementations for this broadphase interface include btAxisSweep3, bt32BitAxisSweep3 and btDbvtBroadphase.
 ///The actual overlapping pair management, storage, adding and removing of pairs is dealt by the btOverlappingPairCache class.
-class btBroadphaseInterface : public b3BaseObject
+class btBroadphaseInterface
 {
 public:
 	virtual ~btBroadphaseInterface() {}

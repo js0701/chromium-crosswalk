@@ -35,7 +35,7 @@ class btRaycastVehicle : public btActionInterface
 		int	m_userConstraintId;
 
 public:
-	class btVehicleTuning : public b3BaseObject
+	class btVehicleTuning
 		{
 			public:
 
@@ -58,8 +58,6 @@ public:
 		};
 private:
 
-	btScalar	m_tau;
-	btScalar	m_damping;
 	btVehicleRaycaster*	m_vehicleRaycaster;
 	btScalar		m_pitchControl;
 	btScalar	m_steeringValue; 

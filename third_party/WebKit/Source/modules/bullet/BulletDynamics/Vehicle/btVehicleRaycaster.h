@@ -14,7 +14,7 @@
 #include "LinearMath/btVector3.h"
 
 /// btVehicleRaycaster is provides interface for between vehicle simulation and raycasting
-struct btVehicleRaycaster : public b3BaseObject
+struct btVehicleRaycaster
 {
 virtual ~btVehicleRaycaster()
 {

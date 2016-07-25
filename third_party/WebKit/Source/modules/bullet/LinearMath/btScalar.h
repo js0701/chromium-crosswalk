@@ -3,8 +3,8 @@ Copyright (c) 2003-2009 Erwin Coumans  http://bullet.googlecode.com
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose,
-including commercial applications, and to alter it and redistribute it freely,
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it freely, 
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -17,6 +17,7 @@ subject to the following restrictions:
 #ifndef BT_SCALAR_H
 #define BT_SCALAR_H
 
+
 #ifdef BT_MANAGED_CODE
 //Aligned data types not supported in managed code
 #pragma unmanaged
@@ -26,16 +27,9 @@ subject to the following restrictions:
 #include <math.h>
 #include <stdlib.h>//size_t for MSVC 6.0
 #include <float.h>
-#include <Bullet3Common/b3BaseObject.h>
 
 /* SVN $Revision$ on $Date$ from http://bullet.googlecode.com*/
 #define BT_BULLET_VERSION 284
-//#error warong haeader file
-
-#ifndef __ANDROID__
-#define __ANDROID__
-#endif
-
 
 inline int	btGetVersion()
 {
@@ -93,8 +87,8 @@ inline int	btGetVersion()
 			#define BT_ALLOW_SSE4
 #endif //(_MSC_FULL_VER >= 160040219)
 
-			//BT_USE_SSE_IN_API is disabled under Windows by default, because
-			//it makes it harder to integrate Bullet into your application under Windows
+			//BT_USE_SSE_IN_API is disabled under Windows by default, because 
+			//it makes it harder to integrate Bullet into your application under Windows 
 			//(structured embedding Bullet structs/classes need to be 16-byte aligned)
 			//with relatively little performance gain
 			//If you are not embedded Bullet data in your classes, or make sure that you align those classes on 16-byte boundaries
@@ -111,7 +105,7 @@ inline int	btGetVersion()
 #ifdef BT_DEBUG
 	#ifdef _MSC_VER
 		#include <stdio.h>
-		#define btAssert(x) { if(!(x)){printf("Assert "__FILE__ ":%u ("#x")\n", __LINE__);__debugbreak();	}}
+		#define btAssert(x) { if(!(x)){printf("Assert "__FILE__ ":%u (%s)\n", __LINE__, #x);__debugbreak();	}}
 	#else//_MSC_VER
 		#include <assert.h>
 		#define btAssert assert
@@ -126,7 +120,7 @@ inline int	btGetVersion()
 		#define btUnlikely(_c) _c
 
 #else
-
+	
 #if defined	(__CELLOS_LV2__)
 		#define SIMD_FORCE_INLINE inline __attribute__((always_inline))
 		#define ATTRIBUTE_ALIGNED16(a) a __attribute__ ((aligned (16)))
@@ -143,7 +137,7 @@ inline int	btGetVersion()
 #else
 	#define btAssert assert
 #endif
-
+	
 #else
 		#define btAssert(x)
 #endif
@@ -175,16 +169,15 @@ inline int	btGetVersion()
 
 		#define btLikely(_c)   __builtin_expect((_c), 1)
 		#define btUnlikely(_c) __builtin_expect((_c), 0)
-
+		
 
 #else
 	//non-windows systems
 
-#if ((defined (__APPLE__) || defined(__ANDROID__))&& (!defined (BT_USE_DOUBLE_PRECISION)))
+#if (defined (__APPLE__) && (!defined (BT_USE_DOUBLE_PRECISION)))
     #if defined (__i386__) || defined (__x86_64__)
 		#define BT_USE_SIMD_VECTOR3
 		#define BT_USE_SSE
-        //#error  error message
 		//BT_USE_SSE_IN_API is enabled on Mac OSX by default, because memory is automatically aligned on 16-byte boundaries
 		//if apps run into issues, we will disable the next line
 		#define BT_USE_SSE_IN_API
@@ -204,7 +197,7 @@ inline int	btGetVersion()
         #ifdef __clang__
             #define BT_USE_NEON 1
 			#define BT_USE_SIMD_VECTOR3
-
+		
             #if defined BT_USE_NEON && defined (__clang__)
                 #include <arm_neon.h>
             #endif//BT_USE_NEON
@@ -267,7 +260,7 @@ inline int	btGetVersion()
 		#define btFullAssert(x)
 		#define btLikely(_c)  _c
 		#define btUnlikely(_c) _c
-#endif //__APPLE__
+#endif //__APPLE__ 
 
 #endif // LIBSPE2
 
@@ -406,7 +399,7 @@ typedef float32x4_t btSimdFloat4;
 
 
 #if defined(BT_USE_DOUBLE_PRECISION) || defined(BT_FORCE_DOUBLE_FUNCTIONS)
-
+		
 SIMD_FORCE_INLINE btScalar btSqrt(btScalar x) { return sqrt(x); }
 SIMD_FORCE_INLINE btScalar btFabs(btScalar x) { return fabs(x); }
 SIMD_FORCE_INLINE btScalar btCos(btScalar x) { return cos(x); }
@@ -422,9 +415,9 @@ SIMD_FORCE_INLINE btScalar btPow(btScalar x,btScalar y) { return pow(x,y); }
 SIMD_FORCE_INLINE btScalar btFmod(btScalar x,btScalar y) { return fmod(x,y); }
 
 #else
-
-SIMD_FORCE_INLINE btScalar btSqrt(btScalar y)
-{
+		
+SIMD_FORCE_INLINE btScalar btSqrt(btScalar y) 
+{ 
 #ifdef USE_APPROXIMATION
 #ifdef __LP64__
     float xhalf = 0.5f*y;
@@ -451,26 +444,26 @@ SIMD_FORCE_INLINE btScalar btSqrt(btScalar y)
     return x*y;
 #endif
 #else
-	return sqrtf(y);
+	return sqrtf(y); 
 #endif
 }
 SIMD_FORCE_INLINE btScalar btFabs(btScalar x) { return fabsf(x); }
 SIMD_FORCE_INLINE btScalar btCos(btScalar x) { return cosf(x); }
 SIMD_FORCE_INLINE btScalar btSin(btScalar x) { return sinf(x); }
 SIMD_FORCE_INLINE btScalar btTan(btScalar x) { return tanf(x); }
-SIMD_FORCE_INLINE btScalar btAcos(btScalar x) {
-	if (x<btScalar(-1))
-		x=btScalar(-1);
-	if (x>btScalar(1))
+SIMD_FORCE_INLINE btScalar btAcos(btScalar x) { 
+	if (x<btScalar(-1))	
+		x=btScalar(-1); 
+	if (x>btScalar(1))	
 		x=btScalar(1);
-	return acosf(x);
+	return acosf(x); 
 }
-SIMD_FORCE_INLINE btScalar btAsin(btScalar x) {
-	if (x<btScalar(-1))
-		x=btScalar(-1);
-	if (x>btScalar(1))
+SIMD_FORCE_INLINE btScalar btAsin(btScalar x) { 
+	if (x<btScalar(-1))	
+		x=btScalar(-1); 
+	if (x>btScalar(1))	
 		x=btScalar(1);
-	return asinf(x);
+	return asinf(x); 
 }
 SIMD_FORCE_INLINE btScalar btAtan(btScalar x) { return atanf(x); }
 SIMD_FORCE_INLINE btScalar btAtan2(btScalar x, btScalar y) { return atan2f(x, y); }
@@ -478,7 +471,7 @@ SIMD_FORCE_INLINE btScalar btExp(btScalar x) { return expf(x); }
 SIMD_FORCE_INLINE btScalar btLog(btScalar x) { return logf(x); }
 SIMD_FORCE_INLINE btScalar btPow(btScalar x,btScalar y) { return powf(x,y); }
 SIMD_FORCE_INLINE btScalar btFmod(btScalar x,btScalar y) { return fmodf(x,y); }
-
+	
 #endif
 
 #define SIMD_PI           btScalar(3.1415926535897932384626433832795029)
@@ -507,7 +500,7 @@ SIMD_FORCE_INLINE btScalar btFmod(btScalar x,btScalar y) { return fmodf(x,y); }
 #define BT_HALF			0.5f
 #endif
 
-SIMD_FORCE_INLINE btScalar btAtan2Fast(btScalar y, btScalar x)
+SIMD_FORCE_INLINE btScalar btAtan2Fast(btScalar y, btScalar x) 
 {
 	btScalar coeff_1 = SIMD_PI / 4.0f;
 	btScalar coeff_2 = 3.0f * coeff_1;
@@ -565,20 +558,20 @@ SIMD_FORCE_INLINE bool btMachineIsLittleEndian()
 
 ///btSelect avoids branches, which makes performance much better for consoles like Playstation 3 and XBox 360
 ///Thanks Phil Knight. See also http://www.cellperformance.com/articles/2006/04/more_techniques_for_eliminatin_1.html
-SIMD_FORCE_INLINE unsigned btSelect(unsigned condition, unsigned valueIfConditionNonZero, unsigned valueIfConditionZero)
+SIMD_FORCE_INLINE unsigned btSelect(unsigned condition, unsigned valueIfConditionNonZero, unsigned valueIfConditionZero) 
 {
     // Set testNz to 0xFFFFFFFF if condition is nonzero, 0x00000000 if condition is zero
     // Rely on positive value or'ed with its negative having sign bit on
-    // and zero value or'ed with its negative (which is still zero) having sign bit off
+    // and zero value or'ed with its negative (which is still zero) having sign bit off 
     // Use arithmetic shift right, shifting the sign bit through all 32 bits
     unsigned testNz = (unsigned)(((int)condition | -(int)condition) >> 31);
     unsigned testEqz = ~testNz;
-    return ((valueIfConditionNonZero & testNz) | (valueIfConditionZero & testEqz));
+    return ((valueIfConditionNonZero & testNz) | (valueIfConditionZero & testEqz)); 
 }
 SIMD_FORCE_INLINE int btSelect(unsigned condition, int valueIfConditionNonZero, int valueIfConditionZero)
 {
     unsigned testNz = (unsigned)(((int)condition | -(int)condition) >> 31);
-    unsigned testEqz = ~testNz;
+    unsigned testEqz = ~testNz; 
     return static_cast<int>((valueIfConditionNonZero & testNz) | (valueIfConditionZero & testEqz));
 }
 SIMD_FORCE_INLINE float btSelect(unsigned condition, float valueIfConditionNonZero, float valueIfConditionZero)
@@ -586,7 +579,7 @@ SIMD_FORCE_INLINE float btSelect(unsigned condition, float valueIfConditionNonZe
 #ifdef BT_HAVE_NATIVE_FSEL
     return (float)btFsel((btScalar)condition - btScalar(1.0f), valueIfConditionNonZero, valueIfConditionZero);
 #else
-    return (condition != 0) ? valueIfConditionNonZero : valueIfConditionZero;
+    return (condition != 0) ? valueIfConditionNonZero : valueIfConditionZero; 
 #endif
 }
 
@@ -621,9 +614,9 @@ SIMD_FORCE_INLINE unsigned short btSwapEndian(short val)
 
 ///btSwapFloat uses using char pointers to swap the endianness
 ////btSwapFloat/btSwapDouble will NOT return a float, because the machine might 'correct' invalid floating point values
-///Not all values of sign/exponent/mantissa are valid floating point numbers according to IEEE 754.
-///When a floating point unit is faced with an invalid value, it may actually change the value, or worse, throw an exception.
-///In most systems, running user mode code, you wouldn't get an exception, but instead the hardware/os/runtime will 'fix' the number for you.
+///Not all values of sign/exponent/mantissa are valid floating point numbers according to IEEE 754. 
+///When a floating point unit is faced with an invalid value, it may actually change the value, or worse, throw an exception. 
+///In most systems, running user mode code, you wouldn't get an exception, but instead the hardware/os/runtime will 'fix' the number for you. 
 ///so instead of returning a float/double, we return integer/long long integer
 SIMD_FORCE_INLINE unsigned int  btSwapEndianFloat(float d)
 {
@@ -639,7 +632,7 @@ SIMD_FORCE_INLINE unsigned int  btSwapEndianFloat(float d)
 }
 
 // unswap using char pointers
-SIMD_FORCE_INLINE float btUnswapEndianFloat(unsigned int a)
+SIMD_FORCE_INLINE float btUnswapEndianFloat(unsigned int a) 
 {
     float d = 0.0f;
     unsigned char *src = (unsigned char *)&a;
@@ -671,7 +664,7 @@ SIMD_FORCE_INLINE void  btSwapEndianDouble(double d, unsigned char* dst)
 }
 
 // unswap using char pointers
-SIMD_FORCE_INLINE double btUnswapEndianDouble(const unsigned char *src)
+SIMD_FORCE_INLINE double btUnswapEndianDouble(const unsigned char *src) 
 {
     double d = 0.0;
     unsigned char *dst = (unsigned char *)&d;
@@ -693,7 +686,7 @@ SIMD_FORCE_INLINE void btSetZero(T* a, int n)
 {
   T* acurr = a;
   size_t ncurr = n;
-  while (ncurr > 0)
+  while (ncurr > 0) 
   {
     *(acurr++) = 0;
     --ncurr;
@@ -702,7 +695,7 @@ SIMD_FORCE_INLINE void btSetZero(T* a, int n)
 
 
 SIMD_FORCE_INLINE btScalar btLargeDot(const btScalar *a, const btScalar *b, int n)
-{
+{  
   btScalar p0,q0,m0,p1,q1,m1,sum;
   sum = 0;
   n -= 2;
@@ -729,7 +722,7 @@ SIMD_FORCE_INLINE btScalar btLargeDot(const btScalar *a, const btScalar *b, int 
 
 
 // returns normalized value in range [-SIMD_PI, SIMD_PI]
-SIMD_FORCE_INLINE btScalar btNormalizeAngle(btScalar angleInRadians)
+SIMD_FORCE_INLINE btScalar btNormalizeAngle(btScalar angleInRadians) 
 {
 	angleInRadians = btFmod(angleInRadians, SIMD_2_PI);
 	if(angleInRadians < -SIMD_PI)
@@ -749,7 +742,7 @@ SIMD_FORCE_INLINE btScalar btNormalizeAngle(btScalar angleInRadians)
 
 
 ///rudimentary class to provide type info
-struct btTypedObject : public b3BaseObject
+struct btTypedObject
 {
 	btTypedObject(int objectType)
 		:m_objectType(objectType)
@@ -763,22 +756,22 @@ struct btTypedObject : public b3BaseObject
 };
 
 
-
+  
 ///align a pointer to the provided alignment, upwards
 template <typename T>T* btAlignPointer(T* unalignedPtr, size_t alignment)
 {
-
+		
 	struct btConvertPointerSizeT
 	{
-		union
+		union 
 		{
 				T* ptr;
 				size_t integer;
 		};
 	};
     btConvertPointerSizeT converter;
-
-
+    
+    
 	const size_t bit_mask = ~(alignment - 1);
     converter.ptr = unalignedPtr;
 	converter.integer += alignment-1;

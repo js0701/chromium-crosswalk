@@ -35,7 +35,7 @@ ATTRIBUTE_ALIGNED16(class) btQuadWord
 #else
 class btQuadWord
 #endif
-: public b3BaseObject{
+{
 protected:
 
 #if defined (__SPU__) && defined (__CELLOS_LV2__)

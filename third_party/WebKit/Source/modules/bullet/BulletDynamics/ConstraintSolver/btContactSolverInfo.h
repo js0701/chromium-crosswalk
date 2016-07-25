@@ -32,7 +32,7 @@ enum	btSolverMode
 	SOLVER_ALLOW_ZERO_LENGTH_FRICTION_DIRECTIONS = 1024
 };
 
-struct btContactSolverInfoData : public b3BaseObject
+struct btContactSolverInfoData
 {
 	
 

@@ -31,8 +31,6 @@ struct btCollisionShapeData;
 #include "LinearMath/btMotionState.h"
 #include "LinearMath/btAlignedAllocator.h"
 #include "LinearMath/btAlignedObjectArray.h"
-#include "Bullet3Common/b3BaseObject.h"
-
 
 typedef btAlignedObjectArray<class btCollisionObject*> btCollisionObjectArray;
 
@@ -48,7 +46,7 @@ typedef btAlignedObjectArray<class btCollisionObject*> btCollisionObjectArray;
 /// btCollisionObject can be used to manage collision detection objects. 
 /// btCollisionObject maintains all information that is needed for a collision detection: Shape, Transform and AABB proxy.
 /// They can be added to the btCollisionWorld.
-ATTRIBUTE_ALIGNED16(class)	btCollisionObject : public b3BaseObject
+ATTRIBUTE_ALIGNED16(class)	btCollisionObject
 {
 
 protected:

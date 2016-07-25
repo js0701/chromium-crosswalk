@@ -83,10 +83,9 @@ class btSerializer;
 #include "btCollisionDispatcher.h"
 #include "BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
 #include "LinearMath/btAlignedObjectArray.h"
-#include "Bullet3Common/b3BaseObject.h"
 
 ///CollisionWorld is interface and container for the collision detection
-class btCollisionWorld : public b3BaseObject
+class btCollisionWorld
 {
 
 	
@@ -172,7 +171,7 @@ public:
 
 	///LocalShapeInfo gives extra information for complex shapes
 	///Currently, only btTriangleMeshShape is available, so it just contains triangleIndex and subpart
-	struct	LocalShapeInfo : public b3BaseObject
+	struct	LocalShapeInfo
 	{
 		int	m_shapePart;
 		int	m_triangleIndex;
@@ -181,7 +180,7 @@ public:
 		//const btTransform*	m_shapeLocalTransform;
 	};
 
-	struct	LocalRayResult : public b3BaseObject
+	struct	LocalRayResult
 	{
 		LocalRayResult(const btCollisionObject*	collisionObject, 
 			LocalShapeInfo*	localShapeInfo,
@@ -202,7 +201,7 @@ public:
 	};
 
 	///RayResultCallback is used to report new raycast results
-	struct	RayResultCallback : public b3BaseObject
+	struct	RayResultCallback
 	{
 		btScalar	m_closestHitFraction;
 		const btCollisionObject*		m_collisionObject;
@@ -314,7 +313,7 @@ public:
 	};
 
 
-	struct LocalConvexResult : public b3BaseObject
+	struct LocalConvexResult
 	{
 		LocalConvexResult(const btCollisionObject*	hitCollisionObject, 
 			LocalShapeInfo*	localShapeInfo,
@@ -338,7 +337,7 @@ public:
 	};
 
 	///RayResultCallback is used to report new raycast results
-	struct	ConvexResultCallback : public b3BaseObject
+	struct	ConvexResultCallback
 	{
 		btScalar	m_closestHitFraction;
 		short int	m_collisionFilterGroup;
@@ -409,7 +408,7 @@ public:
 	};
 
 	///ContactResultCallback is used to report contact points
-	struct	ContactResultCallback : public b3BaseObject
+	struct	ContactResultCallback
 	{
 		short int	m_collisionFilterGroup;
 		short int	m_collisionFilterMask;

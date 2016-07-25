@@ -16,8 +16,6 @@ subject to the following restrictions:
 #ifndef BT_DISPATCHER_H
 #define BT_DISPATCHER_H
 #include "LinearMath/btScalar.h"
-#include "Bullet3Common/b3BaseObject.h"
-
 
 class btCollisionAlgorithm;
 struct btBroadphaseProxy;
@@ -29,7 +27,7 @@ struct btCollisionObjectWrapper;
 class btPersistentManifold;
 class btPoolAllocator;
 
-struct btDispatcherInfo : public b3BaseObject
+struct btDispatcherInfo
 {
 	enum DispatchFunc
 	{
@@ -68,7 +66,7 @@ struct btDispatcherInfo : public b3BaseObject
 
 ///The btDispatcher interface class can be used in combination with broadphase to dispatch calculations for overlapping pairs.
 ///For example for pairwise collision detection, calculating contact points stored in btPersistentManifold or user callbacks (game logic).
-class btDispatcher : public b3BaseObject
+class btDispatcher
 {
 
 
