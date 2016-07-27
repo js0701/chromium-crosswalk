@@ -64,17 +64,13 @@ public:
             //if(m_isOwner)
             //   delete m_impl;
             
-            /*
             for(unsigned i=0; i < m_refedWrappersVector.size(); i++)
             {
                 btBlinkWrapper* wrapper = m_refedWrappersVector.at(i);
                 wrapper->deref();
             }
             for(btBlinkWrapper* wrapper: m_refedWrappersMap.values())
-                wrapper->deref();
-                */
-
-            
+                wrapper->deref();            
         }
         m_impl = NULL;
      }
