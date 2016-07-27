@@ -63,6 +63,18 @@ public:
             btBlinkWrapperRepo::removeWrapperForImpl(m_impl);
             //if(m_isOwner)
             //   delete m_impl;
+            
+            /*
+            for(unsigned i=0; i < m_refedWrappersVector.size(); i++)
+            {
+                btBlinkWrapper* wrapper = m_refedWrappersVector.at(i);
+                wrapper->deref();
+            }
+            for(btBlinkWrapper* wrapper: m_refedWrappersMap.values())
+                wrapper->deref();
+                */
+
+            
         }
         m_impl = NULL;
      }
@@ -90,7 +102,18 @@ public:
         if(!m_refedWrappersMap.contains(name))
             m_refedWrappersMap.set(name, pObj);
 #else
-        pObj->ref();
+        if(!m_refedWrappersMap.contains(name))
+        {
+            m_refedWrappersMap.set(name,pObj);
+            pObj->ref();
+        }
+        else
+        {
+            btBlinkWrapper* wrapper = m_refedWrappersMap.get(name);
+            wrapper->deref();
+            m_refedWrappersMap.set(name,pObj);
+            pObj->ref();
+        }
 #endif
     }
     void removeRef(String name) {
@@ -98,7 +121,12 @@ public:
         if(m_refedWrappersMap.contains(name))
             m_refedWrappersMap.remove(name);
 #else
-
+        if(m_refedWrappersMap.contains(name))
+        {
+            btBlinkWrapper* wrapper = m_refedWrappersMap.get(name);
+            wrapper->deref();
+            m_refedWrappersMap.remove(name);
+        }
 #endif
     }
 
@@ -107,7 +135,11 @@ public:
         if(!m_refedWrappersVector.contains(pObj))
             m_refedWrappersVector.append(pObj);
 #else
-    pObj->ref();
+        if(!m_refedWrappersVector.contains(pObj))
+        {
+            m_refedWrappersVector.append(pObj);
+            pObj->ref();
+        }
 #endif
     }
     void removeRef(btBlinkWrapper* pObj) {
@@ -115,7 +147,11 @@ public:
         if(m_refedWrappersVector.contains(pObj))
             m_refedWrappersVector.remove(m_refedWrappersVector.find(pObj));
 #else
-    pObj->deref();
+        if(m_refedWrappersVector.contains(pObj))
+        {
+            m_refedWrappersVector.remove(m_refedWrappersVector.find(pObj));
+            pObj->deref();
+        }
 #endif
     }
 
@@ -126,6 +162,9 @@ protected:
 #ifdef BT_OILPAN
     HeapHashMap<String, Member<btBlinkWrapper>> m_refedWrappersMap;
     HeapVector<Member<btBlinkWrapper>> m_refedWrappersVector;
+#else
+    Vector<btBlinkWrapper*> m_refedWrappersVector;
+    HashMap<String, btBlinkWrapper*> m_refedWrappersMap;
 #endif
 
 };
