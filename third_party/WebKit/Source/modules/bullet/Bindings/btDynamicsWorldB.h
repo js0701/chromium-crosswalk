@@ -19,7 +19,8 @@ class btDynamicsWorldB: public btCollisionWorldB{
     
     void clearForces();
     btContactSolverInfoB* getSolverInfo();
-//DEFINE_INLINE_TRACE() {}
+    
+    //DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);
 };
 }
 #endif

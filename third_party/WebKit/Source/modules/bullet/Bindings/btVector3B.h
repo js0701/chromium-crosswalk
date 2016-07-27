@@ -26,7 +26,7 @@ class btVector3B: public btBlinkWrapper{
     float y();
     void setZ(float value);
     float z();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

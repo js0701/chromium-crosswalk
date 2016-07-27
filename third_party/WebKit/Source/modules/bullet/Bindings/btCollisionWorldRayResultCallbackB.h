@@ -17,7 +17,7 @@ class btCollisionWorldRayResultCallbackB: public btBlinkWrapper{
     short m_collisionFilterMask();
     void setM_collisionObject(btCollisionObjectB* value);
     btCollisionObjectB* m_collisionObject();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

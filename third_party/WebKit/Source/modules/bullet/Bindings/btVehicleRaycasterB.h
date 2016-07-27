@@ -9,7 +9,7 @@ class btVehicleRaycasterB: public btBlinkWrapper{
     public:
     virtual ~btVehicleRaycasterB();
     btVehicleRaycasterB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -1,7 +1,7 @@
 [
    Constructor(btDispatcherB dispatcher, btBroadphaseInterfaceB pairCache, btConstraintSolverB constraintSolver, btCollisionConfigurationB collisionConfiguration),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 
 interface btDiscreteDynamicsWorldB : btDynamicsWorldB{

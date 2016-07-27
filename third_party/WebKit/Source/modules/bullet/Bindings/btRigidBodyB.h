@@ -38,7 +38,7 @@ class btRigidBodyB: public btCollisionObjectB{
     void setMotionState(btMotionStateB* motionState);
     void setAngularFactor(btVector3B* angularFactor);
     btRigidBodyB* upcast(btCollisionObjectB* colObj);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

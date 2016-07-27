@@ -26,7 +26,7 @@ class btWheelInfoRaycastInfoB: public btBlinkWrapper{
     bool m_isInContact();
     void setM_groundObject(btBlinkWrapper* value);
     btBlinkWrapper* m_groundObject();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

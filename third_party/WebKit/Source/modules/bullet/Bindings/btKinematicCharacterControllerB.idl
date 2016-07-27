@@ -1,7 +1,7 @@
 [
    Constructor(btPairCachingGhostObjectB ghostObject, btConvexShapeB convexShape, float stepHeight, optional long upAxis),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btKinematicCharacterControllerB : btActionInterfaceB{
   void setUpAxis (long axis);

@@ -11,7 +11,7 @@ class btCylinderShapeXB: public btCylinderShapeB{
     static btCylinderShapeXB* create(btVector3B* halfExtents);
     virtual ~btCylinderShapeXB();
     btCylinderShapeXB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

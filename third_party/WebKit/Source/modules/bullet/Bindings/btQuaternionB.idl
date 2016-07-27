@@ -3,7 +3,7 @@
    Constructor(float yaw, float pitch, float roll),
    Constructor(btVector3B axis, float angle),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btQuaternionB : btQuadWordB{
   void setValue(float x, float y, float z, float w);

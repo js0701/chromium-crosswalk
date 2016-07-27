@@ -28,7 +28,7 @@ class btRaycastVehicleB: public btActionInterfaceB{
     void setBrake(float brake, long wheelIndex);
     void setCoordinateSystem(long rightIndex, long upIndex, long forwardIndex);
     float getCurrentSpeedKmHour();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

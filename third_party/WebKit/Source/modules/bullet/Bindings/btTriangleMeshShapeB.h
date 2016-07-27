@@ -9,7 +9,7 @@ class btTriangleMeshShapeB: public btConcaveShapeB{
     public:
     virtual ~btTriangleMeshShapeB();
     btTriangleMeshShapeB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

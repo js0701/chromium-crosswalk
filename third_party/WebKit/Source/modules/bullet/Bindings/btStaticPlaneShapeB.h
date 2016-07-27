@@ -11,7 +11,7 @@ class btStaticPlaneShapeB: public btConcaveShapeB{
     static btStaticPlaneShapeB* create(btVector3B* planeNormal, float planeConstant);
     virtual ~btStaticPlaneShapeB();
     btStaticPlaneShapeB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

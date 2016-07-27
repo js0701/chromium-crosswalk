@@ -11,7 +11,7 @@ class btCollisionDispatcherB: public btDispatcherB{
     static btCollisionDispatcherB* create(btDefaultCollisionConfigurationB* conf);
     virtual ~btCollisionDispatcherB();
     btCollisionDispatcherB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

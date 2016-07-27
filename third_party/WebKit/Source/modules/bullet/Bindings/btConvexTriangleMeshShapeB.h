@@ -12,7 +12,7 @@ class btConvexTriangleMeshShapeB: public btConvexShapeB{
     static btConvexTriangleMeshShapeB* create(btStridingMeshInterfaceB* meshInterface, bool calcAabb);
     virtual ~btConvexTriangleMeshShapeB();
     btConvexTriangleMeshShapeB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

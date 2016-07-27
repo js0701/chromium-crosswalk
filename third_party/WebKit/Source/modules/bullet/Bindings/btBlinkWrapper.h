@@ -17,7 +17,7 @@ class btBlinkWrapper;
 
 class btBlinkWrapperRepo
 {
-   
+
    public:
        static void setWrapperImplPair(void* implPtr, btBlinkWrapper* pWrapper)
         {
@@ -36,14 +36,18 @@ class btBlinkWrapperRepo
         {
             m_repoMap.remove(implPtr);
         }
-       
+
    private:
 
        static HashMap<void*, btBlinkWrapper*> m_repoMap;
 };
 
 
+#ifdef BT_OILPAN
 class btBlinkWrapper : public GarbageCollectedFinalized<btBlinkWrapper>, public ScriptWrappable {
+#else
+class btBlinkWrapper : public RefCounted<btBlinkWrapper>, public ScriptWrappable {
+#endif
 
     DEFINE_WRAPPERTYPEINFO();
 
@@ -63,7 +67,7 @@ public:
         m_impl = NULL;
      }
 
-    DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);}
+    //DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);}
     void  setImpl(void* impl, bool isOwner) {
         m_impl = impl;
         m_isOwner = isOwner;
@@ -76,35 +80,53 @@ public:
 
     void setOwner(bool isOwner)
      {
-         m_isOwner = isOwner;  
+         m_isOwner = isOwner;
      }
-        
+
     void* getImpl()           { return m_impl; }
 
     void setRef(String name, btBlinkWrapper* pObj) {
+#ifdef BT_OILPAN
         if(!m_refedWrappersMap.contains(name))
             m_refedWrappersMap.set(name, pObj);
+#else
+        pObj->ref();
+#endif
     }
     void removeRef(String name) {
+#ifdef BT_OILPAN
         if(m_refedWrappersMap.contains(name))
             m_refedWrappersMap.remove(name);
+#else
+
+#endif
     }
 
     void setRef(btBlinkWrapper* pObj) {
+#ifdef BT_OILPAN
         if(!m_refedWrappersVector.contains(pObj))
             m_refedWrappersVector.append(pObj);
+#else
+    pObj->ref();
+#endif
     }
     void removeRef(btBlinkWrapper* pObj) {
+#ifdef BT_OILPAN
         if(m_refedWrappersVector.contains(pObj))
             m_refedWrappersVector.remove(m_refedWrappersVector.find(pObj));
+#else
+    pObj->deref();
+#endif
     }
 
 protected:
     void* m_impl;
     bool  m_isOwner;
 
+#ifdef BT_OILPAN
     HeapHashMap<String, Member<btBlinkWrapper>> m_refedWrappersMap;
     HeapVector<Member<btBlinkWrapper>> m_refedWrappersVector;
+#endif
 
 };
 

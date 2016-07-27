@@ -23,7 +23,7 @@ class btHingeConstraintB: public btTypedConstraintB{
     void setLimit(float low, float high, float softness, float biasFactor);
     void setLimit(float low, float high, float softness, float biasFactor, float relaxationFactor);
     void enableAngularMotor(bool enableMotor, float targetVelocity, float maxMotorImpulse);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

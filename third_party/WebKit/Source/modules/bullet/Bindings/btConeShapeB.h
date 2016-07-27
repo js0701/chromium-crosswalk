@@ -10,7 +10,7 @@ class btConeShapeB: public btCollisionShapeB{
     static btConeShapeB* create(float radius, float height);
     virtual ~btConeShapeB();
     btConeShapeB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

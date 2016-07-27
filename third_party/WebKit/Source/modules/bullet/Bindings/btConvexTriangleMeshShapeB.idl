@@ -1,7 +1,7 @@
 [
    Constructor(btStridingMeshInterfaceB meshInterface, optional boolean calcAabb),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btConvexTriangleMeshShapeB : btConvexShapeB{
 };

@@ -12,7 +12,7 @@ class btMotionStateB: public btBlinkWrapper{
     btMotionStateB();
     void getWorldTransform(btTransformB* worldTrans);
     void setWorldTransform(btTransformB* worldTrans);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -20,7 +20,7 @@ class btTransformB: public btBlinkWrapper{
     btVector3B* getOrigin();
     btQuaternionB* getRotation();
     btMatrix3x3B* getBasis();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

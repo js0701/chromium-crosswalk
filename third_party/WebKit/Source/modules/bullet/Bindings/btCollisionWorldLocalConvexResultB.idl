@@ -1,7 +1,7 @@
 [
    NoInterfaceObject,
    Constructor(btCollisionObjectB hitCollisionObject, btCollisionWorldLocalShapeInfoB localShapeInfo, btVector3B hitNormalLocal, btVector3B hitPointLocal, float hitFraction),
-   GarbageCollected
+   
 ]
 
 interface btCollisionWorldLocalConvexResultB  {

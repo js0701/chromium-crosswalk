@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btWheelInfoRaycastInfoB {
   attribute btVector3B m_contactNormalWS;

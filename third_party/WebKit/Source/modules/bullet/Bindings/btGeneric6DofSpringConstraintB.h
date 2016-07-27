@@ -16,7 +16,7 @@ class btGeneric6DofSpringConstraintB: public btGeneric6DofConstraintB{
     void enableSpring(long index, bool onOff);
     void setStiffness(long index, float stiffness);
     void setDamping(long index, float damping);
-DEFINE_INLINE_TRACE() {}
+//DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

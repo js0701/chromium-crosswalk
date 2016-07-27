@@ -1,10 +1,14 @@
 #include "config.h"
 #include "btDefaultVehicleRaycasterB.h"
 #include "../btBulletDynamicsCommon.h"
+
+#include <android/log.h>
+
 namespace blink {
 btDefaultVehicleRaycasterB:: btDefaultVehicleRaycasterB() {} 
 
 btDefaultVehicleRaycasterB:: ~btDefaultVehicleRaycasterB() {
+    __android_log_print(ANDROID_LOG_DEBUG, "btDefaultVehicleRaycasterB", "Freeing btDefaultVehicleRaycasterB");
     if(m_impl)
     {
      //m_impl->setWrapper(NULL);

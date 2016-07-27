@@ -1,7 +1,7 @@
 [
    Constructor(optional boolean enableDynamicAabbTree),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btCompoundShapeB : btCollisionShapeB {
   void addChildShape(btTransformB localTransform, btCollisionShapeB shape);

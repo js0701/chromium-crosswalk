@@ -13,7 +13,7 @@ class btCollisionWorldLocalShapeInfoB: public btBlinkWrapper{
     long m_shapePart();
     void setM_triangleIndex(long value);
     long m_triangleIndex();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

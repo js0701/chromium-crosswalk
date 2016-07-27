@@ -2,7 +2,7 @@
    Constructor(btRigidBodyB rbA, btRigidBodyB rbB, btTransformB rbAFrame, btTransformB rbBFrame),
    Constructor(btRigidBodyB rbA, btTransformB rbAFrame),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btConeTwistConstraintB : btTypedConstraintB {
   void setLimit(long limitIndex, float limitValue);

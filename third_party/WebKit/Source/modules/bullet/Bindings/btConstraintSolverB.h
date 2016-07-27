@@ -9,7 +9,7 @@ class btConstraintSolverB: public btBlinkWrapper{
     public:
     virtual ~btConstraintSolverB();
     btConstraintSolverB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

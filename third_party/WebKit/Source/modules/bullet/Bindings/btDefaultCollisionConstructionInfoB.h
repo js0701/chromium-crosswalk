@@ -11,7 +11,7 @@ class btDefaultCollisionConstructionInfoB: public btBlinkWrapper{
     static btDefaultCollisionConstructionInfoB* create();
     virtual ~btDefaultCollisionConstructionInfoB();
     btDefaultCollisionConstructionInfoB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

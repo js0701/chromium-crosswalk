@@ -1,7 +1,7 @@
 [
    Constructor(optional boolean use32bitIndices, optional boolean use4componentVertices),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btTriangleMeshB : btStridingMeshInterfaceB {
   void addTriangle(btVector3B vertex0, btVector3B vertex1, btVector3B vertex2, optional boolean removeDuplicateVertices);

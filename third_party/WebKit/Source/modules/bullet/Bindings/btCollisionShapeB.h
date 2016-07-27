@@ -12,7 +12,7 @@ class btCollisionShapeB: public btBlinkWrapper{
     btCollisionShapeB();
     void setLocalScaling(btVector3B* scaling);
     void calculateLocalInertia(float mass, btVector3B* inertia);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

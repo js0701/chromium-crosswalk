@@ -1,7 +1,7 @@
 [
    Constructor,
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btVehicleTuningB {
   float m_suspensionStiffness();

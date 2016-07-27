@@ -9,7 +9,7 @@ class btConcaveShapeB: public btCollisionShapeB{
     public:
     virtual ~btConcaveShapeB();
     btConcaveShapeB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

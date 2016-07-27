@@ -13,7 +13,7 @@ class btVector4B: public btVector3B{
     btVector4B();
     float w();
     void setValue(float x, float y, float z, float w);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

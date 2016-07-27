@@ -1,7 +1,7 @@
 [
    Constructor(float radius, float height),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btConeShapeZB : btConeShapeB {
 

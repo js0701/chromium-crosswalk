@@ -16,7 +16,7 @@ class btConvexHullShapeB: public btCollisionShapeB{
     void addPoint(btVector3B* point, bool recalculateLocalAABB);
     void setMargin(float margin);
     float getMargin();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

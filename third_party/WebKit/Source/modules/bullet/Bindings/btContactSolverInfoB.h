@@ -13,7 +13,7 @@ class btContactSolverInfoB: public btBlinkWrapper{
     bool m_splitImpulse();
     void setM_splitImpulsePenetrationThreshold(long value);
     long m_splitImpulsePenetrationThreshold();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

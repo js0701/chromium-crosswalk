@@ -9,7 +9,7 @@ class btOverlappingPairCallbackB: public btBlinkWrapper{
     public:
     virtual ~btOverlappingPairCallbackB();
     btOverlappingPairCallbackB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

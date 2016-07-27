@@ -13,7 +13,7 @@ class btCylinderShapeB: public btCollisionShapeB{
     btCylinderShapeB();
     void setMargin(float margin);
     float getMargin();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

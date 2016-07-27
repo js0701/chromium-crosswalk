@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btQuadWordB {
   float x();

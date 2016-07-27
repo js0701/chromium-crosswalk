@@ -10,7 +10,7 @@ class btConeShapeZB: public btConeShapeB{
     static btConeShapeZB* create(float radius, float height);
     virtual ~btConeShapeZB();
     btConeShapeZB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -15,7 +15,7 @@ class btDefaultMotionStateB: public btMotionStateB{
     btDefaultMotionStateB();
     void setM_graphicsWorldTrans(btTransformB* value);
     btTransformB* m_graphicsWorldTrans();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

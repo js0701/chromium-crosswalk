@@ -1,7 +1,7 @@
 [
    Constructor,
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btConvexHullShapeB : btCollisionShapeB{
   void addPoint(btVector3B point, optional boolean recalculateLocalAABB);

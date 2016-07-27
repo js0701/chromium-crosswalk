@@ -2,7 +2,7 @@
    Constructor,
    Constructor(float x, float y, float z),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btVector3B {
   float length();

@@ -19,7 +19,7 @@ class btCollisionWorldClosestRayResultCallbackB: public btCollisionWorldRayResul
     btVector3B* m_hitNormalWorld();
     void setM_hitPointWorld(btVector3B* value);
     btVector3B* m_hitPointWorld();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

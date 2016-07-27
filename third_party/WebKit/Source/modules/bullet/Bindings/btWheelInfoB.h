@@ -41,7 +41,7 @@ class btWheelInfoB: public btBlinkWrapper{
     btWheelInfoRaycastInfoB* m_raycastInfo();
     void set_m_chassisConnectionPointCS(btVector3B* point);
     btVector3B* m_chassisConnectionPointCS();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

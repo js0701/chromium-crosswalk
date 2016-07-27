@@ -10,7 +10,7 @@ class btPairCachingGhostObjectB: public btGhostObjectB{
     static btPairCachingGhostObjectB* create();
     virtual ~btPairCachingGhostObjectB();
     btPairCachingGhostObjectB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -12,7 +12,7 @@ class btSphereShapeB: public btCollisionShapeB{
     btSphereShapeB();
     void setMargin(float margin);
     float getMargin();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

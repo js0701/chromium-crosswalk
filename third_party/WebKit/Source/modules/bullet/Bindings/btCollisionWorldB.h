@@ -31,7 +31,7 @@ class btCollisionWorldB: public btBlinkWrapper{
     void convexSweepTest(btConvexShapeB* castShape, btTransformB* from, btTransformB* to, btCollisionWorldConvexResultCallbackB* resultCallback, float allowedCcdPenetration);
     void contactPairTest(btCollisionObjectB* colObjA, btCollisionObjectB* colObjB, btCollisionWorldContactResultCallbackB* resultCallback);
     void contactTest(btCollisionObjectB* colObj, btCollisionWorldContactResultCallbackB* resultCallback);
-DEFINE_INLINE_TRACE() {}
+//DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

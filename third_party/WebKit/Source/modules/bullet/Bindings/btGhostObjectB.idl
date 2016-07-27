@@ -1,7 +1,7 @@
 [
    Constructor,
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btGhostObjectB : btCollisionObjectB{
   long getNumOverlappingObjects();

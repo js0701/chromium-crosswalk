@@ -23,7 +23,7 @@ class btConeTwistConstraintB: public btTypedConstraintB{
     void setMaxMotorImpulseNormalized(float maxMotorImpulse);
     void setMotorTarget(btQuaternionB* q);
     void setMotorTargetInConstraintSpace(btQuaternionB* q);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

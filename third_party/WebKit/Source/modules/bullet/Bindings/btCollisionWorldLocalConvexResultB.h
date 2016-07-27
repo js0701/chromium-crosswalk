@@ -23,7 +23,7 @@ class btCollisionWorldLocalConvexResultB: public btBlinkWrapper{
     btVector3B* m_hitPointLocal();
     void setM_hitFraction(float value);
     float m_hitFraction();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

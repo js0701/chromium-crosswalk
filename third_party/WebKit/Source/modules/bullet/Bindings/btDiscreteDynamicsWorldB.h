@@ -20,7 +20,7 @@ class btDiscreteDynamicsWorldB: public btDynamicsWorldB{
     btDiscreteDynamicsWorldB();
 
     
-    DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);}
+    //DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);}
     
     void setGravity(btVector3B* gravity);
     btVector3B* getGravity();
@@ -33,7 +33,8 @@ class btDiscreteDynamicsWorldB: public btDynamicsWorldB{
     long stepSimulation(float timeStep);
     long stepSimulation(float timeStep, long maxSubSteps);
     long stepSimulation(float timeStep, long maxSubSteps, float fixedTimeStep);
-//DEFINE_INLINE_TRACE() {}
+    
+    ////DEFINE_INLINE_TRACE() {visitor->trace(m_refedWrappersVector); visitor->trace(m_refedWrappersMap);
 };
 }
 #endif

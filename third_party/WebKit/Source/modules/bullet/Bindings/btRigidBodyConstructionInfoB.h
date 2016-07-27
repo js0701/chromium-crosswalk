@@ -38,7 +38,7 @@ class btRigidBodyConstructionInfoB: public btBlinkWrapper{
     float m_additionalAngularDampingThresholdSqr();
     void setM_additionalAngularDampingFactor(float value);
     float m_additionalAngularDampingFactor();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

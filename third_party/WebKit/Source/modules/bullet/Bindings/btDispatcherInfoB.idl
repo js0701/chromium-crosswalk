@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btDispatcherInfoB {
   attribute float m_timeStep;

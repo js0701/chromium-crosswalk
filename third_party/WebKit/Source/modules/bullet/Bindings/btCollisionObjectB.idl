@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btCollisionObjectB {
   void setAnisotropicFriction(btVector3B anisotropicFriction, long frictionMode);

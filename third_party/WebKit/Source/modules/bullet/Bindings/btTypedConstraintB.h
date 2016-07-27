@@ -12,7 +12,7 @@ class btTypedConstraintB: public btBlinkWrapper{
     void enableFeedback(bool needsFeedback);
     float getBreakingImpulseThreshold();
     void setBreakingImpulseThreshold(float threshold);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -16,7 +16,7 @@ class btCollisionWorldConvexResultCallbackB: public btBlinkWrapper{
     short m_collisionFilterMask();
     void setM_closestHitFraction(float value);
     float m_closestHitFraction();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

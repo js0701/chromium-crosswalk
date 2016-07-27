@@ -11,7 +11,7 @@ class btOverlappingPairCacheB: public btOverlappingPairCallbackB{
     virtual ~btOverlappingPairCacheB();
     btOverlappingPairCacheB();
     void setInternalGhostPairCallback(btOverlappingPairCallbackB* ghostPairCallback);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

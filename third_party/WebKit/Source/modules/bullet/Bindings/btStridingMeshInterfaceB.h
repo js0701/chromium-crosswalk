@@ -9,7 +9,7 @@ class btStridingMeshInterfaceB: public btBlinkWrapper{
     public:
     virtual ~btStridingMeshInterfaceB();
     btStridingMeshInterfaceB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

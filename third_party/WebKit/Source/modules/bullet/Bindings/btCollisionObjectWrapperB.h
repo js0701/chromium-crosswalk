@@ -9,7 +9,7 @@ class btCollisionObjectWrapperB: public btBlinkWrapper{
     public:
     virtual ~btCollisionObjectWrapperB();
     btCollisionObjectWrapperB();
-DEFINE_INLINE_TRACE() {}
+//DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

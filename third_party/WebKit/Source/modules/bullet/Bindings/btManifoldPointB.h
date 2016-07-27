@@ -24,7 +24,7 @@ class btManifoldPointB: public btBlinkWrapper{
     btVector3B* m_positionWorldOnA();
     void setM_normalWorldOnB(btVector3B* value);
     btVector3B* m_normalWorldOnB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

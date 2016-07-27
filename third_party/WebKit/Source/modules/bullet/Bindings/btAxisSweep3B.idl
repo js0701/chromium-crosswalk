@@ -1,7 +1,7 @@
 [
    Constructor(btVector3B worldAabbMin, btVector3B worldAabbMax, optional long maxHandles, optional btOverlappingPairCacheB pairCache, optional boolean disableRaycastAccelerator),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btAxisSweep3B {
 };

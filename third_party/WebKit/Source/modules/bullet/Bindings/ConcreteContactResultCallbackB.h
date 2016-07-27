@@ -15,7 +15,7 @@ class ConcreteContactResultCallbackB: public btBlinkWrapper{
     ConcreteContactResultCallbackB();
     void ConcreteContactResultCallback();
     float addSingleResult(btManifoldPointB* cp, btCollisionObjectWrapperB* colObj0Wrap, long partId0, long index0, btCollisionObjectWrapperB* colObj1Wrap, long partId1, long index1);
-DEFINE_INLINE_TRACE() {}
+//DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

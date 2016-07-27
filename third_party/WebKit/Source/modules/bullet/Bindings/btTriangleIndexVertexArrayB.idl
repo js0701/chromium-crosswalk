@@ -1,7 +1,7 @@
 [
    Constructor,
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btTriangleIndexVertexArrayB : btStridingMeshInterfaceB {
    void addIndexedMesh(btIndexedMeshB mesh, DOMString indexType);

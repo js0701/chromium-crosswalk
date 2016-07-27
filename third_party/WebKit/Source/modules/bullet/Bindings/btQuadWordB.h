@@ -17,7 +17,7 @@ class btQuadWordB: public btBlinkWrapper{
     void setY(float y);
     void setZ(float z);
     void setW(float w);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

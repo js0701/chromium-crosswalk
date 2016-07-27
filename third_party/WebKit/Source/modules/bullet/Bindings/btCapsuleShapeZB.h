@@ -10,7 +10,7 @@ class btCapsuleShapeZB: public btCapsuleShapeB{
     static btCapsuleShapeZB* create(float radius, float height);
     virtual ~btCapsuleShapeZB();
     btCapsuleShapeZB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -1,7 +1,7 @@
 [
    Constructor(btVehicleTuningB tuning, btRigidBodyB chassis, btVehicleRaycasterB raycaster),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btRaycastVehicleB : btActionInterfaceB{
   void applyEngineForce(float force, long wheel);

@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btCollisionWorldRayResultCallbackB {
   // abstract base class, no constructor

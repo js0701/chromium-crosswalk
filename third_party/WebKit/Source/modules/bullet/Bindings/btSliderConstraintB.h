@@ -17,7 +17,7 @@ class btSliderConstraintB: public btTypedConstraintB{
     void setUpperLinLimit(float upperLimit);
     void setLowerAngLimit(float lowerAngLimit);
     void setUpperAngLimit(float upperAngLimit);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

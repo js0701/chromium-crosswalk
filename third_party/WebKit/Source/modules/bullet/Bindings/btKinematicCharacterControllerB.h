@@ -34,7 +34,7 @@ class btKinematicCharacterControllerB: public btActionInterfaceB{
     btPairCachingGhostObjectB* getGhostObject();
     void setUseGhostSweepTest(bool useGhostObjectSweepTest);
     bool onGround();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

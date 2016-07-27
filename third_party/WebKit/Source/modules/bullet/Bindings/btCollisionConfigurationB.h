@@ -9,7 +9,7 @@ class btCollisionConfigurationB: public btBlinkWrapper{
     public:
     virtual ~btCollisionConfigurationB();
     btCollisionConfigurationB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

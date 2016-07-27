@@ -14,7 +14,7 @@ class btMatrix3x3B: public btBlinkWrapper{
     void setEulerZYX(float ex, float ey, float ez);
     void getRotation(btQuaternionB* q);
     btVector3B* getRow(long y);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

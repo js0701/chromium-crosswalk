@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btWheelInfoB {
   float m_suspensionStiffness();

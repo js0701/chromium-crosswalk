@@ -22,7 +22,7 @@ class btVehicleTuningB: public btBlinkWrapper{
     float m_frictionSlip();
     void set_m_maxSuspensionForce(float value);
     float m_maxSuspensionForce();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

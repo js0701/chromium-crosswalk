@@ -16,7 +16,7 @@ class btConstraintSettingB: public btBlinkWrapper{
     float m_damping();
     void setM_impulseClamp(float value);
     float m_impulseClamp();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

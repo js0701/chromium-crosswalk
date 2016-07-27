@@ -21,7 +21,7 @@ class btPoint2PointConstraintB: public btTypedConstraintB{
     btVector3B* getPivotInB();
     void setM_setting(btConstraintSettingB* value);
     btConstraintSettingB* m_setting();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

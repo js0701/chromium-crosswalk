@@ -1,7 +1,7 @@
 [
    Constructor(btVector3B halfExtents),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btCylinderShapeZB : btCylinderShapeB{
 };

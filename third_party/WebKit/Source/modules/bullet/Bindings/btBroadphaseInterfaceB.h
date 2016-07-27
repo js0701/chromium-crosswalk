@@ -9,7 +9,7 @@ class btBroadphaseInterfaceB: public btBlinkWrapper{
     public:
     virtual ~btBroadphaseInterfaceB();
     btBroadphaseInterfaceB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

@@ -12,7 +12,7 @@ class btDispatcherB: public btBlinkWrapper{
     btDispatcherB();
     long getNumManifolds();
     btPersistentManifoldB* getManifoldByIndexInternal(long index);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

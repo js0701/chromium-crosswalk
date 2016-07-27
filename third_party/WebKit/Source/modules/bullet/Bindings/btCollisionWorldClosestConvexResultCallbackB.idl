@@ -1,7 +1,7 @@
 [
    Constructor(btVector3B convexFromWorld, btVector3B convexToWorld),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btCollisionWorldClosestConvexResultCallbackB : btCollisionWorldConvexResultCallbackB {
   attribute btVector3B m_convexFromWorld;

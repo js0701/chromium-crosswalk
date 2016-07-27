@@ -9,7 +9,7 @@ class btActionInterfaceB: public btBlinkWrapper{
     public:
     virtual ~btActionInterfaceB();
     btActionInterfaceB();
-DEFINE_INLINE_TRACE() {}
+//DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

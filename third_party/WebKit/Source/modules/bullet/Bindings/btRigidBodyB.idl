@@ -1,7 +1,7 @@
 [
    Constructor(btRigidBodyConstructionInfoB constructionInfo),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btRigidBodyB : btCollisionObjectB {
   btTransformB getCenterOfMassTransform();

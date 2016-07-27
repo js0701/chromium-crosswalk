@@ -2,7 +2,7 @@
    Constructor(btRigidBodyB rbA, btRigidBodyB rbB, btTransformB frameInA, btTransformB frameInB, boolean useLinearFrameReferenceFrameA),
    Constructor(btRigidBodyB rbB, btTransformB frameInB, boolean useLinearFrameReferenceFrameB),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btGeneric6DofSpringConstraintB : btGeneric6DofConstraintB{
   void enableSpring(long index, boolean onOff);

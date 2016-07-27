@@ -31,7 +31,7 @@ class btCollisionObjectB: public btBlinkWrapper{
     void setCollisionShape(btCollisionShapeB* collisionShape);
     void setCcdMotionThreshold(float ccdMotionThreshold);
     void setCcdSweptSphereRadius(float radius);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

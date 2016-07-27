@@ -12,7 +12,7 @@ class btDefaultVehicleRaycasterB: public btVehicleRaycasterB{
     static btDefaultVehicleRaycasterB* create(btDynamicsWorldB* world);
     virtual ~btDefaultVehicleRaycasterB();
     btDefaultVehicleRaycasterB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

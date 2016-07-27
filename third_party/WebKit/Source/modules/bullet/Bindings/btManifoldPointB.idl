@@ -1,6 +1,6 @@
 [
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btManifoldPointB {
   btVector3B getPositionWorldOnA();

@@ -17,7 +17,7 @@ class btQuaternionB: public btQuadWordB{
     void setValue(float x, float y, float z, float w);
     void setEulerZYX(float z, float y, float x);
     void normalize();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

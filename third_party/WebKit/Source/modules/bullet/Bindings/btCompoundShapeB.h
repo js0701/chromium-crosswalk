@@ -19,7 +19,7 @@ class btCompoundShapeB: public btCollisionShapeB{
     btCollisionShapeB* getChildShape(long index);
     void setMargin(float margin);
     float getMargin();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

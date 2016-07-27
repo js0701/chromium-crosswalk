@@ -11,7 +11,7 @@ class btDbvtBroadphaseB: public btBroadphaseInterfaceB{
     static btDbvtBroadphaseB* create();
     virtual ~btDbvtBroadphaseB();
     btDbvtBroadphaseB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

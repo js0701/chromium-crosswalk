@@ -12,7 +12,7 @@ class btSequentialImpulseConstraintSolverB: public btConstraintSolverB {
     static btSequentialImpulseConstraintSolverB* create();
     ~btSequentialImpulseConstraintSolverB();
     btSequentialImpulseConstraintSolverB();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

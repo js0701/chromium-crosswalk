@@ -14,7 +14,7 @@ class btBoxShapeB: public btCollisionShapeB{
     btBoxShapeB();
     void setMargin(float margin);
     float getMargin();
-    //DEFINE_INLINE_TRACE() {}
+    ////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

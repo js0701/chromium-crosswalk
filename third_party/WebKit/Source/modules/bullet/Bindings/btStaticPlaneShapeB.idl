@@ -1,7 +1,7 @@
 [
    Constructor(btVector3B planeNormal, float planeConstant),
    NoInterfaceObject,
-   GarbageCollected
+   
 ]
 interface btStaticPlaneShapeB : btConcaveShapeB {
 };

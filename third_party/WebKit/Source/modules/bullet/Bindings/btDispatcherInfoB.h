@@ -31,7 +31,7 @@ class btDispatcherInfoB: public btBlinkWrapper{
     bool m_useConvexConservativeDistanceUtil();
     void setM_convexConservativeDistanceThreshold(float value);
     float m_convexConservativeDistanceThreshold();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

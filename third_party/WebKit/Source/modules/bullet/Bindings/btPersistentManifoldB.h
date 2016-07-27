@@ -18,7 +18,7 @@ class btPersistentManifoldB: public btBlinkWrapper{
     btCollisionObjectB* getBody1();
     long getNumContacts();
     btManifoldPointB* getContactPoint(long index);
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif

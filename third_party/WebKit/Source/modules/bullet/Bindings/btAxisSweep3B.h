@@ -15,7 +15,7 @@ class btAxisSweep3B: public btBlinkWrapper{
     static btAxisSweep3B* create(btVector3B* worldAabbMin, btVector3B* worldAabbMax, long maxHandles, btOverlappingPairCacheB* pairCache, bool disableRaycastAccelerator);
     virtual ~btAxisSweep3B();
     btAxisSweep3B();
-//DEFINE_INLINE_TRACE() {}
+////DEFINE_INLINE_TRACE() {}
 };
 }
 #endif
